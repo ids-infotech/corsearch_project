@@ -306,12 +306,11 @@ def define_coordinates_from_pdf(pdf_path, extracted_text_json_path, output_json_
 
         
 # Example usage:
-pdf_path = "BT20230612-108.pdf"  # Replace with the path to your PDF file
-extracted_text_json_path = "BT20230612-108.pdf_result_latest_version.json"  # This is the JSON input file
-output_json_path = "defined_coordinates_trial.json"  # This file is created as the output
+pdf_path = pdf_file_path  # Replace with the path to your PDF file, THIS VARIABLE IS IN THE STARTING OF THE SCRIPT
+extracted_text_json_path = f"{pdf_path}_result_latest_version.json"  # This is the JSON input file
+output_json_path = f"{pdf_path}_defined_coordinates.json"  # This file is created as the output
 define_coordinates_from_pdf(
     pdf_path, extracted_text_json_path, output_json_path)
-
 
 def extract_and_save_image(pdf_file, coordinates_file, output_folder, resolution=200):
     padding = 14.5
@@ -385,8 +384,8 @@ def extract_and_save_image(pdf_file, coordinates_file, output_folder, resolution
 
 
 if __name__ == "__main__":
-    pdf_file = "BT20230612-108.pdf"
-    coordinates_file = "defined_coordinates_trial.json"
-    output_folder = "OUTPUT_SCREENSHOTS_ON_ZUHAIR_SCRIPT_WITH_PNG_GIF_B64_TRIAL"
+    pdf_file = pdf_file_path #THIS VARIABLE IS IN THE STARTING OF THE SCRIPT
+    coordinates_file = output_json_path
+    output_folder = f"OUTPUT_SCREENSHOTS_OF_APPLICATIONS_FOR_{pdf_file}"
     resolution = 200
     extract_and_save_image(pdf_file, coordinates_file, output_folder, resolution)
