@@ -1,7 +1,7 @@
 # corsearch_project
 Corsearch - script development creating for config &amp; pdf-extraction
 
-# A MERGED SCRIPT WAS UPLOADED AT 2AM on 6/11/2023,
+# A MERGED SCRIPT WAS UPLOADED on 6/11/2023,
 1. Variable names need to be edited,
 2. The variable names need to be dynamic,
 3. How can we have one output JSON instead of creating one and then using it in the next function?
