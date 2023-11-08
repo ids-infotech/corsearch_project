@@ -1,0 +1,49 @@
+{
+    "applicableFor": {
+        "jurisdictionCode": "MN",
+        "range": {
+            "start": "2019-01-01",
+            "end": "2021-12-31"
+        },
+        "sections": [
+            {
+                "title": "Registrations",
+                "trademarks": {
+                    "applicationNumber": "",
+                    "applicationDate": "",
+                    "owners": [
+                        {
+                            "name": "",
+                            "address": "",
+                            "country": ""
+                        }
+                    ],
+                    "representatives": [
+                        {
+                            "name": "",
+                            "address": "",
+                            "country": ""
+                        }
+                    ],
+                    "verbalElements": "",
+                    "deviveMarks": "",
+                    "classifications": [
+                        {
+                            "niceClass": "",
+                            "goodServiceDescription": ""
+                        }
+                    ],
+                    "Colour": "",
+                    "priorities": [
+                        {
+                            "number": "",
+                            "date": "",
+                            "country": ""
+                        }
+                    ],
+                    "Disclaimer": ""
+                }
+            }
+        ]
+    }
+}
