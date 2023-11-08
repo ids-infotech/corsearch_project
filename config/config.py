@@ -48,8 +48,10 @@ sections_to_extract = extract_section_info(text, 'Section To Be Extracted')
 # Your list of trademark values for each section title
 trademarks = [
     ['applicationNumber', 
-    'applicationDate', 
-
+    'applicationDate',
+    'registrationNumber',
+    'expirationDate',
+     
     'owners.name',
     'owners.address',
     'owners.country',
@@ -58,13 +60,36 @@ trademarks = [
     'representatives.country', 
     'verbalElements', 
     'deviveMarks',
+    'Viennacodes.code',
     'classifications.niceClass',
     'classifications.goodServiceDescription', 
-    'Colour',
+    'colours',
     'priorities.number', 
     'priorities.date',
     'priorities.country', 
-    'Disclaimer'],
+    'disclaimer'],
+
+    ['applicationNumber', 
+    'applicationDate',
+    'registrationNumber',
+    'expirationDate',
+     
+    'owners.name',
+    'owners.address',
+    'owners.country',
+    'representatives.name', 
+    'representatives.address',
+    'representatives.country', 
+    'verbalElements', 
+    'deviveMarks',
+    'Viennacodes.code',
+    'classifications.niceClass',
+    'classifications.goodServiceDescription', 
+    'colours',
+    'priorities.number', 
+    'priorities.date',
+    'priorities.country', 
+    'disclaimer'],
     
      
       
@@ -117,3 +142,8 @@ if dates_covered and sections_to_extract and jurisdiction_code:
     print(f"Combined data with a modified date range saved to {json_file_name}")
 else:
     print("Either jurisdiction code, dates covered, or sections to extract not found.")
+
+
+
+
+

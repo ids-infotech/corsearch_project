@@ -11,6 +11,8 @@
                 "trademarks": {
                     "applicationNumber": "",
                     "applicationDate": "",
+                    "registrationNumber": "",
+                    "expirationDate": "",
                     "owners": [
                         {
                             "name": "",
@@ -27,13 +29,18 @@
                     ],
                     "verbalElements": "",
                     "deviveMarks": "",
+                    "Viennacodes": [
+                        {
+                            "code": ""
+                        }
+                    ],
                     "classifications": [
                         {
                             "niceClass": "",
                             "goodServiceDescription": ""
                         }
                     ],
-                    "Colour": "",
+                    "colours": "",
                     "priorities": [
                         {
                             "number": "",
@@ -41,7 +48,52 @@
                             "country": ""
                         }
                     ],
-                    "Disclaimer": ""
+                    "disclaimer": ""
+                }
+            },
+            {
+                "title": "Madrid",
+                "trademarks": {
+                    "applicationNumber": "",
+                    "applicationDate": "",
+                    "registrationNumber": "",
+                    "expirationDate": "",
+                    "owners": [
+                        {
+                            "name": "",
+                            "address": "",
+                            "country": ""
+                        }
+                    ],
+                    "representatives": [
+                        {
+                            "name": "",
+                            "address": "",
+                            "country": ""
+                        }
+                    ],
+                    "verbalElements": "",
+                    "deviveMarks": "",
+                    "Viennacodes": [
+                        {
+                            "code": ""
+                        }
+                    ],
+                    "classifications": [
+                        {
+                            "niceClass": "",
+                            "goodServiceDescription": ""
+                        }
+                    ],
+                    "colours": "",
+                    "priorities": [
+                        {
+                            "number": "",
+                            "date": "",
+                            "country": ""
+                        }
+                    ],
+                    "disclaimer": ""
                 }
             }
         ]
