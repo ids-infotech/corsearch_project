@@ -1,17 +1,10 @@
 # corsearch_project
 Corsearch - script development creating for config &amp; pdf-extraction
 
-# A MERGED SCRIPT WAS UPLOADED AT 2AM on 6/11/2023,
-1. Variable names need to be edited,
-2. The variable names need to be dynamic,
-3. What would be the best approach to do this.
-
-
-
-
 PLEASE CHANGE THE NAME OF PDF_PATH IF YOU TRY TO RUN THESE ON A DIFFERENT PDF FILE. 
 RIGHT NOW IT WORKS FOR BHUTAN. 
 A PDF IS ADDED (BT20230612-108.pdf) TO TRY IT ON, BUT IT SHOULD WORK ON ALL BHUTAN PDFs AS THEY ARE SIMILAR
+
 
 
 # FOR IMAGE EXTRACTION OF APPLICATIONS.
