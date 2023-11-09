@@ -1,11 +1,6 @@
 # corsearch_project
 Corsearch - script development creating for config &amp; pdf-extraction
 
-# AN UPDATED VERSION OF THE MERGED SCRIPT WAS ADDED WITH ERROR HANDLING
-1. It is a .ipynb file (jupyter notebook),
-2. It skips the invalid rectangles,
-3. It also creates a new .txt file that has information about the missed rectangles.
-
 # A MERGED SCRIPT WAS UPLOADED on 6/11/2023,
 1. Variable names need to be edited, - DONE
 2. The variable names need to be dynamic, - DONE
