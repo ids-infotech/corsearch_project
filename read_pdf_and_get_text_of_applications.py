@@ -58,12 +58,15 @@ def merge_duplicate_pages(content_data):
 
 
 # Define a regular expression pattern to match specific text sections
+
 pattern = re.compile(r"\(210\)[\s\S]*?(?=\(210\)|$)")  #BHUTAN
 # pattern = re.compile(r"\(111\)[\s\S]*?(?=\(111\)|$)")  #MONGOLIA
 
 
 # Path to the PDF file
-pdf_file_path = "BT20230612-108.pdf"
+# Change this to the country name
+# Make sure the pdf file is also in the same folder as the script
+pdf_file_path = "BT20211202-100.pdf"
 pdf_document = fitz.open(pdf_file_path)
 
 # This dictionary will hold all extracted text with corresponding page numbers
@@ -179,8 +182,5 @@ for match in matches:
 output_data = json.dumps(section_data, ensure_ascii=False, indent=4)
 
 # Write the JSON data to a file
-# The name of the file is based on the PDF_FILE_PATH / PDF FILE NAME
-with open(f"{pdf_file_path}_text_of_applications.json", "w", encoding="utf-8") as json_file:
+with open(f"{pdf_file_path}_result_latest_version.json", "w", encoding="utf-8") as json_file:
     json_file.write(output_data)
-
-pdf_document.close()
