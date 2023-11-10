@@ -6,6 +6,7 @@ from PIL import Image
 import base64
 import re
 
+
 # Define a function to process a page and return its text and page number
 def process_page(page):
     page_text = page.get_text("text")
@@ -69,7 +70,7 @@ pattern = re.compile(r"\(210\)[\s\S]*?(?=\(210\)|$)")  #BHUTAN
 
 
 # Path to the PDF file
-pdf_file_path = "BT20211006-98.pdf"
+pdf_file_path = "BT20211202-100.pdf"
 pdf_document = fitz.open(pdf_file_path)
 
 # This dictionary will hold all extracted text with corresponding page numbers
@@ -189,6 +190,7 @@ with open(f"{pdf_file_path}_result_latest_version.json", "w", encoding="utf-8") 
     json_file.write(output_data)
 
 
+# EXTRACTING COORDINATES OF TEXT FROM THE PDF
 def define_coordinates_from_pdf(pdf_path, extracted_text_json_path, output_json_path):
     extracted_text_dict = {}
     
@@ -201,7 +203,7 @@ def define_coordinates_from_pdf(pdf_path, extracted_text_json_path, output_json_
         print("[-] Existing file not found")
         return
     except Exception as e:
-         # Handle other exceptions (e.g., file read errors) and print the error message
+        # Handle other exceptions (e.g., file read errors) and print the error message
         print(e)
         return
 
@@ -331,6 +333,7 @@ output_json_path = f"{pdf_file_path}_defined_coordinates.json"  # This file is c
 define_coordinates_from_pdf(
     pdf_path, extracted_text_json_path, output_json_path)
 
+
 skipped_rectangles = {}
 
 # The coordinates are in the format (x0, y0, x1, y1) - top left and bottom right corners.
@@ -368,13 +371,49 @@ def extract_and_save_image(pdf_file, coordinates_file, output_folder, resolution
                 y1 = text["y1"] + padding
                 page = pdf_document[page_number - 1] 
                 rect = fitz.Rect(x0, y0, x1, y1)
-#                 print(rect)
+#               print(rect)
                 image = page.get_pixmap(
-                    matrix=fitz.Matrix(resolution / 72.0, resolution / 72.0), clip=rect
-                )
+                    matrix=fitz.Matrix(resolution / 72.0, resolution / 72.0), clip=rect)
+                
                 # Example check before processing each rectangle
                 if x0 < 0 or y0 < 0 or x1 <= x0 or y1 <= y0:
+                    # MANUAL COORDINATES FOR THE FIRST LINES (67, 60 , page_width -40, 90)
+                    rect = fitz.Rect(67, 60 , page_width -40 , 90)
+
+                    # SAVING IMAGE FOR THE ONE LINE SCREENSHOTS
+                    image = page.get_pixmap(matrix=fitz.Matrix(resolution / 72.0, resolution / 72.0), clip=rect)
+                    image_filename = os.path.join(output_folder, f"{pdf_file}_page_{page_number}_section_{i}_invalid.png")
+                    image.save(image_filename)
+                    print(f"Extracted image saved as {image_filename}")
+                    
+                    # If needed, convert the screenshot to GIF format
+                    gif_filename = os.path.join(output_folder, f"{pdf_file}_page_{page_number}_section_{i}_invalid.gif")
+                    image_pil = Image.open(image_filename)
+                    image_pil.save(gif_filename, "GIF")
+                    print(f"Converted PNG to GIF: {gif_filename}")
+                    
+                    # Encode the image as a base64 string
+                    with open(image_filename, "rb") as image_file:
+                        base64_image = base64.b64encode(image_file.read()).decode('utf-8')
+                
+                    # Get just the filename without the path
+                    base_filename = os.path.basename(image_filename)
+                
+                    # Create a dictionary with the base filename as the key and base64 data as the value
+                    image_data = {
+                        base_filename: base64_image
+                    }
+                
+                    # Save the base64 data in a JSON file
+                    base64_filename = os.path.join(output_folder, f"{pdf_file}_page_{page_number}_section_{i}_invalid.json")
+                    with open(base64_filename, "w") as json_file:
+                        json.dump(image_data, json_file, indent=4)
+                
+                    # Append the base64 data to the original coordinates_data
+                    text["base64"] = base64_image
+
                     print(f"Skipping invalid rectangle coordinates: {x0}, {y0}, {x1}, {y1}")
+                    print(f"Using predefined coordinates for skipped rectangle on page {page_number}")
                     
                     # Increment the skipped rectangle count for this page
                     if page_number not in skipped_rectangles:
@@ -432,6 +471,7 @@ def extract_and_save_image(pdf_file, coordinates_file, output_folder, resolution
     except Exception as e:
         print(e)
         print(f"Error: {str(e)}")
+
 
 
 if __name__ == "__main__":
