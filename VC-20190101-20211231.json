@@ -1,0 +1,80 @@
+{
+    "applicableFor": {
+        "jurisdictionCode": "VC",
+        "range": {
+            "start": "2019-01-01",
+            "end": "2021-12-31"
+        },
+        "sections": [
+            {
+                "title": "Filings",
+                "trademarks": {
+                    "applicationNumber": "\\b(\\w+/\\w+/\\d+/\\d+)\\b",
+                    "applicationDate": "\b(\\d{2}/\\d{2}/\\d{4})\\b",
+                    "owners": {
+                        "name": "\\b([\\w &]+)\\b"
+                    },
+                    "verbalElements": "\\b(.+)\\b",
+                    "classifications": {
+                        "niceClass": "\\b(.+)\\b"
+                    },
+                    "priorities": {
+                        "number": "\\b(.+)\\b",
+                        "date": "\\b(.+)\\b",
+                        "country": "\\b(.+)\\b"
+                    }
+                }
+            },
+            {
+                "title": "Applications",
+                "trademarks": {
+                    "applicationNumber": "\\b(\\w+/\\w+/\\d+/\\d+)\\b",
+                    "applicationDate": "\\b(\\d{2}/\\d{2}/\\d{4})\\b",
+                    "owners": {
+                        "name": "\\b([\\w &]+)\\"
+                    },
+                    "representatives": {
+                        "name": "\\b(.+)\\b",
+                        "address": "\\b(.+)\\b",
+                        "country": "\\b(.+)\\b"
+                    },
+                    "verbalElements": "\\b(.+)\\b",
+                    "deviceMarks": "\\b(.+)\\b",
+                    "classifications": {
+                        "niceClass": "\\b(.+)\\b",
+                        "goodServiceDescription": "\\b(.+)\\b"
+                    },
+                    "Colors": "\\b(.+)\\b",
+                    "priorities": {
+                        "number": "\\b(.+)\\b",
+                        "date": "\\b(.+)\\b",
+                        "country": "\\b(.+)\\b"
+                    },
+                    "Disclaimer": "\\b(.+)\\b"
+                }
+            },
+            {
+                "title": "Errata",
+                "trademarks": {
+                    "applicationNumber": "\\b(\\w+/\\w+/\\d+/\\d+)\\b",
+                    "applicationDate": "\\b(\\d{2}/\\d{2}/\\d{4})\\b",
+                    "owners": {
+                        "name": "\\b([\\w &]+)\\b"
+                    },
+                    "verbalElements": "\\b(.+)\\b",
+                    "deviceMarks": "\\b(.+)\\b",
+                    "representatives": {
+                        "name": "\\b([\\w &]+)\\b",
+                        "address": "\\b(.+)\\b",
+                        "country": "\\b(.+)\\b"
+                    },
+                    "classifications": {
+                        "niceClass": "\\b(.+)\\b",
+                        "goodServiceDescription": "\\b(.+)\\b"
+                    },
+                    "Comments": "\\b(.+)\\b"
+                }
+            }
+        ]
+    }
+}
