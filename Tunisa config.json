@@ -1,0 +1,100 @@
+{
+    "applicableFor": {
+        "jurisdictionCode": "TN",
+        "range": {
+            "start": "2019",
+            "end": "2023"
+        },
+        "sections": [
+            {
+                "title": "Applications",
+                "trademarks": {
+                    "applicationNumber": "\\b(\\w+/\\w+/\\d+/\\d+)\\b",
+                    "applicationDate": "\\b(\\d{2}/\\d{2}/\\d{4})\\b",
+                    "owners": [
+                        {
+                            "name": "\\b([\\w &]+)\\b",
+                            "address": "\\b(.+)\\b",
+                            "country": "\\b(.+)\\b"
+                        }
+                    ],
+                    "representatives": [
+                        {
+                            "name": "\\b(.*)\\b",
+                            "address": "\\b(.*)\\b",
+                            "country": "\\b(.*)\\b"
+                        }
+                    ],
+                    "classifications": [
+                        {
+                            "niceClass": "\\b(.+)\\b",
+                            "goodServiceDescription": "\\b(.+)\\b"
+                        }
+                    ],
+                    "verbalElements": "\\b(.*)\\b"
+                }
+            },
+            {
+                "title": "Madrid  Applications",
+                "trademarks": {
+                    "applicationNumber": "\\b(\\w+/\\w+/\\d+/\\d+)\\b",
+                    "applicationDate": "\\b(\\d{2}/\\d{2}/\\d{4})\\b",
+                    "owners": [
+                        {
+                            "name": "\\b([\\w &]+)\\b",
+                            "address": "\\b(.+)\\b",
+                            "country": "\\b(.+)\\b"
+                        }
+                    ],
+                    "representatives": [
+                        {
+                            "name": "\\b(.*)\\b"
+                        }
+                    ],
+                    "classifications": [
+                        {
+                            "niceClass": "\\b(.+)\\b",
+                            "goodServiceDescription": "\\b(.+)\\b"
+                        }
+                    ]
+                }
+            },
+            {
+                "title": "Renewals & Corrections",
+                "trademarks": {
+                    "applicationNumber": "\\b(\\w+/\\w+/\\d+/\\d+)\\b",
+                    "applicationDate": "\\b(\\d{2}/\\d{2}/\\d{4})\\b",
+                    "owners": [
+                        {
+                            "name": "\\b([\\w &]+)\\b",
+                            "address": "\\b(.+)\\b",
+                            "country": "\\b(.+)\\b"
+                        }
+                    ],
+                    "representatives": [
+                        {
+                            "name": "\\b(.*)\\b"
+                        }
+                    ],
+                    "classifications": [
+                        {
+                            "niceClass": "\\b(.+)\\b",
+                            "goodServiceDescription": "\\b(.+)\\b"
+                        }
+                    ],
+                    "expiryDate": "\\b(.*)\\b"
+                }
+            }
+        ]
+    },
+    "fields": {
+        "Application Number": "\\b(\\w+/\\w+/\\d+/\\d+)\\b",
+        "Application Date": "\\b(\\d{2}/\\d{2}/\\d{4})\\b",
+        "Applicant Name": "\\b([\\w &]+)\\b",
+        "Applicant Address": "\\b(.+)\\b",
+        "Representative": "\\b(.*)\\b",
+        "Disclaimer": "\\b(.*)\\b",
+        "Colour Claims": "\\b(.*)\\b",
+        "Goods/Services": "\\b(.+)\\b"
+    }
+}
