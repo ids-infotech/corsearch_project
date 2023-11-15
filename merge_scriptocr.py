@@ -15,6 +15,7 @@ import pytesseract
 pytesseract.pytesseract.tesseract_cmd = r"C:\Users\syed.a\AppData\Local\Programs\Tesseract-OCR\tesseract.exe"
 
 
+
 headings = get_headings()
 head_list = list(headings.values())
 print(head_list[0], "-------head list-----")
@@ -33,7 +34,7 @@ def preprocess_image(image_path):
     # Convert the image to grayscale
     gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-    # Apply thresholding to enhance 
+    # Apply thresholding to enhance text
     _, thresholded_image = cv2.threshold(
         gray_image, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
 
@@ -76,156 +77,160 @@ def define_coordinates_from_pdf(pdf_path, extracted_text_json_path, output_json_
 
         for page_number, page in enumerate(pdf.pages, start=1):
 
-            extracted_text_dict[str(page_number)] = {
-                "page_number": page_number, "extracted_texts": []}
+            try:
+                extracted_text_dict[str(page_number)] = {
+                    "page_number": page_number, "extracted_texts": []}
 
-            page = pdf.pages[page_number-1]  # Pages are 0-based index
+                page = pdf.pages[page_number-1]  # Pages are 0-based index
 
-            # Extract words with bounding box coordinates
-            words_with_bounding_box = page.extract_words()
+                # Extract words with bounding box coordinates
+                words_with_bounding_box = page.extract_words()
 
-            # Group words into lines based on y-coordinates
-            lines = {}
-            for word in words_with_bounding_box:
-                # Round y-coordinate to handle floating-point inaccuracies
-                y0 = round(word["top"], 2)
-                y1 = round(word["bottom"], 2)
-                if (y0, y1) in lines:
-                    lines[(y0, y1)]["text"].append(word["text"])
-                    lines[(y0, y1)]["x0"].append(word["x0"])
-                    lines[(y0, y1)]["x1"].append(word["x1"])
-                else:
-                    lines[(y0, y1)] = {
-                        "text": [word["text"]],
-                        "x0": [word["x0"]],
-                        "x1": [word["x1"]],
-                    }
-
-            # Sort lines by y-coordinates
-            sorted_lines = sorted(lines.items(), key=lambda x: x[0])
-
-            for i, v in existing_data.items():
-
-                # extracting the key and text from the pages based on final.json
-                if not v.get("content"):
-                    continue
-
-                # extracting the start and end sentences of the content to be serahced
-                start = v["content"][0]
-                end = v["content"][-1]
-
-                match = False
-
-                min_x0, min_y0, max_x1, max_y1 = float('inf'), float(
-                    'inf'), -float('inf'), -float('inf')
-
-                for (y0, y1), line_info in sorted_lines:
-                    text = " ".join(line_info["text"])
-
-                    if match:
-                        # to get the maximum coordinates of the text
-                        min_x0 = min(min_x0, min(line_info["x0"]))
-                        min_y0 = min(min_y0, y0)
-                        max_x1 = max(max_x1, max(line_info["x1"]))
-                        max_y1 = max(max_y1, y1)
-
-                    # comparing texts
-                    start_found = [i.replace("\n", '').lower() for i in text.split(" ") if i] == [
-                        i.replace("\n", '').lower() for i in start.split(" ") if i]
-
-                    if start_found and not match:
-                        match = True
-                        min_x0 = min(min_x0, min(line_info["x0"]))
-                        min_y0 = min(min_y0, y0)
-                        max_x1 = max(max_x1, max(line_info["x1"]))
-                        max_y1 = max(max_y1, y1)
-
-                    # comparing texts
-                    end_found = [i.replace("\n", '').lower() for i in text.split(" ") if i] == [
-                        i.replace("\n", '').lower() for i in end.split(" ") if i]
-
-                    if end_found and match:
-                        min_x0 = min(min_x0, min(line_info["x0"]))
-                        min_y0 = min(min_y0, y0)
-                        max_x1 = max(max_x1, max(line_info["x1"]))
-                        max_y1 = max(max_y1, y1)
-
-                        temp_dict = {
-                            "extracted_text": v.get("content"),
-                            "x0": min_x0,
-                            "y0": min_y0,
-                            "x1": max_x1,
-                            "y1": max_y1,
+                # Group words into lines based on y-coordinates
+                lines = {}
+                for word in words_with_bounding_box:
+                    # Round y-coordinate to handle floating-point inaccuracies
+                    y0 = round(word["top"], 2)
+                    y1 = round(word["bottom"], 2)
+                    if (y0, y1) in lines:
+                        lines[(y0, y1)]["text"].append(word["text"])
+                        lines[(y0, y1)]["x0"].append(word["x0"])
+                        lines[(y0, y1)]["x1"].append(word["x1"])
+                    else:
+                        lines[(y0, y1)] = {
+                            "text": [word["text"]],
+                            "x0": [word["x0"]],
+                            "x1": [word["x1"]],
                         }
 
-                        match = False
+                # Sort lines by y-coordinates
+                sorted_lines = sorted(lines.items(), key=lambda x: x[0])
 
-                        temp_dict["logo"] = {}
+                for i, v in existing_data.items():
 
-                        # find the text-based logo
-                        logo = ""
-                        middle = (min_x0 + max_x1) // 2
+                    # extracting the key and text from the pages based on final.json
+                    if not v.get("content"):
+                        continue
 
-                        cur_min_x0, cur_min_y0, cur_max_x1, cur_max_y1 = min_x0, min_y0, max_x1, max_y1
+                    # extracting the start and end sentences of the content to be serahced
+                    start = v["content"][0]
+                    end = v["content"][-1]
 
-                        min_x0, min_y0, max_x1, max_y1 = float('inf'), float(
-                            'inf'), -float('inf'), -float('inf')
+                    match = False
 
-                        for (y0, y1), line_info in sorted_lines:
-                            if min(line_info["x0"]) >= middle and max(line_info["x1"]) <= cur_max_x1 and y0 >= cur_min_y0 and y1 <= cur_max_y1:
-                                logo += "".join(line_info["text"])
-                                min_x0 = min(min_x0, min(line_info["x0"]))
-                                min_y0 = min(min_y0, y0)
-                                max_x1 = max(max_x1, max(line_info["x1"]))
-                                max_y1 = max(max_y1, y1)
+                    min_x0, min_y0, max_x1, max_y1 = float('inf'), float(
+                        'inf'), -float('inf'), -float('inf')
 
-                        # extracting the text based logo
-                        if logo:
-                            # removing characters within curly braces in the logo
+                    for (y0, y1), line_info in sorted_lines:
+                        text = " ".join(line_info["text"])
 
-                            logo = re.sub(r"\(.*?\)|:", " ", logo).strip()
+                        if match:
+                            # to get the maximum coordinates of the text
+                            min_x0 = min(min_x0, min(line_info["x0"]))
+                            min_y0 = min(min_y0, y0)
+                            max_x1 = max(max_x1, max(line_info["x1"]))
+                            max_y1 = max(max_y1, y1)
+
+                        # comparing texts
+                        start_found = [i.replace("\n", '').lower() for i in text.split(" ") if i] == [
+                            i.replace("\n", '').lower() for i in start.split(" ") if i]
+
+                        if start_found and not match:
+                            match = True
+                            min_x0 = min(min_x0, min(line_info["x0"]))
+                            min_y0 = min(min_y0, y0)
+                            max_x1 = max(max_x1, max(line_info["x1"]))
+                            max_y1 = max(max_y1, y1)
+
+                        # comparing texts
+                        end_found = [i.replace("\n", '').lower() for i in text.split(" ") if i] == [
+                            i.replace("\n", '').lower() for i in end.split(" ") if i]
+
+                        if end_found and match:
+                            min_x0 = min(min_x0, min(line_info["x0"]))
+                            min_y0 = min(min_y0, y0)
+                            max_x1 = max(max_x1, max(line_info["x1"]))
+                            max_y1 = max(max_y1, y1)
+
+                            temp_dict = {
+                                "extracted_text": v.get("content"),
+                                "x0": min_x0,
+                                "y0": min_y0,
+                                "x1": max_x1,
+                                "y1": max_y1,
+                            }
+
+                            match = False
+
+                            temp_dict["logo"] = {}
+
+                            # find the text-based logo
+                            logo = ""
+                            middle = (min_x0 + max_x1) // 2
+
+                            cur_min_x0, cur_min_y0, cur_max_x1, cur_max_y1 = min_x0, min_y0, max_x1, max_y1
+
+                            min_x0, min_y0, max_x1, max_y1 = float('inf'), float(
+                                'inf'), -float('inf'), -float('inf')
+
+                            for (y0, y1), line_info in sorted_lines:
+                                if min(line_info["x0"]) >= middle and max(line_info["x1"]) <= cur_max_x1 and y0 >= cur_min_y0 and y1 <= cur_max_y1:
+                                    logo += "".join(line_info["text"])
+                                    min_x0 = min(min_x0, min(line_info["x0"]))
+                                    min_y0 = min(min_y0, y0)
+                                    max_x1 = max(max_x1, max(line_info["x1"]))
+                                    max_y1 = max(max_y1, y1)
+
+                            # extracting the text based logo
 
                             if logo:
-                                temp_dict["logo"]["text_logo"] = {
-                                    "logo": logo,
-                                    "x0": min_x0,
-                                    "y0": min_y0,
-                                    "x1": max_x1,
-                                    "y1": max_y1,
+                                # removing characters within curly braces in the logo
 
-                                }
+                                logo = re.sub(r"\(.*?\)|:", " ", logo).strip()
 
-                        # FINDING IMAGE LOGOS
-                        # image logos will be avilable on the right part of the section, so we check the images starting from the middle of the section
+                                if logo:
+                                    temp_dict["logo"]["text_logo"] = {
+                                        "logo": logo,
+                                        "x0": min_x0,
+                                        "y0": min_y0,
+                                        "x1": max_x1,
+                                        "y1": max_y1,
 
-                        cropped_page = page.crop(
-                            (cur_min_x0//2, cur_min_y0, cur_max_x1, cur_max_y1))
+                                    }
 
-                        page_height = page.height
+                            # FINDING IMAGE LOGOS
+                            # image logos will be avilable on the right part of the section, so we check the images starting from the  of the section
 
-                        if len(cropped_page.images):
-                            temp_dict["logo"]["image_logo"] = []
+                            cropped_page = page.crop(
+                                (cur_min_x0, cur_min_y0, cur_max_x1, cur_max_y1))
 
-                            for j, img in enumerate(cropped_page.images):
+                            page_height = page.height
 
-                                image_bbox = (img['x0'], page_height - img['y1'],
-                                              img['x1'], page_height - img['y0'])
+                            if len(cropped_page.images):
+                                temp_dict["logo"]["image_logo"] = []
 
-                                cropped_page = page.crop(image_bbox)
+                                for j, img in enumerate(cropped_page.images[:1]):
 
-                                temp_dict["logo"]["image_logo"].append({
-                                    "x0": img['x0'],
-                                    "y0": page_height - img['y0'],
-                                    "x1": img['x1'],
-                                    "y1": page_height - img['y1'],
+                                    image_bbox = (img['x0'], page_height - img['y1'],
+                                                  img['x1'], page_height - img['y0'])
 
-                                })
+                                    cropped_page = page.crop(image_bbox)
 
-                        extracted_text_dict[str(
-                            page_number)]["extracted_texts"].append(temp_dict)
+                                    temp_dict["logo"]["image_logo"].append({
+                                        "x0": img['x0'],
+                                        "y0": page_height - img['y0'],
+                                        "x1": img['x1'],
+                                        "y1": page_height - img['y1'],
 
-                        break
+                                    })
 
+                            extracted_text_dict[str(
+                                page_number)]["extracted_texts"].append(temp_dict)
+
+                            break
+
+            except Exception as e:
+                pass
     # print(json.dumps(extracted_text_dict, indent=4))
     json.dumps(extracted_text_dict, indent=4)
     # Save the defined coordinates to a new JSON file with formatting
@@ -239,8 +244,7 @@ def define_coordinates_from_pdf(pdf_path, extracted_text_json_path, output_json_
 
 def extract_and_save_image(pdf_file, coordinates_file, output_folder, resolution=200):
     padding = 5
-    if True:
-        # try:
+    try:
         # Ensure the output folder exists
         if not os.path.exists(output_folder):
             os.makedirs(output_folder)
@@ -259,6 +263,7 @@ def extract_and_save_image(pdf_file, coordinates_file, output_folder, resolution
                 y0 = text["y0"] - padding
                 x1 = text["x1"] + padding
                 y1 = text["y1"] + padding
+
                 page = pdf_document[page_number - 1]
                 rect = fitz.Rect(x0, y0, x1, y1)
                 image = page.get_pixmap(
@@ -290,19 +295,30 @@ def extract_and_save_image(pdf_file, coordinates_file, output_folder, resolution
                     output_folder, f"page_{page_number}_section_{i}.json")
                 with open(base64_filename, "w") as json_file:
                     json.dump(image_data, json_file, indent=4)
-                # Append the base64 data to the original coordinates_data
-                text["base64"] = base64_image
+
+                # remove the coordinates from the final output
+                coordinates = [text.pop("x0"),
+                               text.pop("y0"),
+                               text.pop("x1"),
+                               text.pop("y1")]
+
+                text["coordinates"] = coordinates
 
                 # ------------ MY CODE----------------------###
                 # FINDING THE LOGO COORDINARTES AND EXTRACTING THE LOGO
+
+                text_logo_found = False
 
                 if text.get("logo", None):
                     logo_bbox = text["logo"].get("text_logo", None)
 
                     if logo_bbox is not None:
+                        text_logo_found = True
+
+                        left_padding_to_remove_540 = 30
 
                         rect = fitz.Rect(
-                            logo_bbox["x0"], logo_bbox["y0"], logo_bbox["x1"], logo_bbox["y1"])
+                            logo_bbox["x0"] + left_padding_to_remove_540, logo_bbox["y0"], logo_bbox["x1"], logo_bbox["y1"])
                         image = page.get_pixmap(
                             matrix=fitz.Matrix(resolution / 72.0, resolution / 72.0), clip=rect
                         )
@@ -338,37 +354,49 @@ def extract_and_save_image(pdf_file, coordinates_file, output_folder, resolution
                         with open(base64_filename, "w") as json_file:
                             json.dump(image_logo_data, json_file, indent=4)
 
-                        # Append the base64 data to the original coordinates logo_data
-                        text["logo_base64"] = base64_image
-
                         # REORDERING THE DICTIONARY KEYS
 
-                        desired_order = ["extracted_text", "x0", "y0",
-                                         "x1", "y1", "base64", "logo", "logo_base64"]
+                        desired_order = [
+                            "extracted_text", "coordinates", "logo"]
 
                         entry["extracted_texts"][i] = dict(
                             (key, text[key]) for key in desired_order)
 
+                        # Append the base64 data to the original coordinates logo_data
+                        if not logo_bbox["logo"]:
+                            text["logo_base64"] = base64_image
+
+                        # removing the coordinates
+
+                        coordinates = [
+                            entry["extracted_texts"][i]["logo"]["text_logo"].pop(
+                                "x0"),
+                            entry["extracted_texts"][i]["logo"]["text_logo"].pop(
+                                "y0"),
+                            entry["extracted_texts"][i]["logo"]["text_logo"].pop(
+                                "x1"),
+                            entry["extracted_texts"][i]["logo"]["text_logo"].pop(
+                                "y1")]
+
+                        entry["extracted_texts"][i]["logo"]["text_logo"]["coordinates"] = coordinates
+
                     # FINDING THE IMAGE LOGO COORDINARTES AND EXTRACTING THE IMAGE LOGO
 
                     if text["logo"].get("image_logo", None) is not None:
-                        # continue
 
                         if len(text["logo"].get("image_logo")):
 
-                            text["image_logos"] = []
-
-                            for i, img in enumerate(text["logo"].get("image_logo")):
+                            for j, img in enumerate(text["logo"].get("image_logo")):
                                 # checking for multiple images in the section
 
-                                image = page = pdf_document_pdf_plumber.pages[page_number-1].crop(
-                                    (img["x0"], img["y1"],
-                                     img["x1"], img["y0"])
+                                image = pdf_document_pdf_plumber.pages[page_number-1].crop(
+                                    (img["x0"] - padding, img["y1"] - padding,
+                                     img["x1"] + 5 * padding, img["y0"] + padding)
                                 )
 
-                                # SAVE THE EXTRACTED IMAGE LOGO as opng file
+                                # SAVE THE EXTRACTED IMAGE LOGO as a png file
                                 image_filename = os.path.join(
-                                    output_folder, f"page_{page_number}_section_{i}_logo_image_{i+1}.png")
+                                    output_folder, f"page_{page_number}_section_{i}_logo_image_{j+1}.png")
                                 image_obj = image.to_image(
                                     resolution=resolution)
                                 image_obj.save(image_filename, format="png")
@@ -378,7 +406,7 @@ def extract_and_save_image(pdf_file, coordinates_file, output_folder, resolution
 
                                 # Now, convert the PNG image to GIF format using Pillow
                                 gif_filename = os.path.join(
-                                    output_folder, f"page_{page_number}_section_{i}_logo_image_{i+1}.gif")
+                                    output_folder, f"page_{page_number}_section_{i}_logo_image_{j+1}.gif")
                                 image_pil = Image.open(image_filename)
                                 image_pil.save(gif_filename, "GIF")
                                 print(f"Converted PNG to GIF: {gif_filename}")
@@ -397,7 +425,7 @@ def extract_and_save_image(pdf_file, coordinates_file, output_folder, resolution
                                 }
                                 # Save the base64 data in a JSON file
                                 base64_filename = os.path.join(
-                                    output_folder, f"page_{page_number}_section_{i}_logo_image_{i+1}.json")
+                                    output_folder, f"page_{page_number}_section_{i}_logo_image_{j+1}.json")
 
                                 with open(base64_filename, "w") as json_file:
                                     json.dump(image_logo_data,
@@ -413,18 +441,43 @@ def extract_and_save_image(pdf_file, coordinates_file, output_folder, resolution
                                 if not len(extracted_text.replace("\n", '').replace("\f", '').strip()):
                                     extracted_text = "text not available"
 
-                                text["logo"]["image_logo"][i]["image_text"] = extracted_text
-                                text["logo"]["image_logo"][i][
-                                    "image_label"] = f"image_label_{i+1}"
-                                text["logo"]["image_logo"][i]["base64"] = base64_image
+                                # if logo text is not available through ocr then only we include the base64 of the image
+                                if extracted_text == "text not available":
+                                    text["logo"]["image_logo"][j]["base64"] = base64_image
+
+                                text["logo"]["image_logo"][j]["image_text"] = extracted_text
+                                text["logo"]["image_logo"][j][
+                                    "image_label"] = image_filename
+
+                                # removing the coordinates
+
+                                coordinates = [
+                                    text["logo"]["image_logo"][j].pop(
+                                        "x0"),
+                                    text["logo"]["image_logo"][j].pop(
+                                        "y0"),
+                                    text["logo"]["image_logo"][j].pop(
+                                        "x1"),
+                                    text["logo"]["image_logo"][j].pop(
+                                        "y1")]
+
+                                text["logo"]["image_logo"][j]["coordinates"] = coordinates
+
+                            if text_logo_found:
+                                # if text logo is there we dont remove the imae logo
+                                text["logo"].pop("image_logo")
+
+                    # if text.get("logo") == {}:
+                    #     # Append the base64 data to the original coordinates_data if no logos are extractable
+                    #     text["base64"] = base64_image
 
         # Save the updated coordinates_data back to the coordinates file
 
         with open(coordinates_file, "w") as json_file:
             json.dump(coordinates_data, json_file, indent=4)
-    # except Exception as e:
-    #     print(e)
-    #     print(f"Error: {str(e)}")
+    except Exception as e:
+        print(e)
+        print(f"Error: {str(e)}")
 
 
 def is_valid_pdf(pdf_file_path):
@@ -455,8 +508,6 @@ def handle_password_protected_pdf(pdf_file_path):
     except Exception as e:
         print(f"Error: {e}")
         return None
-
-# for image folder
 
 
 def create_output_folder(pdf_file_path):
@@ -496,19 +547,22 @@ def convert_to_readable_date(date_string):
 
 
 def extract_country_info(input_str):
-    country_code = input_str[:2]
-    year_str = input_str[2:6]
-    month_str = input_str[6:8]
-    day_str = input_str[8:10]
-    number_str = input_str.split('-')[1].split('.')[0]
+    try:
+        country_code = input_str[:2]
+        year_str = input_str[2:6]
+        month_str = input_str[6:8]
+        day_str = input_str[8:10]
+        number_str = input_str.split('-')[1].split('.')[0]
 
-    return {
-        "Country Code": country_code,
-        "Year": year_str,
-        "Month": month_str,
-        "Day": day_str,
-        "Batch": number_str
-    }
+        return {
+            "Country Code": country_code,
+            "Year": year_str,
+            "Month": month_str,
+            "Day": day_str,
+            "Batch": number_str
+        }
+    except:
+        return {}
 
 
 def get_pdf_metadata_and_info(pdf_file_path):
@@ -593,12 +647,6 @@ def process_multiple_pdfs(pdf_folder_path, output_folder_path):
                         for j in lst:
                             if j in i:
                                 fl.append(i)
-                        if '511' in i:
-                            flag=True
-                        if '210' in i:
-                            flag=False
-                        if flag:
-                            fl.append(i)
 
                 section_data[section_num]["content"].extend(fl)
                 fl = fl.clear()
@@ -606,9 +654,12 @@ def process_multiple_pdfs(pdf_folder_path, output_folder_path):
                     section_num += 1
         # pdf_document.close()
 
-        output_data = json.dumps(section_data, indent=4, ensure_ascii=False)
-        with open("output.json", "w", encoding="utf-8") as json_file:
-            json_file.write(output_data)
+        if len(section_data.keys()):
+            output_data = json.dumps(
+                section_data, indent=4, ensure_ascii=False)
+            with open("output.json", "w", encoding="utf-8") as json_file:
+                json_file.write(output_data)
+
         # Extract PDF metadata and country info (implement your logic)
         pdf_metadata, image_count, pdf_size, page_count, word_count, char_count = get_pdf_metadata_and_info(
             pdf_file_path)
