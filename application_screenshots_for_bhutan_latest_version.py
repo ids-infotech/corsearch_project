@@ -6,14 +6,13 @@ from PIL import Image
 import base64
 import re
 
-
 # Define a function to process a page and return its text and page number
-def process_page(page):
+def process_page_for_application_screenshots_bhutan(page):
     page_text = page.get_text("text")
     return page_text, page.number
 
 
-def correct_text_segmentation(content_data, delimiter):
+def correct_text_segmentation_for_application_screenshots_bhutan(content_data, delimiter):
     corrected_data = []
     for page_text in content_data:
         # Split the text using the delimiter
@@ -35,7 +34,7 @@ def correct_text_segmentation(content_data, delimiter):
     return corrected_data
 
 
-def merge_duplicate_pages(content_data):
+def merge_duplicate_pages_for_application_screenshots_bhutan(content_data):
     # Create a dictionary to store consolidated texts
     consolidated_data = {}
 
@@ -63,20 +62,17 @@ def merge_duplicate_pages(content_data):
 
 
 # Define a regular expression pattern to match specific text sections
-
-# pattern = re.compile(r"\(E-01:\)[\s\S]*?(?=\(E-01:\)|$)")  #ARUBA
 pattern = re.compile(r"\(210\)[\s\S]*?(?=\(210\)|$)")  #BHUTAN
-# pattern = re.compile(r"\(111\)[\s\S]*?(?=\(111\)|$)")  #MONGOLIA
 
 
 # Path to the PDF file
-pdf_file_path = "BT20211202-100.pdf"
+pdf_file_path = "BT20211006-98.pdf"
 pdf_document = fitz.open(pdf_file_path)
 
 # This dictionary will hold all extracted text with corresponding page numbers
 text_pages = {}
 for page in pdf_document:
-    text, pn = process_page(page)
+    text, pn = process_page_for_application_screenshots_bhutan(page)
     text_pages[pn] = text
 
 # Concatenate the text from all pages
@@ -164,11 +160,23 @@ for match in matches:
     # Call the correction function for the current section
     #  Removing the HEADING from the extracted text
     delimiter = 'Successfull Examination Marks'
-    section_data[section_num]["content_data"] = correct_text_segmentation(section_data[section_num]["content_data"], delimiter)
+    section_data[section_num]["content_data"] = correct_text_segmentation_for_application_screenshots_bhutan(section_data[section_num]["content_data"], delimiter)
     
-    # Call the merge_duplicate_pages function to join text on the same page into one
-    section_data[section_num]["content_data"] = merge_duplicate_pages(section_data[section_num]["content_data"])
+    # Call the merge_duplicate_pages_for_application_screenshots_bhutan function to join text on the same page into one
+    section_data[section_num]["content_data"] = merge_duplicate_pages_for_application_screenshots_bhutan(section_data[section_num]["content_data"])
     
+    # TO CHECK IF (540): is the last input in the 'text' key
+    # IF THIS IS THE CASE THEN SWAP [-1] and [-2] values
+    for section in section_data.values():
+        for entry in section["content_data"]:
+            # Check if the 'text' key exists and has at least two elements
+            if 'text' in entry and len(entry['text']) >= 2:
+                # Check if the last element matches the specific pattern
+                if entry['text'][-1].startswith("(540):"):
+                    # Swap the last and second-to-last elements
+                    entry['text'][-1], entry['text'][-2] = entry['text'][-2], entry['text'][-1]
+
+                
     # Split the text into lines (segments) for each entry in content_data
     for entry in section_data[section_num]["content_data"]:
         text = entry["text"]
@@ -186,12 +194,15 @@ for match in matches:
 output_data = json.dumps(section_data, ensure_ascii=False, indent=4)
 
 # Write the JSON data to a file
-with open(f"{pdf_file_path}_result_latest_version.json", "w", encoding="utf-8") as json_file:
+with open(f"{pdf_file_path}_result_of_segmented_text.json", "w", encoding="utf-8") as json_file:
     json_file.write(output_data)
 
 
 # EXTRACTING COORDINATES OF TEXT FROM THE PDF
-def define_coordinates_from_pdf(pdf_path, extracted_text_json_path, output_json_path):
+# Define the amount to increase 'y1' by when the condition is met
+# y1_increase = 20  # Replace with the actual amount you want to increase by
+
+def define_coordinates_from_pdf_for_application_screenshots_bhutan(pdf_path, extracted_text_json_path, output_json_path):
     extracted_text_dict = {}
     
     # Load the JSON file containing the previously extracted text (if it exists)
@@ -221,6 +232,10 @@ def define_coordinates_from_pdf(pdf_path, extracted_text_json_path, output_json_
             }
             print("[*] page number:", page_number)
             print("----------------------")
+            
+            '''GET PAGE HEIGHT'''
+            # Get the height of the page
+            page_height = page.height
 
             # Retrieve the current page (0-based index)
             page = pdf.pages[page_number - 1]  # Pages are 0-based index
@@ -289,12 +304,25 @@ def define_coordinates_from_pdf(pdf_path, extracted_text_json_path, output_json_
                         # Mark a match when the start pattern is found
                         if start_found and not match:
                             match = True
-
+  
+                        '''MANUALLY INCREASING THE y1 COORDINATE'''
+#                         # Check if the last line starts with "(540):" and increase 'y1' if it does
+#                         if match and content_entry["text"][-1].startswith("(540):"):
+#                             max_y1 += y1_increase
+                                            
+                            
                         # Compare text to the end pattern
                         end_found = [i.replace("\n", '').lower() for i in text.split(" ") if i] == [
                             i.replace("\n", '').lower() for i in end.split(" ") if i]
 
                         if end_found and match:
+                            
+                            '''USING PAGE HEIGHT TO GET THE y1 COORDINATE'''
+                            if content_entry["text"][-1].startswith("(540):"):
+                                # Define y1_increase based on the bottom of the page
+                                y1_increase = page_height - y1
+                                max_y1 += y1_increase
+                            
                             # Add the extracted text and its coordinates to the dictionary
                             extracted_text_dict[str(page_number)]["extracted_texts"].append({
                                 "extracted_text": content_entry['text'],
@@ -328,9 +356,9 @@ def define_coordinates_from_pdf(pdf_path, extracted_text_json_path, output_json_
         
 # Example usage:
 pdf_path = pdf_file_path  # Replace with the path to your PDF file, THIS VARIABLE IS IN THE STARTING OF THE SCRIPT
-extracted_text_json_path = f"{pdf_file_path}_result_latest_version.json"  # This is the JSON input file
+extracted_text_json_path = f"{pdf_file_path}_result_of_segmented_text.json"  # This is the JSON input file
 output_json_path = f"{pdf_file_path}_defined_coordinates.json"  # This file is created as the output
-define_coordinates_from_pdf(
+define_coordinates_from_pdf_for_application_screenshots_bhutan(
     pdf_path, extracted_text_json_path, output_json_path)
 
 
@@ -342,7 +370,7 @@ skipped_rectangles = {}
 # x1 is the horizontal coordinate (from the left) of the bottom-right corner. [RIGHT VERTICLE LINE goes LEFT (lower number) or RIGHT (higher number)]
 # y1 is the vertical coordinate (from the top) of the bottom-right corner. [BOTTOM HORIZONTAL LINE goes UP(lower number) or DOWN(higher number)]
 
-def extract_and_save_image(pdf_file, coordinates_file, output_folder, resolution=200):
+def extract_and_save_image_for_application_screenshots_bhutan(pdf_file, coordinates_file, output_folder, resolution=200):
     padding = 14.5
     try:
         # Ensure the output folder exists
@@ -472,12 +500,12 @@ def extract_and_save_image(pdf_file, coordinates_file, output_folder, resolution
         print(e)
         print(f"Error: {str(e)}")
 
-
-
 if __name__ == "__main__":
     pdf_file = pdf_file_path #THIS VARIABLE IS IN THE STARTING OF THE SCRIPT
     coordinates_file = output_json_path # DEFINED COORDINATES
     output_folder = f"OUTPUT_SCREENSHOTS_OF_APPLICATIONS_FOR_{pdf_file_path}"
     resolution = 200
-    extract_and_save_image(pdf_file, coordinates_file, output_folder, resolution)
-    
+    extract_and_save_image_for_application_screenshots_bhutan(pdf_file, coordinates_file, output_folder, resolution)
+
+    # CLOSING THE PDF DOCUMENT
+    pdf_document.close()
