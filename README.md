@@ -1,6 +1,9 @@
 # corsearch_project
 Corsearch - script development creating for config &amp; pdf-extraction
 
+# ADDED SCRIPT TO EXTRACT APPLICATIONS AND THEIR SCREENSHOTS FOR MONGOLIA
+It needs some more tuning, handles most of the errors
+
 # AN UPDATED VERSION OF THE MERGED SCRIPT WAS ADDED WITH ERROR HANDLING
 1. It is a .ipynb file (jupyter notebook),
 2. It skips the invalid rectangles,
