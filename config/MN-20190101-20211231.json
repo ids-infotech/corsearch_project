@@ -1,0 +1,83 @@
+{
+    "applicableFor": {
+        "jurisdictionCode": "MN",
+        "range": {
+            "start": "2019-01-01",
+            "end": "2021-12-31"
+        },
+        "sections": [
+            {
+                "title": "Registration",
+                "trademarks": {
+                    "applicationNumber": "",
+                    "applicationDate": "",
+                    "registrationNumber": "",
+                    "publicationNumber": "",
+                    "publicationDate": "",
+                    "expirationDate": "",
+                    "owners": {
+                        "name": "",
+                        "address": "",
+                        "country": ""
+                    },
+                    "representatives": {
+                        "name": "",
+                        "address": "",
+                        "country": ""
+                    },
+                    "verbalElements": "",
+                    "deviveMarks": "",
+                    "Viennacodes": {
+                        "code": ""
+                    },
+                    "classifications": {
+                        "niceClass": "",
+                        "goodServiceDescription": ""
+                    },
+                    "colours": "",
+                    "priorities": {
+                        "number": "",
+                        "date": "",
+                        "country": ""
+                    },
+                    "disclaimer": ""
+                }
+            },
+            {
+                "title": "MADRID REGISTRATION",
+                "trademarks": {
+                    "applicationNumber": "",
+                    "applicationDate": "",
+                    "registrationNumber": "",
+                    "expirationDate": "",
+                    "owners": {
+                        "name": "",
+                        "address": "",
+                        "country": ""
+                    },
+                    "representatives": {
+                        "name": "",
+                        "address": "",
+                        "country": ""
+                    },
+                    "verbalElements": "",
+                    "deviveMarks": "",
+                    "Viennacodes": {
+                        "code": ""
+                    },
+                    "classifications": {
+                        "niceClass": "",
+                        "goodServiceDescription": ""
+                    },
+                    "colours": "",
+                    "priorities": {
+                        "number": "",
+                        "date": "",
+                        "country": ""
+                    },
+                    "disclaimer": ""
+                }
+            }
+        ]
+    }
+}
