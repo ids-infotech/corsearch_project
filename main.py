@@ -11,13 +11,23 @@ import time
 import cv2
 import pytesseract
 import argparse
+import datetime
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 import logging  
-from pdf_scripts import *  
+from pdf_extraction import *  
 
-logging.basicConfig(filename='preprocess_pdf_info.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-logging.basicConfig(filename='preprocess_pdf_error.log', level=logging.ERROR, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(
+    handlers=[
+        logging.FileHandler('preprocess_pdf_info.log'),
+        logging.FileHandler('preprocess_pdf_error.log'),
+    ],
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s'
+)
 
+# Set the level for each handler individually
+logging.getLogger().handlers[0].setLevel(logging.INFO)  # info log
+logging.getLogger().handlers[1].setLevel(logging.ERROR)  # error log
 
 
 def is_valid_pdf(pdf_file_path):
@@ -135,9 +145,17 @@ def get_pdf_size(pdf_file_path):
 def get_country_from_config(config_file):
     # Extract country name from the config file name
     # Assuming the config file name follows the pattern: COUNTRY_config.json
-    country = config_file.name.split('_')[0].upper()
+    # country = config_file.name.split('-')[0].upper()
+    country = os.path.basename(config_file)[:2]
+    # file_prefix = os.path.basename(pdf_file)[:2]
     return country
 
+def calculate_eta(start_time, end_time):
+    # Calculate the ETA based on the difference between start and end times
+    # Adjust this calculation based on your specific requirements
+    elapsed_time = end_time - start_time
+    eta = start_time + (2 * elapsed_time)  # Assuming the task will take approximately the same time to complete
+    return eta
 
 def read_pdf_files(pdf_folder,config_file):
         
@@ -146,6 +164,8 @@ def read_pdf_files(pdf_folder,config_file):
     for pdf_file in pdf_files:
         pdf_file_path = os.path.join(pdf_folder, pdf_file)
         logging.info(f"Processing PDF: {pdf_file_path}")
+        start_time = datetime.datetime.now()
+
         file_size = get_pdf_size(pdf_file_path) 
         logging.info(f"Size of PDF : {pdf_file_path}, {file_size}")
         print(f"Processing PDF: {pdf_file_path}")
@@ -169,23 +189,30 @@ def read_pdf_files(pdf_folder,config_file):
 
         # Determine the country based on the config file name
         country = get_country_from_config(config_file)
-        
-        # Call the corresponding PDF extraction function based on the country
-        country_extraction_functions = {
-            'BT': bhutan_pdf_extraction,
-            'MN': mongolia_pdf_extraction,
-            # 'COUNTRY3': country3_pdf_extraction,
-            # Add more countries as needed
-        }
-        if country in country_extraction_functions:
-            print("193===========")
-            country_extraction_functions[country](pdf_file_path)
-        else:
-            print(f"Country '{country}' is not supported for PDF extraction.")
+        try:
+            logging.info(f"Start time for PDF extraction: {start_time}")
+            # Call the corresponding PDF extraction function based on the country
+            country_extraction_functions = {
+                'BT': bhutan_pdf_extraction,
+                'MN': mongolia_pdf_extraction,
+                # 'COUNTRY3': country3_pdf_extraction,
+                # Add more countries as needed
+            }
+            if country in country_extraction_functions:
+                print("193===========")
+                country_extraction_functions[country](pdf_file_path)
+            else:
+                print(f"Country '{country}' is not supported for PDF extraction.")
+        finally:
+            end_time = datetime.datetime.now()
+            elapsed_time = end_time - start_time
+            eta = start_time + (2 * elapsed_time)
+            logging.info(f"End time for PDF extraction: {end_time}")
+            logging.info(f"Elapsed Time: {elapsed_time}, ETA: {eta}")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='PDF Metadata Extractor')
-    parser.add_argument("--config", type=argparse.FileType('r'), required=True, help='Path to the config file (e.g., config.json)')
+    parser.add_argument("--config", required=True, help='Path to the config file (e.g., config.json)')
     parser.add_argument("--pdf-folder", required=True, help='Path to the folder containing PDF files')
 
     args = parser.parse_args()
@@ -193,11 +220,7 @@ if __name__ == "__main__":
     read_pdf_files(args.pdf_folder, args.config)
     
 
-# for loop  for  reading  the pdf from the pdf folder
-# if pdf is valid ya  pdf is pass   from the pre processing extract the pdf data 
-    # select the extracton based on the countey code 
-    # get the final json and create a name for the output  json 
-    # also add the eta for the each pdf file
+
 
 
 

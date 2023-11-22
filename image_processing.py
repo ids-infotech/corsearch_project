@@ -5,18 +5,27 @@ import os
 from PIL import Image
 import base64
 import re
+import cv2
 
-def process_pdf(pdf_file):
-    # Check the prefix of the PDF file
-    file_prefix = os.path.basename(pdf_file)[:2]
+# def process_pdf(pdf_file):
+#     # Check the prefix of the PDF file
+#     file_prefix = os.path.basename(pdf_file)[:2]
 
-    # Call the corresponding functions based on the prefix
-    if file_prefix == 'BT':
-        process_bhutan_pdf(pdf_file)
-    elif file_prefix == 'MN':
-        process_mongolia_pdf(pdf_file)
-    else:
-        print(f"Unsupported file prefix: {file_prefix}")
+#     # Call the corresponding functions based on the prefix
+#     if file_prefix == 'BT':
+#         process_bhutan_pdf(pdf_file)
+#     elif file_prefix == 'MN':
+#         process_mongolia_pdf(pdf_file)
+#     else:
+#         print(f"Unsupported file prefix: {file_prefix}")
+
+def create_image_folder(pdf_file_path):
+    pdf_filename = os.path.splitext(os.path.basename(pdf_file_path))[0]
+    # Creating a folder name based on the PDF file name
+    output_folder = f"{pdf_filename}_images"
+    if not os.path.exists(output_folder):
+        os.makedirs(output_folder)
+    return output_folder
 
 
 
@@ -185,7 +194,7 @@ skipped_rectangles = {}
 # y1 is the vertical coordinate (from the top) of the bottom-right corner. [BOTTOM HORIZONTAL LINE goes UP(lower number) or DOWN(higher number)]
 
 ''' TAKING SCREENSHOTS BASED ON THE COORDINATES '''
-def extract_and_save_image_for_application_screenshots_bhutan(pdf_file, coordinates_file, output_folder, resolution=200):
+def extract_and_save_image_for_application_screenshots_bhutan(pdf_file_path, coordinates_file, output_folder, resolution=200):
     padding = 14.5
     try:
         # Ensure the output folder exists
@@ -193,7 +202,7 @@ def extract_and_save_image_for_application_screenshots_bhutan(pdf_file, coordina
             os.makedirs(output_folder)
         
         # Open the PDF file
-        pdf_document = fitz.open(pdf_file)
+        pdf_document = fitz.open(pdf_file_path)
         
         # Load coordinates from the JSON file
         with open(coordinates_file, "r") as json_file:
@@ -225,12 +234,12 @@ def extract_and_save_image_for_application_screenshots_bhutan(pdf_file, coordina
 
                     # SAVING IMAGE FOR THE ONE LINE SCREENSHOTS
                     image = page.get_pixmap(matrix=fitz.Matrix(resolution / 72.0, resolution / 72.0), clip=rect)
-                    image_filename = os.path.join(output_folder, f"{pdf_file}_page_{page_number}_section_{i}_invalid.png")
+                    image_filename = os.path.join(output_folder, f"{pdf_file_path}_page_{page_number}_section_{i}_invalid.png")
                     image.save(image_filename)
                     print(f"Extracted image saved as {image_filename}")
                     
                     # If needed, convert the screenshot to GIF format
-                    gif_filename = os.path.join(output_folder, f"{pdf_file}_page_{page_number}_section_{i}_invalid.gif")
+                    gif_filename = os.path.join(output_folder, f"{pdf_file_path}_page_{page_number}_section_{i}_invalid.gif")
                     image_pil = Image.open(image_filename)
                     image_pil.save(gif_filename, "GIF")
                     print(f"Converted PNG to GIF: {gif_filename}")
@@ -248,7 +257,7 @@ def extract_and_save_image_for_application_screenshots_bhutan(pdf_file, coordina
                     }
                 
                     # Save the base64 data in a JSON file
-                    base64_filename = os.path.join(output_folder, f"{pdf_file}_page_{page_number}_section_{i}_invalid.json")
+                    base64_filename = os.path.join(output_folder, f"{pdf_file_path}_page_{page_number}_section_{i}_invalid.json")
                     with open(base64_filename, "w") as json_file:
                         json.dump(image_data, json_file, indent=4)
                 
@@ -266,12 +275,12 @@ def extract_and_save_image_for_application_screenshots_bhutan(pdf_file, coordina
                     continue
 
                 # SAVE THE EXTRACTED IMAGE
-                image_filename = os.path.join(output_folder, f"{pdf_file}_page_{page_number}_section_{i}.png")
+                image_filename = os.path.join(output_folder, f"{pdf_file_path}_page_{page_number}_section_{i}.png")
                 image.save(image_filename)
                 print(f"Extracted image saved as {image_filename}")
 
                 # Now, convert the PNG image to GIF format using Pillow
-                gif_filename = os.path.join(output_folder, f"{pdf_file}_page_{page_number}_section_{i}.gif")
+                gif_filename = os.path.join(output_folder, f"{pdf_file_path}_page_{page_number}_section_{i}.gif")
                 image_pil = Image.open(image_filename)
                 image_pil.save(gif_filename, "GIF")
         
@@ -290,7 +299,7 @@ def extract_and_save_image_for_application_screenshots_bhutan(pdf_file, coordina
                 }
                 
                 # Save the base64 data in a JSON file
-                base64_filename = os.path.join(output_folder, f"{pdf_file}_page_{page_number}_section_{i}.json")
+                base64_filename = os.path.join(output_folder, f"{pdf_file_path}_page_{page_number}_section_{i}.json")
                 with open(base64_filename, "w") as json_file:
                     json.dump(image_data, json_file, indent=4)
 
@@ -301,14 +310,14 @@ def extract_and_save_image_for_application_screenshots_bhutan(pdf_file, coordina
         with open(coordinates_file, "w") as json_file:
             json.dump(coordinates_data, json_file, indent=4)
         
-        # Now, outside of the for-loop, after all processing is done, we report the skipped rectangles
-        for page, count in skipped_rectangles.items():
-            print(f"SKIPPED {count} RECTANGLES ON PAGE {page} of {pdf_file_path}")
+        # # Now, outside of the for-loop, after all processing is done, we report the skipped rectangles
+        # for page, count in skipped_rectangles.items():
+        #     print(f"SKIPPED {count} RECTANGLES ON PAGE {page} of {pdf_file_path}")
         
-        # WRITE THE MISSED RECTANGLES IN A .TXT FILE
-        with open(f'skipped_rectangles_in_{pdf_file_path}.txt', 'w') as f:
-            for page, count in skipped_rectangles.items():
-                f.write(f"Page {page}: Skipped {count} \n")
+        # # WRITE THE MISSED RECTANGLES IN A .TXT FILE
+        # with open(f'skipped_rectangles_in_{pdf_file_path}.txt', 'w') as f:
+        #     for page, count in skipped_rectangles.items():
+        #         f.write(f"Page {page}: Skipped {count} \n")
 
             
     except Exception as e:
@@ -445,8 +454,8 @@ def define_coordinates_from_pdf_for_application_screenshots_mongolia(pdf_path, e
                             })
                             # Print a message indicating that the text has been successfully extracted
                             match = False
-                            print("[+] extracted the text => ",
-                                  '\n'.join(content_entry['text']), "\n")
+                            # print("[+] extracted the text => ",
+                            #       '\n'.join(content_entry['text']), "\n")
 
                             # Update the content_data entry with coordinates
                             content_entry["coordinates"] = {
@@ -518,12 +527,13 @@ def extract_and_save_image_for_application_screenshots_mongolia(pdf_file, coordi
                 continue
 
             # SAVE THE EXTRACTED IMAGE
-            image_filename = os.path.join(output_folder, f"{pdf_file}_page_{page_number}_section_{i}.png")
+            pdf_filename = os.path.splitext(os.path.basename(pdf_file))[0]
+            image_filename = os.path.join(output_folder, f"{pdf_filename}_page_{page_number}_section_{i}.png")
             image.save(image_filename)
             print(f"Extracted image saved as {image_filename}")
 
             # Now, convert the PNG image to GIF format using Pillow
-            gif_filename = os.path.join(output_folder, f"{pdf_file}_page_{page_number}_section_{i}.gif")
+            gif_filename = os.path.join(output_folder, f"{pdf_filename}_page_{page_number}_section_{i}.gif")
             image_pil = Image.open(image_filename)
             image_pil.save(gif_filename, "GIF")
 
@@ -542,7 +552,7 @@ def extract_and_save_image_for_application_screenshots_mongolia(pdf_file, coordi
             }
 
             # Save the base64 data in a JSON file
-            base64_filename = os.path.join(output_folder, f"{pdf_file}_page_{page_number}_section_{i}.json")
+            base64_filename = os.path.join(output_folder, f"{pdf_filename}_page_{page_number}_section_{i}.json")
             with open(base64_filename, "w") as json_file:
                 json.dump(image_data, json_file, indent=4)
 
@@ -557,14 +567,14 @@ def extract_and_save_image_for_application_screenshots_mongolia(pdf_file, coordi
     with open(coordinates_file, "w", encoding='utf-8') as json_file:
         json.dump(coordinates_data, json_file, indent=4, ensure_ascii=False)
 
-    # Now, outside of the for-loop, after all processing is done, we report the skipped rectangles
-    for page, count in skipped_rectangles.items():
-        print(f"SKIPPED {count} RECTANGLES ON PAGE {page} of {pdf_file_path}")
+    # # Now, outside of the for-loop, after all processing is done, we report the skipped rectangles
+    # for page, count in skipped_rectangles.items():
+    #     print(f"SKIPPED {count} RECTANGLES ON PAGE {page} of {pdf_file}")
 
-    # WRITE THE MISSED RECTANGLES IN A .TXT FILE
-    with open(f'skipped_rectangles_in_{pdf_file_path}.txt', 'w') as f:
-        for page, count in skipped_rectangles.items():
-            f.write(f"Page {page}: Skipped {count} \n")
+    # # WRITE THE MISSED RECTANGLES IN A .TXT FILE
+    # with open(f'skipped_rectangles_in_{pdf_file}.txt', 'w') as f:
+    #     for page, count in skipped_rectangles.items():
+    #         f.write(f"Page {page}: Skipped {count} \n")
 
             
     # except Exception as e:
@@ -572,34 +582,151 @@ def extract_and_save_image_for_application_screenshots_mongolia(pdf_file, coordi
     #     print(f"Error: {str(e)}")
 
 
-def process_bhutan_pdf(pdf_file):
+
+####################################### LOGO EXTRACTION ##########################################################
+
+def preprocess_image(image_path):
+    # Read the image
+    image = cv2.imread(image_path)
+
+    # Convert the image to grayscale
+    gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+    # Apply thresholding to enhance text
+    _, thresholded_image = cv2.threshold(
+        gray_image, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+
+    # Further noise reduction using morphological transformations
+    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))
+    processed_image = cv2.morphologyEx(
+        thresholded_image, cv2.MORPH_CLOSE, kernel)
+
+    return processed_image
+
+def extract_text_from_image(image_path):
+    processed_image = preprocess_image(image_path)
+
+    # Perform OCR on the preprocessed image
+    text = pytesseract.image_to_string(processed_image)
+
+    print("Text from image is", "bad" if not text else "good")
+    return text
+
+def extract_and_save_logos(pdf_file, coordinates_file, output_folder, resolution=200):
+    padding = 5
+    try:
+        # Ensure the output folder exists
+        if not os.path.exists(output_folder):
+            os.makedirs(output_folder)
+
+        # Open the PDF file
+        pdf_document = pdfplumber.open(pdf_file)
+
+        # Load coordinates from the JSON file
+        with open(coordinates_file, "r") as json_file:
+            coordinates_data = json.load(json_file)
+
+        # Initialize a list to store extracted image data for each page
+        for key, entry in coordinates_data["Coordinates Data"].items():
+            page_number = entry["page_number"]
+            for i, text in enumerate(entry["extracted_texts"]):
+                x0 = text["coordinates"][0] - padding
+                y0 = text["coordinates"][1] - padding
+                x1 = text["coordinates"][2] + padding
+                y1 = text["coordinates"][3] + padding
+
+                page = pdf_document.pages[page_number - 1]
+                # FINDING THE LOGO COORDINARTES AND EXTRACTING THE LOGO
+
+                cropped_page = page.crop((x0, y0, x1, y1))
+                page_height = page.height
+
+                if len(cropped_page.images):
+                    for j, img in enumerate(cropped_page.images[:1]):
+                        image_bbox = (img['x0'] - padding, page_height - img['y1']-padding,
+                                                  img['x1'] + 5 * padding, page_height - img['y0'] + padding)
+                        # SAVE THE EXTRACTED IMAGE LOGO as a png file
+                        cropped_page = page.crop(image_bbox)
+                        im = cropped_page.to_image(resolution=resolution)
+                        image_filename = os.path.join(output_folder, f"page_{page_number}_section_{i}_logo_image_{j}.png")
+                        im.save(image_filename)
+
+                        # Now, convert the PNG image to GIF format using Pillow
+                        gif_filename = os.path.join(output_folder, f"page_{page_number}_section_{i}_logo_image_{j}.gif")
+                        image_pil = Image.open(image_filename)
+                        image_pil.save(gif_filename, "GIF")
+                        print(f"Converted PNG to GIF: {gif_filename}")
+                        # ocr
+                        extracted_text = extract_text_from_image(
+                                    image_filename)
+
+                        # checking if extracted text is empty
+                        if not len(extracted_text.replace("\n", '').replace("\f", '').strip()):
+                                    extracted_text = None
+                        if extracted_text:
+                            # Encode the image as a base64 string
+                            with open(image_filename, "rb") as image_file:
+                                base64_image = base64.b64encode(
+                                image_file.read()).decode('utf-8')
+
+                                # Get just the filename without the path
+                                base_filename = os.path.basename(image_filename)
+                                # Create a dictionary with the base filename as the key and base64 data as the value
+                                image_logo_data = {
+                                        base_filename: base64_image,
+                                    }
+                                # Save the base64 data in a JSON file
+                                base64_filename = os.path.join(
+                                        output_folder, f"page_{page_number}_section_{i}_logo_image_{j}.json")
+                                with open(base64_filename, "w") as json_file:
+                                        json.dump(image_logo_data, json_file, indent=4)
+           
+    except Exception as e:
+        print(e)
+        print(f"Error: {str(e)}")
+###########################################################################################################################################
+
+def process_bhutan_pdf(pdf_file, data_extracted, output_json_path):
     # Bhutan-specific processing
     pdf_path = pdf_file
-    extracted_text_json_path = f"{pdf_file}_result_of_segmented_text.json"
-    output_json_path = f"{pdf_file}_defined_coordinates.json"
+    # extracted_text_json_path = f"{pdf_file}_result_of_segmented_text.json"
+    extracted_text_json_path = data_extracted
+    # output_json_path = f"{pdf_file}_defined_coordinates.json"
 
     define_coordinates_from_pdf_for_application_screenshots_bhutan(pdf_path, extracted_text_json_path, output_json_path)
 
     coordinates_file = output_json_path
-    output_folder = f"OUTPUT_SCREENSHOTS_OF_APPLICATIONS_FOR_{pdf_file}"
+    # output_folder = f"OUTPUT_SCREENSHOTS_OF_APPLICATIONS_FOR_{pdf_file}"
+    output_folder = create_image_folder(pdf_file)
     resolution = 200
     extract_and_save_image_for_application_screenshots_bhutan(pdf_file, coordinates_file, output_folder, resolution)
 
-def process_mongolia_pdf(pdf_file):
+def process_mongolia_pdf(pdf_file, data_extracted, output_json_path):
     # Mongolia-specific processing
     pdf_path = pdf_file
-    extracted_text_json_path = f"{pdf_file}_result_of_segmented_text.json"
-    output_json_path = f"{pdf_file}_defined_coordinates.json"
+    # extracted_text_json_path = f"{pdf_file}_result_of_segmented_text.json"
+    extracted_text_json_path = data_extracted
+    # output_json_path = f"{pdf_file}_defined_coordinates.json"
 
     define_coordinates_from_pdf_for_application_screenshots_mongolia(pdf_path, extracted_text_json_path, output_json_path)
 
     coordinates_file = output_json_path
-    output_folder = f"OUTPUT_SCREENSHOTS_OF_APPLICATIONS_FOR_{pdf_file}"
+    # output_folder = f"{pdf_file}_images"
+
+    output_images_folder = r'D:\corsearch_project\output_images_folder'          # output json folder path
+
+    if not os.path.exists(output_images_folder):
+        os.makedirs(output_images_folder)
+
+    pdf_filename = os.path.splitext(os.path.basename(pdf_file))[0]
+    output_folder = os.path.join(output_images_folder, f"{pdf_filename}.json")   
+
+    # output_folder = create_image_folder(pdf_file)
     resolution = 200
     extract_and_save_image_for_application_screenshots_mongolia(pdf_file, coordinates_file, output_folder, resolution)
 
-if __name__ == "__main__":
-    pdf_file_path = "BT20211006-98.pdf"  # Replace with the path to your PDF file
+# if __name__ == "__main__":
+#     pdf_file_path = "BT20211006-98.pdf"  # Replace with the path to your PDF file
 
-    # Call the main processing function based on the PDF file prefix
-    process_pdf(pdf_file_path)
+#     # Call the main processing function based on the PDF file prefix
+#     process_pdf(pdf_file_path)
