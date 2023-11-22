@@ -492,11 +492,11 @@ def extract_and_process_images_mongolia(json_data, pdf_file, output_folder, reso
 
 
 # Load the entire JSON file
-file_path = 'MN20230630-06.pdf_result_of_segmented_text.json'
+file_path = f'{pdf_file_path}_result_of_segmented_text.json'
 with open(file_path, 'r', encoding= 'utf-8') as file:
     json_data = json.load(file)
 
 # Example usage
-pdf_file_path = 'MN20230630-06.pdf'  # Replace with PDF file path
+pdf_file_path = pdf_file_path  # Replace with PDF file path
 output_folder_path = f'output_applications_image_{pdf_file_path}'  # Replace with output folder path
 extract_and_process_images_mongolia(json_data, pdf_file_path, output_folder_path)
