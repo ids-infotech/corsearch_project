@@ -1,7 +1,7 @@
 # corsearch_project
 Corsearch - script development creating for config &amp; pdf-extraction
 
-# TWO NEW SCRIPTS ARE UPLOADED
+# TWO NEW SCRIPTS ARE UPLOADED ON 22nd NOV, USE THESE FOR REFERENCE
 application_screenshots_with_new_keys_bhutan and application_screenshots_with_new_keys_mongolia,
 These scripts create a better strucutre as compared to the previous versions,
 They also contain handling and reading of JSON files based on the new structure and keys.
