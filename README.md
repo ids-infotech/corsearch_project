@@ -2,8 +2,8 @@
 Corsearch - script development creating for config &amp; pdf-extraction
 
 # TWO NEW SCRIPTS ARE UPLOADED
-application_screenshots_with_new_keys_bhutan and application_screenshots_with_new_keys_mongolia
-These scripts have create a better strucutre as compared to the previous versions,
+application_screenshots_with_new_keys_bhutan and application_screenshots_with_new_keys_mongolia,
+These scripts create a better strucutre as compared to the previous versions,
 They also contain handling and reading of JSON files based on the new structure and keys.
 
 # ADDED SCRIPT TO EXTRACT APPLICATIONS AND THEIR SCREENSHOTS FOR MONGOLIA
