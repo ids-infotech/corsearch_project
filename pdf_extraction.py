@@ -290,13 +290,13 @@ def mongolia_pdf_extraction(pdf_file_path):
         json_file.write(output_data)
 
     data_extracted = output_json
-    output_json_folder = r'D:\corsearch_project\output_json_folder'          # output json folder path
+    data_json_folder = r'D:\corsearch_project\data_json_folder'          # output json folder path
 
-    if not os.path.exists(output_json_folder):
-        os.makedirs(output_json_folder)
+    if not os.path.exists(data_json_folder):
+        os.makedirs(data_json_folder)
 
     pdf_filename = os.path.splitext(os.path.basename(pdf_file_path))[0]
-    output_json_path = os.path.join(output_json_folder, f"{pdf_filename}.json")    
+    output_json_path = os.path.join(data_json_folder, f"{pdf_filename}.json")    
     # print(output_json_path,"42")
 
     # image_folder = create_image_folder(pdf_file_path)
@@ -313,10 +313,16 @@ def mongolia_pdf_extraction(pdf_file_path):
     processed_trademarks = process_bulk_trademarks(json_file_path, pdf_file_path)
 
     # Specify the path to the output JSON file
-    output_json_file_path = 'structure_heading.json'
+    output_json_folder = r'D:\corsearch_project\output_json_folder'
+    if not os.path.exists(data_json_folder):
+        os.makedirs(data_json_folder)
+
+    final_output_json_path = os.path.join(output_json_folder, f"{pdf_filename}.json")    
+
+    # output_json_file_path = 'structure_heading.json'
 
     # Save the modified JSON data into a single file with UTF-8 encoding
-    with open(output_json_file_path, 'w', encoding='utf-8') as output_file:
+    with open(final_output_json_path, 'w', encoding='utf-8') as output_file:
         json.dump(processed_trademarks, output_file, ensure_ascii=False, indent=4)
 
 

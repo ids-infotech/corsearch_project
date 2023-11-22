@@ -113,33 +113,33 @@ def get_pdf_size(pdf_file_path):
 
 
 # def get_pdf_metadata_and_info(pdf_file_path):
-    pdf_document = fitz.open(pdf_file_path)
-    pdf_metadata = pdf_document.metadata
-    image_count = 0
-    page_count = len(pdf_document)
+    # pdf_document = fitz.open(pdf_file_path)
+    # pdf_metadata = pdf_document.metadata
+    # image_count = 0
+    # page_count = len(pdf_document)
 
-    word_count = 0
-    char_count = 0
+    # word_count = 0
+    # char_count = 0
 
-    for page_number in range(page_count):
-        page = pdf_document[page_number]
-        image_list = page.get_images(full=True)
-        image_count += len(image_list)
-        page_text = page.get_text()
-        words = page_text.split()
-        word_count += len(words)
-        char_count += len(page_text)
+    # for page_number in range(page_count):
+    #     page = pdf_document[page_number]
+    #     image_list = page.get_images(full=True)
+    #     image_count += len(image_list)
+    #     page_text = page.get_text()
+    #     words = page_text.split()
+    #     word_count += len(words)
+    #     char_count += len(page_text)
 
-    pdf_size = get_pdf_size(pdf_file_path)
+    # pdf_size = get_pdf_size(pdf_file_path)
 
-    if 'creationDate' in pdf_metadata:
-        pdf_metadata['creationDate'] = convert_to_readable_date(
-            pdf_metadata['creationDate'])
-    if 'modDate' in pdf_metadata:
-        pdf_metadata['modDate'] = convert_to_readable_date(
-            pdf_metadata['modDate'])
+    # if 'creationDate' in pdf_metadata:
+    #     pdf_metadata['creationDate'] = convert_to_readable_date(
+    #         pdf_metadata['creationDate'])
+    # if 'modDate' in pdf_metadata:
+    #     pdf_metadata['modDate'] = convert_to_readable_date(
+    #         pdf_metadata['modDate'])
 
-    return pdf_metadata, image_count, pdf_size, page_count, word_count, char_count
+    # return pdf_metadata, image_count, pdf_size, page_count, word_count, char_count
 
 
 def get_country_from_config(config_file):

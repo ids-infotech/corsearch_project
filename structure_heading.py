@@ -237,7 +237,10 @@ def process_bulk_trademarks(json_file, pdf_file_path):
             madrid_section[key_name] = [processed_data]
 
     return {
-        "extracted_info": extracted_info,  # Add extracted_info at the top level
+        "jurisdictionCode": extracted_info["jurisdictionCode"],
+        "title": extracted_info["title"],
+        "numberOfPages": extracted_info["numberOfPages"],
+        "publicationDate": extracted_info["publicationDate"],  # Add extracted_info at the top level
         "Registration": registration_section,
         "MADRID REGISTRATION": madrid_section
     }
