@@ -386,9 +386,11 @@ def extract_and_process_images_bhutan(json_data, pdf_file, output_folder, resolu
                 if 'coordinates' not in page_data:
                     print(f"Skipping an entry in {trade_mark} as it lacks 'coordinates'.")
                     continue
-                
+
                 # VARIABLE TO STORE THE PAGE NUMBER ON WHICH THE TEXT IS 
                 page_number = page_data['text_on_page']
+                page = pdf_document[page_number - 1]
+                page_width = page.rect.width 
                 
                 # IF PAGE NUMBER IS NOT THE LAST PROCESSED PAGE 
                 # THEN PAGE NUMBER WOULD BE THE SAME
@@ -398,9 +400,12 @@ def extract_and_process_images_bhutan(json_data, pdf_file, output_folder, resolu
 
                 coordinates = page_data['coordinates']
                 x0, y0, x1, y1 = coordinates['x0'], coordinates['y0'], coordinates['x1'], coordinates['y1']
-                x0, y0 = max(x0 - padding, 0), max(y0 - padding, 0)
-                x1, y1 = min(x1 + padding, pdf_document[page_number - 1].rect.width), min(y1 + padding, pdf_document[page_number - 1].rect.height)
-
+                # x0, y0 = max(x0 - padding, 0), max(y0 - padding, 0)
+                # x1, y1 = min(x1 + padding, pdf_document[page_number - 1].rect.width), min(y1 + padding, pdf_document[page_number - 1].rect.height)
+                x0 = coordinates['x0']- padding
+                y0 = coordinates['y0'] - padding
+                x1 = page_width - 40  # USING PAGE WIDTH TO AVOID ERROR OF MISSING DATA 
+                y1 = coordinates['y1'] + padding
                 page = pdf_document[page_number - 1]
 
                 # Check for invalid coordinates
