@@ -4,7 +4,7 @@ Corsearch - script development creating for config &amp; pdf-extraction
 -------------------------------------------------------------------------------------------------------------------
 # application_and_logos_screenshots_bhutan and application_and_logos_screenshots_mongolia
 # THESE ARE THE LATEST VERSIONS OF THE SCRIPTS THAT TAKE SCREENSHOTS OF APPLICATIONS AND IMAGE LOGOS
-# SO IF YOU WANT TO USE ANY OF THE SCRIPTS FOR REFERENCE THEN PLEASE USE THESE
+# IF YOU WANT TO USE ANY OF THE SCRIPTS FOR REFERENCE THEN PLEASE USE ANY OF THESE TWO.
 
 
 
