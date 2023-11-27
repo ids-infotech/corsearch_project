@@ -8,7 +8,6 @@ import re
 import io
 
 #  Define a function to process a page and return its text and page number
-
 def process_page_for_application_screenshots_mongolia(page):
     page_text = page.get_text("text")
     return page_text, page.number
@@ -39,7 +38,6 @@ def correct_text_segmentation_for_application_screenshots_mongolia(content_data,
         corrected_data.append({
             'text_on_page': page_text['text_on_page'],
             'text': text,
-            'image' : 'test_1'
         })
 
     return corrected_data
@@ -121,81 +119,11 @@ def split_text_by_newline_for_application_screenshots_mongolia(content_data):
         entry["text"] = split_text
     return content_data
 
-def extract_logo_images_from_pdf_mongolia(pdf_file_path, output_dir_image_logo, target_page, min_width=150, min_height=10):
-    # open the file
-    pdf_file = fitz.open(pdf_file_path)
-
-    # Create the output directory if it does not exist
-    if not os.path.exists(output_dir_image_logo):
-        os.makedirs(output_dir_image_logo)
-
-    # Check if the target page is within the valid range
-    if target_page < 0 or target_page >= len(pdf_file):
-        # print(f"[!] Invalid target page {target_page}. Please provide a valid page index.")
-        pdf_file.close()
-        return
-
-    # Get the target page
-    page = pdf_file[target_page]
-
-    # Get image list
-    image_list = page.get_images(full=True)
-
-    # # Print the number of images found on this page
-    # if image_list:
-    #     print(f"[+] Found a total of {len(image_list)} images on page {target_page}")
-    # else:
-    #     print(f"[!] No images found on page {target_page}")
-
-    # Initialize logo_image_base64 with an empty list
-    logo_image_base64 = ""
-
-    # Iterate over the images on the page
-    for image_index, img in enumerate(image_list, start=1):
-        # Get the XREF of the image
-        xref = img[0]
-        # Extract the image bytes
-        base_image = pdf_file.extract_image(xref)
-        image_bytes = base_image["image"]
-        # Get the image extension
-        image_ext = base_image["ext"]
-        # Load it to PIL
-        logo_image = Image.open(io.BytesIO(image_bytes))
-        # Check if the image meets the minimum dimensions
-        if logo_image.width >= min_width and logo_image.height >= min_height:
-            # Save the image as PNG
-            png_path = os.path.join(output_dir_image_logo, f"image{target_page + 1}_{image_index}.png")
-            logo_image.save(open(png_path, "wb"), format="png".upper())
-
-            # Save the image as GIF
-            gif_path = os.path.join(output_dir_image_logo, f"image{target_page + 1}_{image_index}.gif")
-            logo_image.save(open(gif_path, "wb"), format="gif".upper())
-
-            # Convert image to Base64
-            current_logo_image_base64 = base64.b64encode(image_bytes).decode("utf-8")
-            # Check if the image meets the minimum dimensions
-            if logo_image.width >= min_width and logo_image.height >= min_height:
-                # Assign the Base64 representation only if the image meets the size requirements
-                logo_image_base64 = current_logo_image_base64
-
-            # Save Base64 to JSON
-            json_data = {
-                "deviceElements": logo_image_base64
-            }
-
-            json_path = os.path.join(output_dir_image_logo, f"image{target_page + 1}_{image_index}.json")
-            with open(json_path, "w") as json_file:
-                json.dump(json_data, json_file)
-        else:
-            print(f"[-] Skipping image {image_index} on page {target_page} due to its small size.")
-
-    return logo_image_base64
-
 
 # # # Start of the main script
 pattern = re.compile(r"\(111\)[\s\S]*?(?=\(111\)|$)")  #MONGOLIA
 
-pdf_file_path = "MN20230630-06.pdf"  # Replace with your actual PDF file path
+pdf_file_path = "Mongolia No. 08 date 08-31-2023 W492.pdf"  # Replace with your actual PDF file path
 pdf_document = fitz.open(pdf_file_path)
 
 # TO STORE IMAGE LOGOS
@@ -273,9 +201,6 @@ for match in matches:
         while extracted_text[segment_end] not in [" ", "\n", "\t"] and segment_end > segment_start:
             segment_end -= 1
 
-        
-        # print(logo_data)
-
         # Extract the segment of the match that lies within this page
         segment = extracted_text[segment_start:segment_end]
 
@@ -314,19 +239,7 @@ for match in matches:
 
     # Now call the split_text_by_newline_for_application_screenshots_mongolia function to split the text by newlines
     section_data[section_key]["content_data"] = split_text_by_newline_for_application_screenshots_mongolia(section_data[section_key]["content_data"])
-    # print(section_data)
 
-    # SAVE THE LOGO BASE64 IN A VARIABLE
-    logo_image_base64 = extract_logo_images_from_pdf_mongolia(pdf_file_path, output_dir_image_logo, pn, min_width=150, min_height=10)
-    
-    # CREATING A NEW KEY TO STORE DEVICE ELEMENTS (BASE64 OF LOGOS)
-    new_key = "deviceElements"
-    new_data = logo_image_base64
-    # LOOPING THROUGH THE JSON FILE TO ADD THE NEW KEY INSIDE 'CONTENT_DATA'
-    for item in section_data[section_key]["content_data"]:
-        item[new_key] = new_data
-    
-    # print(section_data)
     section_num += 1
 
 
@@ -337,8 +250,6 @@ output_data = json.dumps(section_data, ensure_ascii=False, indent=4)
 with open(f"{pdf_file_path}_result_of_segmented_text.json", "w", encoding="utf-8") as json_file:
     json_file.write(output_data)
 
-# Close the PDF document
-# pdf_document.close()
 
 # '''
 # IGNORES HEADINGS BEING CAPTURED BUT IMAGES AFTER THE NEW HEADINGS ARE BAD,
@@ -348,8 +259,7 @@ with open(f"{pdf_file_path}_result_of_segmented_text.json", "w", encoding="utf-8
 ignore_text = "УЛСЫН БҮРТГЭЛД АВСАН БАРААНЫ ТЭМДЭГ"
 
 # EXTRACTING COORDINATES OF TEXT FROM THE PDF
-def define_coordinates_from_pdf_for_application_screenshots_mongolia(pdf_path, extracted_text_json_path, output_json_path):
-    extracted_text_dict = {}
+def define_coordinates_from_pdf_for_application_screenshots_mongolia(pdf_path, extracted_text_json_path):
     # Load the JSON file containing the previously extracted text (if it exists)
     try:
         with open(extracted_text_json_path, 'r', encoding='utf-8') as json_file:
@@ -371,13 +281,6 @@ def define_coordinates_from_pdf_for_application_screenshots_mongolia(pdf_path, e
 
         # Iterate through each page in the PDF
         for page_number, page in enumerate(pdf.pages, start=1):
-            # Initialize a dictionary to store extracted text for the current page
-            extracted_text_dict[str(page_number)] = {
-                "page_number": page_number,
-                "extracted_texts": []
-            }
-            print("[*] page number:", page_number)
-            print("----------------------")
 
             # Retrieve the current page (0-based index)
             page = pdf.pages[page_number - 1]  # Pages are 0-based index
@@ -457,14 +360,7 @@ def define_coordinates_from_pdf_for_application_screenshots_mongolia(pdf_path, e
                             i.replace("\n", '').lower() for i in end.split(" ") if i]
 
                         if end_found and match:
-                            # Add the extracted text and its coordinates to the dictionary
-                            extracted_text_dict[str(page_number)]["extracted_texts"].append({
-                                "extracted_text": content_entry['text'],
-                                "x0": min_x0,
-                                "y0": min_y0,
-                                "x1": max_x1,
-                                "y1": max_y1,
-                            })
+ 
                             # Print a message indicating that the text has been successfully extracted
                             match = False
                             print("[+] extracted the text => ",
@@ -483,18 +379,11 @@ def define_coordinates_from_pdf_for_application_screenshots_mongolia(pdf_path, e
     with open(extracted_text_json_path, 'w', encoding='utf-8') as json_file:
         json.dump(existing_data, json_file, ensure_ascii=False, indent=4, separators=(',', ': '))
 
-    # Save the defined coordinates to a new JSON file with formatting
-    with open(output_json_path, 'w', encoding='utf-8') as output_json_file:
-        json.dump(extracted_text_dict, output_json_file, ensure_ascii=False, indent=4, separators=(',', ': '))
-
 # Example usage:
 pdf_path = pdf_file_path  # Replace with the path to your PDF file, THIS VARIABLE IS IN THE STARTING OF THE SCRIPT
 extracted_text_json_path = f"{pdf_file_path}_result_of_segmented_text.json"  # This is the JSON input file
-
-'''DEFINED COORDINATES.JSON IS NOT NEEDED'''
-output_json_path = f"{pdf_file_path}_defined_coordinates.json"  # This file is created as the output
 define_coordinates_from_pdf_for_application_screenshots_mongolia(
-    pdf_path, extracted_text_json_path, output_json_path)
+    pdf_path, extracted_text_json_path)
 
 
 '''THIS PART TAKES IMAGES BASED'''
@@ -504,7 +393,8 @@ def extract_and_process_images_mongolia(json_data, pdf_file, output_folder, reso
     # DICT TO STORE THE RECTS THAT WERE SKIPPED (MAINLY ONE LINERS)
     skipped_rectangles = {}
     last_processed_page = -1
-
+    #  TO TAKE PICTURE OF ENTIRE PAGE (FOR MONGOLIA)
+    predefined_rect = fitz.Rect(54, 152, 541, 768)
     try:
         # CHECK IF AN OUTPUT FOLDER EXISTS, CREATE ONE IF IT DOES NOT EXIST
         if not os.path.exists(output_folder):
@@ -518,8 +408,13 @@ def extract_and_process_images_mongolia(json_data, pdf_file, output_folder, reso
             # LOOPING TO GET TO THE REQUIRED NEST IN THE JSON
             for page_data in data['content_data']:
                 if 'coordinates' not in page_data:
-                    print(f"Skipping an entry in {trade_mark} as it lacks 'coordinates'.")
-                    continue
+                    print(f"No coordinates for {trade_mark}, using predefined rectangle.")
+                    page_data['coordinates'] = {
+                        'x0': predefined_rect.x0,
+                        'y0': predefined_rect.y0,
+                        'x1': predefined_rect.x1,
+                        'y1': predefined_rect.y1
+                    }
                 
                 # VARIABLE TO STORE THE PAGE NUMBER ON WHICH THE TEXT IS 
                 page_number = page_data['text_on_page']
@@ -534,24 +429,22 @@ def extract_and_process_images_mongolia(json_data, pdf_file, output_folder, reso
                 # ADDING PADDING AND OTHER THINGS TO ENSURE PROPER DIMENSIONS OF THE IMAGE
                 coordinates = page_data['coordinates']
                 x0, y0, x1, y1 = coordinates['x0'], coordinates['y0'], coordinates['x1'], coordinates['y1']
-                x0, y0 = max(x0 - padding, 0), max(y0 - 30, 0)
-                x1, y1 = min(x1 + padding, pdf_document[page_number - 1].rect.width), min(y1 + padding, pdf_document[page_number - 1].rect.height)
+                # x0, y0 = max(x0 - padding, 0), max(y0 - 30, 0)
+                # x1, y1 = min(x1 + padding, pdf_document[page_number - 1].rect.width), min(y1 + padding, pdf_document[page_number - 1].rect.height)
+                x0 = coordinates['x0']- padding
+                y0 = coordinates['y0'] - 30
+                x1 = coordinates['x1'] + 40  
+                y1 = coordinates['y1'] + padding
 
+
+                # page = pdf_document[page_number - 1]
                 page = pdf_document[page_number - 1]
 
-                # Check for invalid coordinates
-                # USING PREDEIFNED COORDINATES FOR INVALID RECTS
-                if x0 < 0 or y0 < 0 or x1 <= x0 or y1 <= y0:
-                    rect = fitz.Rect(67, 60, page.rect.width - 40, 90)
-                    skipped_rectangles[page_number] = skipped_rectangles.get(page_number, 0) + 1
-                    print(f"Using predefined coordinates for skipped rectangle on page {page_number}")
-                else:
-                    rect = fitz.Rect(x0, y0, x1, y1)
-
+                rect = fitz.Rect(x0, y0, x1, y1)
                 image = page.get_pixmap(matrix=fitz.Matrix(resolution / 72.0, resolution / 72.0), clip=rect)
 
                 # Filename with page number and counter
-                image_filename_suffix = "_invalid" if x0 < 0 or y0 < 0 or x1 <= x0 or y1 <= y0 else ""
+                image_filename_suffix = "_predefined" if 'coordinates' not in page_data else ""
                 # SAVING IT AS .PNG
                 image_filename = os.path.join(output_folder, f"{os.path.basename(pdf_file)}_page_{page_number}_img_{image_counter}{image_filename_suffix}.png")
                 print(f"Saving image to {image_filename}")  # Debugging print statement
@@ -601,3 +494,78 @@ with open(file_path, 'r', encoding= 'utf-8') as file:
 pdf_file_path = pdf_file_path  # Replace with PDF file path
 output_folder_path = f'output_applications_image_{pdf_file_path}'  # Replace with output folder path
 extract_and_process_images_mongolia(json_data, pdf_file_path, output_folder_path)
+
+def extract_logos_bhutan(pdf_file_path, json_path, output_folder):
+    # Read JSON data
+    with open(json_path, 'r', encoding='utf-8') as file:
+        data = json.load(file)
+
+    # Open the PDF
+    doc = fitz.open(pdf_file_path)
+
+    # Check if the output folder exists, if not, create it
+    if not os.path.exists(output_folder):
+        os.makedirs(output_folder)
+
+    # Process each trademark entry in the JSON
+    for tradeMark, details in data.items():
+        content_data = details.get("content_data", [])
+        
+        # Process each content data entry
+        for item in content_data:
+            page_number = item.get("text_on_page", -1)
+            coordinates = item.get("coordinates", {})
+
+            # If page number and coordinates are valid, process the page
+            if page_number >= 0 and coordinates:
+                page = doc.load_page(page_number - 1)  # page numbers in PDF are 0-indexed
+
+                # Define the rectangle for image extraction
+                rect = fitz.Rect(coordinates["x0"], coordinates["y0"], coordinates["x1"], coordinates["y1"])
+
+                # Extract images that intersect with the defined rectangle
+                for img in page.get_images(full=True):
+                    xref = img[0]
+                    img_rect = page.get_image_rects(xref)
+                    
+                    # Check if the image is within the defined area
+                    for r in img_rect:
+                        if rect.intersects(r):
+                            # Extract and save the image with trademark in filename
+                            pix = fitz.Pixmap(doc, xref)
+                            image_filename = os.path.join(output_folder, f"{tradeMark}_logo_{xref}.png")
+                            base64_filename = os.path.join(output_folder,f"{tradeMark}_logo_{xref}_base64.json")
+                            if pix.n < 5:  # this is GRAY or RGB
+                                pix.save(image_filename)
+                            else:  # CMYK: convert to RGB first
+                                pix1 = fitz.Pixmap(fitz.csRGB, pix)
+                                pix1.save(image_filename)
+                                pix1 = None
+                            pix = None
+
+                            # Save the image in base64 format
+                            with open(image_filename, "rb") as image_file:
+                                base64_image = base64.b64encode(image_file.read()).decode('utf-8')
+
+                            # Update JSON data with base64 in a new key
+                            item["deviceElements"] = base64_image if base64_image else None
+
+                            with open(base64_filename, "w", encoding='utf-8') as json_file:
+                                json.dump({image_filename: base64_image}, json_file, ensure_ascii=False, indent=4)
+    doc.close()
+
+    # Write the updated JSON data back to the file
+    with open(json_path, 'w', encoding= 'utf-8') as file:
+        json.dump(data, file, indent=4, ensure_ascii=False)
+
+    return data
+
+
+# Assuming the user will provide the path to the PDF file they want to process
+json_path = f'output_{pdf_file_path}.json'   # Replace this with the actual path to the JSON file
+# Set the path to the folder where images will be saved
+output_folder_logos = f"{pdf_file_path}_logo_images"  # Replace this with the actual path to the output folder
+
+# Extract images, save them in a folder, and update JSON
+updated_data_with_images_in_folder = extract_logos_bhutan(pdf_file_path, json_path, output_folder_logos)
+updated_data_with_images_in_folder
