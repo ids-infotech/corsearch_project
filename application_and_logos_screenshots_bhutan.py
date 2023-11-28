@@ -34,6 +34,34 @@ def correct_text_segmentation_for_application_screenshots_bhutan(content_data, d
             })
     return corrected_data
 
+def remove_extra_headings_bhutan(content_data, texts_to_remove, texts_to_remove_start):
+    corrected_data = []
+    for page_text in content_data:
+        text = page_text['text']
+
+        # Repeatedly check and remove any starting strings that match, regardless of order
+        while any(text.startswith(text_to_remove_start) for text_to_remove_start in texts_to_remove_start):
+            for text_to_remove_start in texts_to_remove_start:
+                if text.startswith(text_to_remove_start):
+                    text = text[len(text_to_remove_start):].lstrip()
+
+        # Repeatedly check and remove any ending strings that match, regardless of order
+        while any(text.endswith(text_to_remove) for text_to_remove in texts_to_remove):
+            for text_to_remove in texts_to_remove:
+                if text.endswith(text_to_remove):
+                    text = text[:-len(text_to_remove)].rstrip()
+
+        # Check if the delimiter is at the end and remove it
+        if text.endswith(delimiter):
+            text = text[:-len(delimiter)].rstrip()
+
+        # Add the possibly corrected text to the corrected_data
+        corrected_data.append({
+            'text_on_page': page_text['text_on_page'],
+            'text': text,
+        })
+
+    return corrected_data
 
 def merge_duplicate_pages_for_application_screenshots_bhutan(content_data):
     # Create a dictionary to store consolidated texts
@@ -61,82 +89,12 @@ def merge_duplicate_pages_for_application_screenshots_bhutan(content_data):
 
     return merged_data
 
-def extract_logo_images_from_pdf_bhutan(pdf_file_path, output_dir_image_logo, target_page, min_width=1, min_height=1):
-    # open the file
-    pdf_file = fitz.open(pdf_file_path)
-
-    # Create the output directory if it does not exist
-    if not os.path.exists(output_dir_image_logo):
-        os.makedirs(output_dir_image_logo)
-
-    # Check if the target page is within the valid range
-    if target_page < 0 or target_page >= len(pdf_file):
-        # print(f"[!] Invalid target page {target_page}. Please provide a valid page index.")
-        pdf_file.close()
-        return
-
-    # Get the target page
-    page = pdf_file[target_page]
-
-    # Get image list
-    image_list = page.get_images(full=True)
-
-    # # Print the number of images found on this page
-    # if image_list:
-    #     print(f"[+] Found a total of {len(image_list)} images on page {target_page}")
-    # else:
-    #     print(f"[!] No images found on page {target_page}")
-
-    # Initialize logo_image_base64 with an empty list
-    logo_image_base64 = ""
-
-    # Iterate over the images on the page
-    for image_index, img in enumerate(image_list, start=1):
-        # Get the XREF of the image
-        xref = img[0]
-        # Extract the image bytes
-        base_image = pdf_file.extract_image(xref)
-        image_bytes = base_image["image"]
-        # Get the image extension
-        image_ext = base_image["ext"]
-        # Load it to PIL
-        logo_image = Image.open(io.BytesIO(image_bytes))
-        # Check if the image meets the minimum dimensions
-        if logo_image.width >= min_width and logo_image.height >= min_height:
-            # Save the image as PNG
-            png_path = os.path.join(output_dir_image_logo, f"image{target_page + 1}_{image_index}.png")
-            logo_image.save(open(png_path, "wb"), format="png".upper())
-
-            # Save the image as GIF
-            gif_path = os.path.join(output_dir_image_logo, f"image{target_page + 1}_{image_index}.gif")
-            logo_image.save(open(gif_path, "wb"), format="gif".upper())
-
-            # Convert image to Base64
-            current_logo_image_base64 = base64.b64encode(image_bytes).decode("utf-8")
-            # Check if the image meets the minimum dimensions
-            if logo_image.width >= min_width and logo_image.height >= min_height:
-                # Assign the Base64 representation only if the image meets the size requirements
-                logo_image_base64 = current_logo_image_base64
-
-            # Save Base64 to JSON
-            json_data = {
-                "deviceElements": logo_image_base64
-            }
-
-            json_path = os.path.join(output_dir_image_logo, f"image{target_page + 1}_{image_index}.json")
-            with open(json_path, "w") as json_file:
-                json.dump(json_data, json_file)
-        else:
-            print(f"[-] Skipping image {image_index} on page {target_page} due to its small size.")
-
-    return logo_image_base64
-
 
 # Define a regular expression pattern to match specific text sections
 pattern = re.compile(r"\(210\)[\s\S]*?(?=\(210\)|$)")  #BHUTAN
 
 # Path to the PDF file
-pdf_file_path = "BT20230612-108.pdf"
+pdf_file_path = "BT20231003-110.pdf"
 pdf_document = fitz.open(pdf_file_path)
 
 # TO STORE IMAGE LOGOS
@@ -237,7 +195,10 @@ for match in matches:
     # Call the correction function for the current section
     #  Removing the HEADING from the extracted text
     delimiter = 'Successfull Examination Marks'
+    texts_to_remove = ["Successfull", "Examination","Marks"]
+    texts_to_remove_start = ["Successfull", "Examination","Marks"]
     section_data[section_key]["content_data"] = correct_text_segmentation_for_application_screenshots_bhutan(section_data[section_key]["content_data"], delimiter)
+    section_data[section_key]["content_data"] = remove_extra_headings_bhutan(section_data[section_key]["content_data"], texts_to_remove, texts_to_remove_start)
     
     # Call the merge_duplicate_pages_for_application_screenshots_bhutan function to join text on the same page into one
     section_data[section_key]["content_data"] = merge_duplicate_pages_for_application_screenshots_bhutan(section_data[section_key]["content_data"])
@@ -265,15 +226,7 @@ for match in matches:
         # Update the "text" value for the current entry to contain the split lines
         entry["text"] = lines
     
-    # SAVE THE LOGO BASE64 IN A VARIABLE
-    logo_image_base64 = extract_logo_images_from_pdf_bhutan(pdf_file_path, output_dir_image_logo, pn, min_width=1, min_height=1)
-    
-    # CREATING A NEW KEY TO STORE DEVICE ELEMENTS (BASE64 OF LOGOS)
-    new_key = "deviceElements"
-    new_data = logo_image_base64
-    # LOOPING THROUGH THE JSON FILE TO ADD THE NEW KEY INSIDE 'CONTENT_DATA'
-    for item in section_data[section_key]["content_data"]:
-        item[new_key] = new_data
+
     section_num += 1
 
 # Serialize the section data to a JSON format
@@ -284,8 +237,7 @@ with open(f"{pdf_file_path}_result_of_segmented_text.json", "w", encoding="utf-8
     json_file.write(output_data)
 
 
-def define_coordinates_from_pdf_for_application_screenshots_bhutan(pdf_path, extracted_text_json_path, output_json_path):
-    extracted_text_dict = {}
+def define_coordinates_from_pdf_for_application_screenshots_bhutan(pdf_file_path, extracted_text_json_path):
     
     # Load the JSON file containing the previously extracted text (if it exists)
     try:
@@ -301,20 +253,12 @@ def define_coordinates_from_pdf_for_application_screenshots_bhutan(pdf_path, ext
         return
 
     # Extract text from the PDF and store it in extracted_text_dict
-    with pdfplumber.open(pdf_path) as pdf:
+    with pdfplumber.open(pdf_file_path) as pdf:
         # Initialize variables to store the minimum and maximum coordinates
         min_x0, min_y0, max_x1, max_y1 = float('inf'), float('inf'), -float('inf'), -float('inf')
 
         # Iterate through each page in the PDF
-        for page_number, page in enumerate(pdf.pages, start=1):
-            # Initialize a dictionary to store extracted text for the current page
-            extracted_text_dict[str(page_number)] = {
-                "page_number": page_number,
-                "extracted_texts": []
-            }
-            print("[*] page number:", page_number)
-            print("----------------------")
-            
+        for page_number, page in enumerate(pdf.pages, start=1):            
             '''GET PAGE HEIGHT'''
             # Get the height of the page
             page_height = page.height
@@ -386,13 +330,7 @@ def define_coordinates_from_pdf_for_application_screenshots_bhutan(pdf_path, ext
                         # Mark a match when the start pattern is found
                         if start_found and not match:
                             match = True
-  
-                        '''MANUALLY INCREASING THE y1 COORDINATE'''
-#                         # Check if the last line starts with "(540):" and increase 'y1' if it does
-#                         if match and content_entry["text"][-1].startswith("(540):"):
-#                             max_y1 += y1_increase
-                                            
-                            
+                              
                         # Compare text to the end pattern
                         end_found = [i.replace("\n", '').lower() for i in text.split(" ") if i] == [
                             i.replace("\n", '').lower() for i in end.split(" ") if i]
@@ -405,14 +343,6 @@ def define_coordinates_from_pdf_for_application_screenshots_bhutan(pdf_path, ext
                                 y1_increase = page_height - y1
                                 max_y1 += y1_increase
                             
-                            # Add the extracted text and its coordinates to the dictionary
-                            extracted_text_dict[str(page_number)]["extracted_texts"].append({
-                                "extracted_text": content_entry['text'],
-                                "x0": min_x0,
-                                "y0": min_y0,
-                                "x1": max_x1,
-                                "y1": max_y1,
-                            })
                             # Print a message indicating that the text has been successfully extracted
                             match = False
                             print("[+] extracted the text => ",
@@ -430,19 +360,14 @@ def define_coordinates_from_pdf_for_application_screenshots_bhutan(pdf_path, ext
 
     # Save the modified JSON file with coordinates added
     with open(extracted_text_json_path, 'w', encoding='utf-8') as json_file:
-        json.dump(existing_data, json_file, indent=4, separators=(',', ': '))
+        json.dump(existing_data, json_file, indent=4, ensure_ascii=False, separators=(',', ': '))
 
-    # Save the defined coordinates to a new JSON file with formatting
-    with open(output_json_path, 'w', encoding='utf-8') as output_json_file:
-        json.dump(extracted_text_dict, output_json_file, indent=4, separators=(',', ': '))
 
-        
 # Example usage:
-pdf_path = pdf_file_path  # Replace with the path to your PDF file, THIS VARIABLE IS IN THE STARTING OF THE SCRIPT
+pdf_file_path = pdf_file_path  # Replace with the path to your PDF file, THIS VARIABLE IS IN THE STARTING OF THE SCRIPT
 extracted_text_json_path = f"{pdf_file_path}_result_of_segmented_text.json"  # This is the JSON input file and also the new output file
-output_json_path = f"{pdf_file_path}_defined_coordinates.json"  # This file is created as the output
 define_coordinates_from_pdf_for_application_screenshots_bhutan(
-    pdf_path, extracted_text_json_path, output_json_path)
+    pdf_file_path, extracted_text_json_path)
 
 
 '''NEW FUNCTION BASED ON THE NEW STRUCTURE'''
@@ -497,7 +422,7 @@ def extract_and_process_images_bhutan(json_data, pdf_file, output_folder, resolu
                     coordinates['x0'], coordinates['y0'], coordinates['x1'], coordinates['y1'] = 67, 60, page.rect.width - 40, 90
                     rect = fitz.Rect(67, 60, page.rect.width - 40, 90)
                     skipped_rectangles[page_number] = skipped_rectangles.get(page_number, 0) + 1
-                    print(f"Using predefined coordinates for invalid rectangle on page {page_number}")
+                    print(f"Using predefined coordinates for one line sentence on page {page_number}")
                 else:
                     rect = fitz.Rect(x0, y0, x1, y1)
 
@@ -528,9 +453,6 @@ def extract_and_process_images_bhutan(json_data, pdf_file, output_folder, resolu
                 # INCREASE THE IMAGE COUNTER BY 1
                 # TO ENSURE THAT imAGES DON'T GET OVERWRITTEN
                 image_counter += 1
-        # SAVING THE INFORMATION ABOUT RECTS THAT WERE SKIPPED
-        for page, count in skipped_rectangles.items():
-            print(f"USED PRE DEFINED COORDINATES ON {count} RECTANGLES ON PAGE {page}")
 
         with open(f'output_{os.path.basename(pdf_file)}.json', 'w') as file:
             json.dump(json_data, file, indent=4)
@@ -545,10 +467,86 @@ def extract_and_process_images_bhutan(json_data, pdf_file, output_folder, resolu
 
 # Load the entire JSON file
 file_path = f'{pdf_file_path}_result_of_segmented_text.json'
-with open(file_path, 'r') as file:
+with open(file_path, 'r', encoding= 'utf-8') as file:
     json_data = json.load(file)
 
 # Example usage
 pdf_file_path = pdf_file_path  # Replace with PDF file path
 output_folder_path = f'output_applications_image_{pdf_file_path}'  # Replace with output folder path
 extract_and_process_images_bhutan(json_data, pdf_file_path, output_folder_path)
+
+
+def extract_logos_bhutan(pdf_file_path, json_path, output_folder):
+    # Read JSON data
+    with open(json_path, 'r') as file:
+        data = json.load(file)
+
+    # Open the PDF
+    doc = fitz.open(pdf_file_path)
+
+    # Check if the output folder exists, if not, create it
+    if not os.path.exists(output_folder):
+        os.makedirs(output_folder)
+
+    # Process each trademark entry in the JSON
+    for tradeMark, details in data.items():
+        content_data = details.get("content_data", [])
+        
+        # Process each content data entry
+        for item in content_data:
+            page_number = item.get("text_on_page", -1)
+            coordinates = item.get("coordinates", {})
+
+            # If page number and coordinates are valid, process the page
+            if page_number >= 0 and coordinates:
+                page = doc.load_page(page_number - 1)  # page numbers in PDF are 0-indexed
+
+                # Define the rectangle for image extraction
+                rect = fitz.Rect(coordinates["x0"], coordinates["y0"], coordinates["x1"], coordinates["y1"])
+
+                # Extract images that intersect with the defined rectangle
+                for img in page.get_images(full=True):
+                    xref = img[0]
+                    img_rect = page.get_image_rects(xref)
+                    
+                    # Check if the image is within the defined area
+                    for r in img_rect:
+                        if rect.intersects(r):
+                            # Extract and save the image with trademark in filename
+                            pix = fitz.Pixmap(doc, xref)
+                            image_filename = os.path.join(output_folder, f"{tradeMark}_logo_{xref}.png")
+                            base64_filename = os.path.join(output_folder,f"{tradeMark}_logo_{xref}_base64.json")
+                            if pix.n < 5:  # this is GRAY or RGB
+                                pix.save(image_filename)
+                            else:  # CMYK: convert to RGB first
+                                pix1 = fitz.Pixmap(fitz.csRGB, pix)
+                                pix1.save(image_filename)
+                                pix1 = None
+                            pix = None
+
+                            # Save the image in base64 format
+                            with open(image_filename, "rb") as image_file:
+                                base64_image = base64.b64encode(image_file.read()).decode('utf-8')
+
+                            # Update JSON data with base64 in a new key
+                            item["deviceElements"] = base64_image if base64_image else None
+
+                            with open(base64_filename, "w") as json_file:
+                                json.dump({image_filename: base64_image}, json_file, indent=4)
+    doc.close()
+
+    # Write the updated JSON data back to the file
+    with open(json_path, 'w', encoding= 'utf-8') as file:
+        json.dump(data, file, indent=4, ensure_ascii=False)
+
+    return data
+
+
+# Assuming the user will provide the path to the PDF file they want to process
+json_path = f'output_{pdf_file_path}.json'   # Replace this with the actual path to the JSON file
+# Set the path to the folder where images will be saved
+output_folder_logos = f"logo_images_{pdf_file_path}"  # Replace this with the actual path to the output folder
+
+# Extract images, save them in a folder, and update JSON
+updated_data_with_images_in_folder = extract_logos_bhutan(pdf_file_path, json_path, output_folder_logos)
+updated_data_with_images_in_folder
