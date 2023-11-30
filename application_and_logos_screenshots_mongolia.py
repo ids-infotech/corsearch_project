@@ -495,7 +495,7 @@ pdf_file_path = pdf_file_path  # Replace with PDF file path
 output_folder_path = f'output_applications_image_{pdf_file_path}'  # Replace with output folder path
 extract_and_process_images_mongolia(json_data, pdf_file_path, output_folder_path)
 
-def extract_logos_bhutan(pdf_file_path, json_path, output_folder):
+def extract_logos_mongolia(pdf_file_path, json_path, output_folder):
     # Read JSON data
     with open(json_path, 'r', encoding='utf-8') as file:
         data = json.load(file)
@@ -567,5 +567,5 @@ json_path = f'output_{pdf_file_path}.json'   # Replace this with the actual path
 output_folder_logos = f"{pdf_file_path}_logo_images"  # Replace this with the actual path to the output folder
 
 # Extract images, save them in a folder, and update JSON
-updated_data_with_images_in_folder = extract_logos_bhutan(pdf_file_path, json_path, output_folder_logos)
+updated_data_with_images_in_folder = extract_logos_mongolia(pdf_file_path, json_path, output_folder_logos)
 updated_data_with_images_in_folder

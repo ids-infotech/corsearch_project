@@ -549,4 +549,4 @@ output_folder_logos = f"logo_images_{pdf_file_path}"  # Replace this with the ac
 
 # Extract images, save them in a folder, and update JSON
 updated_data_with_images_in_folder = extract_logos_bhutan(pdf_file_path, json_path, output_folder_logos)
-updated_data_with_images_in_folder
+# updated_data_with_images_in_folder
