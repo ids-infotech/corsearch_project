@@ -111,11 +111,9 @@ with open(f'{pdf_file_path}_result_of_segmented_text.json', 'w', encoding='utf-8
     file.write(applications_json_str)
 
 
-
-
 # '''COORDINATES'''
 # Path to the PDF file
-def define_coordinates_from_pdf_for_application_screenshots_tunisia(pdf_file_path, extracted_text_json_path):
+def define_coordinates_from_pdf_for_application_screenshots_tt(pdf_file_path, extracted_text_json_path):
     
     # Load the JSON file containing the previously extracted text (if it exists)
     try:
@@ -236,12 +234,12 @@ def define_coordinates_from_pdf_for_application_screenshots_tunisia(pdf_file_pat
 # Example usage:
 pdf_file_path = pdf_file_path  # Replace with the path to your PDF file, THIS VARIABLE IS IN THE STARTING OF THE SCRIPT
 extracted_text_json_path = f"{pdf_file_path}_result_of_segmented_text.json"  # This is the JSON input file and also the new output file
-define_coordinates_from_pdf_for_application_screenshots_tunisia(
+define_coordinates_from_pdf_for_application_screenshots_tt(
     pdf_file_path, extracted_text_json_path)
 
 
 '''NEW FUNCTION BASED ON THE NEW STRUCTURE'''
-def extract_and_process_images_tunisia(json_data, pdf_file, output_folder, resolution=200):
+def extract_and_process_images_tt(json_data, pdf_file, output_folder, resolution=200):
     # ADDING PADDING TO THE IMAGES TAKEN
     padding = 25
     # DICT TO STORE THE RECTS THAT WERE SKIPPED (MAINLY ONE LINERS)
@@ -339,10 +337,10 @@ with open(file_path, 'r', encoding= 'utf-8') as file:
 # Example usage
 pdf_file_path = pdf_file_path  # Replace with PDF file path
 output_folder_path = f'output_applications_image_{pdf_file_path}'  # Replace with output folder path
-extract_and_process_images_tunisia(json_data, pdf_file_path, output_folder_path)
+extract_and_process_images_tt(json_data, pdf_file_path, output_folder_path)
 
 
-def extract_logos_tunisia(pdf_file_path, json_path, output_folder):
+def extract_logos_tt(pdf_file_path, json_path, output_folder):
     # Read JSON data
     with open(json_path, 'r') as file:
         data = json.load(file)
@@ -414,4 +412,4 @@ json_path = f'output_{pdf_file_path}.json'   # Replace this with the actual path
 output_folder_logos = f"logo_images_{pdf_file_path}"  # Replace this with the actual path to the output folder
 
 # Extract images, save them in a folder, and update JSON
-updated_data_with_images_in_folder = extract_logos_tunisia(pdf_file_path, json_path, output_folder_logos)
+updated_data_with_images_in_folder = extract_logos_tt(pdf_file_path, json_path, output_folder_logos)
