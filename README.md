@@ -1,6 +1,8 @@
 # corsearch_project
 Corsearch - script development creating for config &amp; pdf-extraction
 
+# ADDED FUNCTIONS THAT MODIFY THE JSON TO REMOVE UNWANTED DATA
+
 -------------------------------------------------------------------------------------------------------------------
 # application_and_logos_screenshots_bhutan and application_and_logos_screenshots_mongolia
 # THESE ARE THE LATEST VERSIONS OF THE SCRIPTS THAT TAKE SCREENSHOTS OF APPLICATIONS AND IMAGE LOGOS
