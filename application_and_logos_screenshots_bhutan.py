@@ -94,7 +94,7 @@ def merge_duplicate_pages_for_application_screenshots_bhutan(content_data):
 pattern = re.compile(r"\(210\)[\s\S]*?(?=\(210\)|$)")  #BHUTAN
 
 # Path to the PDF file
-pdf_file_path = "BT20231003-110.pdf"
+pdf_file_path = "BT20230802-109.pdf"
 pdf_document = fitz.open(pdf_file_path)
 
 # TO STORE IMAGE LOGOS
@@ -549,4 +549,72 @@ output_folder_logos = f"logo_images_{pdf_file_path}"  # Replace this with the ac
 
 # Extract images, save them in a folder, and update JSON
 updated_data_with_images_in_folder = extract_logos_bhutan(pdf_file_path, json_path, output_folder_logos)
-# updated_data_with_images_in_folder
+
+
+def update_trade_mark_keys_bhutan(input_file_path, output_file_path):
+    # Read the JSON data from the file
+    with open(input_file_path, 'r', encoding='utf-8') as file:
+        original_json = json.load(file)
+
+    updated_json = {}
+    for key, value in original_json.items():
+        # Find the "Numéro de dépôt" line in the "content" list
+        numero_de_depot = next((line for line in value["content"] if line.startswith("(210) Application Number : ")), None)
+        
+        # Extract the number/string after "(210) Application Number : "
+        if numero_de_depot:
+            new_key = numero_de_depot.split("(210) Application Number : ")[1].strip()
+            updated_json[new_key] = value
+
+    # Write the updated JSON data to a new file
+    with open(output_file_path, 'w', encoding='utf-8') as file:
+        json.dump(updated_json, file, indent=4, ensure_ascii=False)
+
+# Example usage
+input_file_path = json_path  # Replace with your input file path
+output_file_path = f"output_for_processing_{pdf_file_path}.json"  # Replace with your desired output file path
+update_trade_mark_keys_bhutan(input_file_path, output_file_path)
+
+
+def filter_json_data(input_file_path, output_file_path):
+    # Read the JSON data from the file
+    with open(input_file_path, 'r', encoding='utf-8') as file:
+        original_json = json.load(file)
+
+    # Filter the JSON data
+    filtered_json = {}
+    for key, value in original_json.items():
+        # Process every entry, assuming each is a trademark entry
+        filtered_content_data = []
+        for content in value.get("content_data", []):
+            # Start with an empty dictionary
+            filtered_content = {}
+
+            # Add 'coordinates' if it exists
+            if 'coordinates' in content and content['coordinates']:
+                filtered_content['coordinates'] = content['coordinates']
+
+            # Add 'binaryContent' if it exists
+            if 'binaryContent' in content and content['binaryContent']:
+                filtered_content['binaryContent'] = content['binaryContent']
+
+            # Add 'deviceElements' only if it's not empty
+            if 'deviceElements' in content and content['deviceElements']:
+                filtered_content['deviceElements'] = content['deviceElements']
+
+            # Append the filtered content if it's not empty
+            if filtered_content:
+                filtered_content_data.append(filtered_content)
+
+        # Add the filtered content data only if it's not empty
+        if filtered_content_data:
+            filtered_json[key] = {"content_data": filtered_content_data}
+
+    # Write the filtered JSON data to a new file
+    with open(output_file_path, 'w', encoding='utf-8') as file:
+        json.dump(filtered_json, file, indent=4, ensure_ascii=False)
+
+# Example usage
+input_file_path = output_file_path  # Replace with your input file path
+output_file_path = input_file_path # Replace with your desired output file path
+filter_json_data(input_file_path, output_file_path)
