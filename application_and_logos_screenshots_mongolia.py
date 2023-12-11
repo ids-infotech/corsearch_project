@@ -580,12 +580,12 @@ def update_trade_mark_keys_mongolia(input_file_path, output_file_path):
 
     updated_json = {}
     for key, value in original_json.items():
-        # Find the "Numéro de dépôt" line in the "content" list
-        numero_de_depot = next((line for line in value["content"] if line.startswith("(111) Улсын бүртгэлийн дугаар  : ")), None)
+        # Find the "(111) Улсын бүртгэлийн дугаар" line in the "content" list
+        application_number = next((line for line in value["content"] if line.startswith("(111) Улсын бүртгэлийн дугаар  : ")), None)
         
-        # Extract the number/string after "(210) Application Number : "
-        if numero_de_depot:
-            new_key = numero_de_depot.split("(111) Улсын бүртгэлийн дугаар  : ")[1].strip()
+        # Extract the number/string after "(111) Улсын бүртгэлийн дугаар : "
+        if application_number:
+            new_key = application_number.split("(111) Улсын бүртгэлийн дугаар  : ")[1].strip()
             updated_json[new_key] = value
 
     # Write the updated JSON data to a new file
