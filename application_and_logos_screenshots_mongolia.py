@@ -123,7 +123,7 @@ def split_text_by_newline_for_application_screenshots_mongolia(content_data):
 # # # Start of the main script
 pattern = re.compile(r"\(111\)[\s\S]*?(?=\(111\)|$)")  #MONGOLIA
 
-pdf_file_path = "Mongolia No. 08 date 08-31-2023 W492.pdf"  # Replace with your actual PDF file path
+pdf_file_path = "MN20230630-06.pdf"  # Replace with your actual PDF file path
 pdf_document = fitz.open(pdf_file_path)
 
 # TO STORE IMAGE LOGOS
@@ -448,23 +448,27 @@ def extract_and_process_images_mongolia(json_data, pdf_file, output_folder, reso
                 # SAVING IT AS .PNG
                 image_filename = os.path.join(output_folder, f"{os.path.basename(pdf_file)}_page_{page_number}_img_{image_counter}{image_filename_suffix}.png")
                 print(f"Saving image to {image_filename}")  # Debugging print statement
-                image.save(image_filename)
+                try:
+                    image.save(image_filename)
 
-                # SAVING THE IMAGE TAKEN IN .GIF FORMAT
-                gif_filename = os.path.join(output_folder, f"{os.path.basename(pdf_file)}_page_{page_number}_img_{image_counter}{image_filename_suffix}.gif")
-                image_pil = Image.open(image_filename)
-                image_pil.save(gif_filename, "GIF")
+                    # SAVING THE IMAGE TAKEN IN .GIF FORMAT
+                    gif_filename = os.path.join(output_folder, f"{os.path.basename(pdf_file)}_page_{page_number}_img_{image_counter}{image_filename_suffix}.gif")
+                    image_pil = Image.open(image_filename)
+                    image_pil.save(gif_filename, "GIF")
+                    
+                    # SAVING THE IMAGE IN BASE64 FORMAT
+                    with open(image_filename, "rb") as image_file:
+                        base64_image = base64.b64encode(image_file.read()).decode('utf-8')
+
+                    # Update JSON data with base64 for both valid and invalid coordinates
+                    page_data['binaryContent'] = base64_image
+
+                    base64_filename = os.path.join(output_folder, f"{os.path.basename(pdf_file)}_page_{page_number}_img_{image_counter}{image_filename_suffix}_base64.json")
+                    with open(base64_filename, "w") as json_file:
+                        json.dump({os.path.basename(image_filename): base64_image}, json_file, indent=4, ensure_ascii=False)
                 
-                # SAVING THE IMAGE IN BASE64 FORMAT
-                with open(image_filename, "rb") as image_file:
-                    base64_image = base64.b64encode(image_file.read()).decode('utf-8')
-
-                # Update JSON data with base64 for both valid and invalid coordinates
-                page_data['binaryContent'] = base64_image
-
-                base64_filename = os.path.join(output_folder, f"{os.path.basename(pdf_file)}_page_{page_number}_img_{image_counter}{image_filename_suffix}_base64.json")
-                with open(base64_filename, "w") as json_file:
-                    json.dump({os.path.basename(image_filename): base64_image}, json_file, indent=4, ensure_ascii=False)
+                except Exception as e:
+                    print(f"An error occurred while saving the image or converting to base64: {e}")
 
                 # INCREASE THE IMAGE COUNTER BY 1
                 # TO ENSURE THAT IMAGES DON'T GET OVERWRITTEN
@@ -568,4 +572,70 @@ output_folder_logos = f"{pdf_file_path}_logo_images"  # Replace this with the ac
 
 # Extract images, save them in a folder, and update JSON
 updated_data_with_images_in_folder = extract_logos_mongolia(pdf_file_path, json_path, output_folder_logos)
-updated_data_with_images_in_folder
+
+def update_trade_mark_keys_mongolia(input_file_path, output_file_path):
+    # Read the JSON data from the file
+    with open(input_file_path, 'r', encoding='utf-8') as file:
+        original_json = json.load(file)
+
+    updated_json = {}
+    for key, value in original_json.items():
+        # Find the "Numéro de dépôt" line in the "content" list
+        numero_de_depot = next((line for line in value["content"] if line.startswith("(111) Улсын бүртгэлийн дугаар  : ")), None)
+        
+        # Extract the number/string after "(210) Application Number : "
+        if numero_de_depot:
+            new_key = numero_de_depot.split("(111) Улсын бүртгэлийн дугаар  : ")[1].strip()
+            updated_json[new_key] = value
+
+    # Write the updated JSON data to a new file
+    with open(output_file_path, 'w', encoding='utf-8') as file:
+        json.dump(updated_json, file, indent=4, ensure_ascii=False)
+
+# Example usage
+input_file_path = json_path  # Replace with your input file path
+output_file_path = f"output_for_processing_{pdf_file_path}.json"  # Replace with your desired output file path
+update_trade_mark_keys_mongolia(input_file_path, output_file_path)
+
+def filter_json_data(input_file_path, output_file_path):
+    # Read the JSON data from the file
+    with open(input_file_path, 'r', encoding='utf-8') as file:
+        original_json = json.load(file)
+
+    # Filter the JSON data
+    filtered_json = {}
+    for key, value in original_json.items():
+        # Process every entry, assuming each is a trademark entry
+        filtered_content_data = []
+        for content in value.get("content_data", []):
+            # Start with an empty dictionary
+            filtered_content = {}
+
+            # Add 'coordinates' if it exists
+            if 'coordinates' in content and content['coordinates']:
+                filtered_content['coordinates'] = content['coordinates']
+
+            # Add 'binaryContent' if it exists
+            if 'binaryContent' in content and content['binaryContent']:
+                filtered_content['binaryContent'] = content['binaryContent']
+
+            # Add 'deviceElements' only if it's not empty
+            if 'deviceElements' in content and content['deviceElements']:
+                filtered_content['deviceElements'] = content['deviceElements']
+
+            # Append the filtered content if it's not empty
+            if filtered_content:
+                filtered_content_data.append(filtered_content)
+
+        # Add the filtered content data only if it's not empty
+        if filtered_content_data:
+            filtered_json[key] = {"content_data": filtered_content_data}
+
+    # Write the filtered JSON data to a new file
+    with open(output_file_path, 'w', encoding='utf-8') as file:
+        json.dump(filtered_json, file, indent=4, ensure_ascii=False)
+
+# Example usage
+input_file_path = output_file_path  # Replace with your input file path
+output_file_path = input_file_path # Replace with your desired output file path
+filter_json_data(input_file_path, output_file_path)
