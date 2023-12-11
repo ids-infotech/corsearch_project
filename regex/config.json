@@ -1,0 +1,30 @@
+{
+    "applicableFor": {
+        "jurisdictionCode": "MG",
+        "sections": [
+            {
+                "title": "Registrations",
+                "trademarks": {
+                    "registrationNumber": "\\(111\\)\\s*(\\d+)",
+                    "applicationDate": "\\(220\\)\\s*([\\d/]+)",
+                    "expiryDate": "\\(180\\)\\s*([\\d/]+)",
+                    "owners": [
+                        {
+                            "name": "\\(732\\)\\s*([^\n]+)",
+                            "address": "\\(732\\)\\s*([^\n]+)\\n([^\n]+)",
+                            "country": "\\(732\\)\\s*([^\n]+)$"
+                        }
+                    ]
+                }
+            },
+            {
+                "title": "Madrid",
+                "trademarks": {
+                    "registrationNumber": "",
+                    "applicationDate": "",
+                    "expiryDate": ""
+                }
+            }
+        ]
+    }
+}

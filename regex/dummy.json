@@ -1,0 +1,103 @@
+{
+    "applicableFor": {
+        "jurisdictionCode": "MG",
+        "range": {
+            "start": "2019-01-01",
+            "end": "2021-12-31"
+        },
+        "sections": [
+            {
+                "title": "Registrations",
+                "trademarks": {
+                    "registrationNumber": "\\b(\\w+/\\w+/\\d+/\\d+)\\b",
+                    "applicationDate": "\\b(\\d{2}/\\d{2}/\\d{4})\\b",
+                    "expiryDate":"\\b(\\d{2}/\\d{2}/\\d{4})\\b",
+                    "owners": {
+                        "name": "\\b([\\w &]+)\\b",
+                        "address": "\\b(.+)\\b",
+                        "country": "\\b(.*)\\b"
+                    },
+                    "representatives": {
+                        "name": "\\b(.*)\\b",
+                        "address": "\\b(.*)\\b",
+                        "country": "\\b(.*)\\b"
+                    },
+                    "verbalElements": "\\b(.*)\\b",
+                    "deviceElements":"\\b(.*)\\b",
+                    "classifications": {
+                        "niceClass": "\\b(.*)\\b",
+                        "goodServiceDescription": "\\b(.+)\\b"
+                    }
+                 
+                }
+            },
+            {
+                "title": "Madrid",
+                "trademarks": {
+                    "registrationNumber": "\\b(\\w+/\\w+/\\d+/\\d+)\\b",
+                    "applicationDate": "\\b(\\d{2}/\\d{2}/\\d{4})\\b",
+                    "expiryDate": "",
+                    "owners": {
+                        "name": "\\b([\\w &]+)\\b",
+                        "address": "\\b(.+)\\b",
+                        "country": "\\b(.*)\\b"
+                    },
+                    "representatives": {
+                        "name": "\\b(.*)\\b",
+                        "address": "\\b(.*)\\b",
+                        "country": "\\b(.*)\\b"
+                    },
+                    "verbalElements": "\\b(.*)\\b",
+                    "deviceElements":"\\b(.*)\\b",
+                    "classifications": {
+                        "niceClass": "\\b(.*)\\b",
+                        "goodServiceDescription": "\\b(.+)\\b"
+                    }
+                }
+            }
+        ]
+    }
+}
+
+{
+    "Registrations": [
+        'registrationNumber',
+        'applicationDate',
+        'expiryDate',
+        'owners.owner.name',
+        'owners.owner.address',
+        'owners.owner.country',
+        'representatives.representative.name',
+        'representatives.representative.address',
+        'representatives.representative.country',
+        'verbalElements',
+        'deviveMarks',
+        'classifications.niceClass',
+        'classifications.goodServiceDescription',
+        'Colour',
+        'priorities.priority.number',
+        'priorities.priority.date',
+        'priorities.priority.country',
+        'Disclaimer'
+    ],
+    "Madrid": [
+       'registrationNumber',
+        'applicationDate',
+        'expiryDate',
+        'owners.owner.name',
+        'owners.owner.address',
+        'owners.owner.country',
+        'representatives.representative.name',
+        'representatives.representative.address',
+        'representatives.representative.country',
+        'verbalElements',
+        'deviveMarks',
+        'classifications.niceClass',
+        'classifications.goodServiceDescription',
+        'Colour',
+        'priorities.priority.number',
+        'priorities.priority.date',
+        'priorities.priority.country',
+        'Disclaimer'
+    ]
+}

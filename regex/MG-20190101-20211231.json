@@ -1,0 +1,27 @@
+{
+    "applicableFor": {
+        "jurisdictionCode": "MG",
+        "range": {
+            "start": "2019-01-01",
+            "end": "2021-12-31"
+        },
+        "sections": [
+            {
+                "title": "Registrations",
+                "trademarks": {
+                    "registrationNumber": "",
+                    "applicationDate": "",
+                    "expiryDate":""
+                }
+            },
+            {
+                "title": "Madrid",
+                "trademarks": {
+                    "registrationNumber": "",
+                    "applicationDate": "",
+                    "expiryDate":""
+                }
+            }
+        ]
+    }
+}
