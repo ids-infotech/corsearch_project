@@ -379,5 +379,11 @@ def find_and_fix_data(pdf_file):
         json.dump(output_data, output_file, ensure_ascii=False, indent=4)
 
 
+def is_header_line_tunisia(line):
+    # Add conditions to identify header lines
+    header_keywords = ["Muwassafat  N° 424"]
+    return any(keyword in line for keyword in header_keywords)
+
+
 
 

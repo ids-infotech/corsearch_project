@@ -195,6 +195,8 @@ def read_pdf_files(pdf_folder,config_file):
             country_extraction_functions = {
                 'BT': bhutan_pdf_extraction,
                 'MN': mongolia_pdf_extraction,
+                'TN': tunisia_pdf_extraction,
+                'DZ': algeria_pdf_extraction,
                 # 'COUNTRY3': country3_pdf_extraction,
                 # Add more countries as needed
             }

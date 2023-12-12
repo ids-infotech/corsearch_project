@@ -3,7 +3,7 @@ import re
 import json
 from image_processing import *
 from code_cleaning import *
-from structure_heading import process_bulk_trademarks
+from structure_mongolia import process_bulk_trademarks
 import os 
 
 resolution = 200
@@ -326,143 +326,184 @@ def mongolia_pdf_extraction(pdf_file_path):
         json.dump(processed_trademarks, output_file, ensure_ascii=False, indent=4)
 
 
+def tunisia_pdf_extraction(pdf_file_path):
+    def fix_structure_tunisia(data):
+        for section, section_data in data.items():
+            i = 0
+            while i < len(section_data) - 1:  # Adjusted the loop condition
+                if section_data[i].startswith('Numéro de dépôt:'):
+                    key = section_data[i]
+                    if i + 1 < len(section_data):
+                        value = section_data[i + 1]
+                        # Check if the value already has a colon
+                        if not value.startswith(":"):
+                            section_data[i] = f"{key} : {value}"
+                        else:
+                            section_data[i] = f"{key} {value}"
+                        del section_data[i + 1]
+                i += 1
+
+    # exclude_numbers = [str(i) for i in range(1, 1501)]
+    exclude_words = []
+
+    doc = fitz.open(pdf_file_path)
+    found_data = {}
+    in_section = False
+    current_section = []
+    section_counter = 1
+
+    for page in range(len(doc)):
+        text = doc[page].get_text()
+
+        lines = text.split("\n")
+
+        for line_index, line in enumerate(lines):
+            # Exclude header lines
+            if is_header_line_tunisia(line):
+                continue
+
+            # Exclude lines with only one character
+            if len(line.strip()) == 1:
+                continue
+
+            # Exclude lines with some digits followed by a hyphen
+            if any(char.isdigit() for char in line) and line.strip().endswith('-'):
+                continue
+
+            # Exclude specific words from the line before processing
+            words = line.split()
+            filtered_words = [word for word in words if word not in exclude_words]
+            updated_line = ' '.join(filtered_words)
+
+            if "Numéro de dépôt :" in line:
+                if in_section:
+                    #found_data[f"{section_counter}"] = {"content": current_section}
+                    found_data[f"tradeMark {section_counter}"] = current_section
+                    current_section = []
+                    section_counter += 1
+
+                in_section = True
+
+            if in_section and updated_line.strip():  # Check for non-empty lines
+                current_section.append(updated_line)
+
+    if in_section:
+        found_data[f"tradeMark {section_counter}"] = current_section
+        #found_data[f"{section_counter}"] = {"content": current_section}
+
+    doc.close()
+
+    # Fix the data structure
+    fix_structure_tunisia(found_data)
+
+    # Generate the JSON file name based on the input PDF file
+    pdf_file_name = os.path.splitext(os.path.basename(pdf_file_path))[0]
+    output_json = f"{pdf_file_path}_result_latest_version.json"
+
+    # Save the modified data into a JSON file section-wise
+    output_data = {}
+    for section, section_data in found_data.items():
+        output_data[section] = section_data
+
+    with open(json_file_name, 'w', encoding='utf-8') as output_file:
+        json.dump(output_data, output_file, ensure_ascii=False, indent=4)
+
+    data_extracted = output_json
+    data_json_folder = r'D:\corsearch_project\data_json_folder'          # output json folder path
+
+    if not os.path.exists(data_json_folder):
+        os.makedirs(data_json_folder)
+
+    pdf_filename = os.path.splitext(os.path.basename(pdf_file_path))[0]
+    output_json_path = os.path.join(data_json_folder, f"{pdf_filename}.json")    
+    
+
+    # process_tunisia_pdf(pdf_file_path, data_extracted, output_json_path)
+
+    json_file_path = 'pdf.json'
+
+# Process the bulk trademarks
+    processed_trademarks = process_bulk_trademarks(json_file_path, pdf_file_path)
+
+    # Specify the path to the output JSON file
+    output_json_folder = r'D:\corsearch_project\output_json_folder'
+    if not os.path.exists(data_json_folder):
+        os.makedirs(data_json_folder)
+
+    final_output_json_path = os.path.join(output_json_folder, f"{pdf_filename}.json")    
+
+    # output_json_file_path = 'structure_heading.json'
+
+    # Save the modified JSON data into a single file with UTF-8 encoding
+    with open(final_output_json_path, 'w', encoding='utf-8') as output_file:
+        json.dump(processed_trademarks, output_file, ensure_ascii=False, indent=4)
 
 
+def algeria_pdf_extraction(pdf_file):
+    def fix_structure_algeria(data):
+        for section, section_data in data.items():
+            i = 0
+        while i < len(section_data):
+            if section_data[i].startswith('(') and not section_data[i].startswith('(170)'):
+                key = section_data[i]
+                if i + 1 < len(section_data):
+                    value = section_data[i + 1]
+                    # Check if the value already has a colon
+                    if not value.startswith(""):
+                        section_data[i] = f"{key}\n{value}"
+                    else:
+                        # If value starts with a digit, move it to the next line
+                        if value[0].isdigit():
+                            section_data[i] = key
+                            section_data.insert(i + 1, value)
+                        else:
+                            section_data[i] = f"{key} {value}"
+                        del section_data[i + 2]
+            i += 1
 
+    exclude_words = ["_____________________________________________","____________________________________________",]
 
+    doc = fitz.open(pdf_file)
+    found_data = {}
+    in_section = False
+    current_section = []
+    section_counter = 1
 
+    for page in range(len(doc)):
+        text = doc[page].get_text()
 
+        lines = text.split("\n")
 
+        for line in lines:
+            # Exclude specific words from the line before processing
+            words = line.split()
+            filtered_words = [word for word in words if word not in exclude_words]
+            updated_line = ' '.join(filtered_words)
 
+            if "(111)" in line:
+                if in_section:
+                    found_data[f"tradeMark {section_counter}"] = current_section
+                    current_section = []
+                    section_counter += 1
 
+                in_section = True
 
+            if in_section and updated_line.strip():  # Check for non-empty lines
+                current_section.append(updated_line)
 
+    if in_section:
+        found_data[f"tradeMark {section_counter}"] = current_section
 
+    doc.close()
 
+    # Fix the data structure
+    fix_structure_algeria(found_data)
 
+    # Save the modified data into a JSON file section-wise
+    output_data = {}
+    for section, section_data in found_data.items():
+        output_data[section] = section_data
 
+    with open('output.json', 'w', encoding='utf-8') as output_file:
+        json.dump(output_data, output_file, ensure_ascii=False, indent=4)
 
-
-
-
-
-
-
-
-
-
-
-# import os
-# import json
-# import fitz  # PyMuPDF
-# import re
-# from image_processing import *
-
-# def process_page(page):
-#     """Extract text and page number from a page."""
-#     page_text = page.get_text("text")
-#     return page_text, page.number
-
-# def correct_text_segmentation(content_data, delimiter):
-#     """Correct text segmentation issues."""
-#     corrected_data = []
-#     for page_text in content_data:
-#         split_texts = page_text['text'].split(delimiter)
-#         corrected_data.append({'text_on_page': page_text['text_on_page'], 'text': split_texts[0]})
-#         if len(split_texts) > 1:
-#             corrected_data.append({'text_on_page': page_text['text_on_page'] + 1, 'text': split_texts[1]})
-#     return corrected_data
-
-# def merge_duplicate_pages(content_data):
-#     """Merge texts from duplicate pages."""
-#     consolidated_data = {}
-#     for entry in content_data:
-#         page_num = entry["text_on_page"]
-#         text = entry["text"].strip()
-#         if not text:
-#             continue
-#         consolidated_data[page_num] = consolidated_data.get(page_num, '') + " " + text
-#     merged_data = [{"text_on_page": k, "text": v.strip()} for k, v in consolidated_data.items()]
-#     merged_data.sort(key=lambda x: x["text_on_page"])
-#     return merged_data
-
-# def extract_data_from_pdf(pdf_file_path):
-#     """Main function to extract data from PDF and save it as JSON."""
-#     # Regular expression pattern for matching specific text sections
-#     pattern = re.compile(r"\(210\)[\s\S]*?(?=\(210\)|$)")
-
-#     # Open the PDF file
-#     pdf_document = fitz.open(pdf_file_path)
-#     text_pages = {}
-
-#     # Process each page
-#     for page in pdf_document:
-#         text, pn = process_page(page)
-#         text_pages[pn] = text
-
-#     # Concatenate text from all pages
-#     extracted_text = " ".join(text_pages.values())
-#     matches = pattern.findall(extracted_text)
-
-#     # Extract and structure section data
-#     section_data = {}
-#     section_num = 1
-
-#     for match in matches:
-#         if "(511) \u2013 NICE classification for goods and services" in match:
-#             continue
-
-#         section_data[section_num] = {'page_number': [], 'content': [], 'content_data': []}
-#         start_index = extracted_text.find(match)
-#         page_nums = []
-#         current_pos = 0
-#         for pn, txt in text_pages.items():
-#             current_pos += len(txt)
-#             if start_index < current_pos:
-#                 page_nums.append(pn)
-#                 if current_pos > start_index + len(match):
-#                     break
-
-#         section_data[section_num]['page_number'] = [pn + 1 for pn in page_nums]
-
-#         content_lines = [line for line in match.split("\n") if line.strip()]
-#         section_data[section_num]["content"].extend(content_lines)
-
-#         segment_start = start_index
-#         current_content_data = []
-
-#         for pn in page_nums:
-#             segment_end = min(segment_start + len(text_pages[pn]), start_index + len(match))
-#             while extracted_text[segment_end] not in [" ", "\n", "\t"] and segment_end > segment_start:
-#                 segment_end -= 1
-
-#             segment = extracted_text[segment_start:segment_end]
-#             if segment.strip():
-#                 current_content_data.append({"text_on_page": pn + 1, "text": segment.strip()})
-#             segment_start = segment_end
-
-#         section_data[section_num]["content_data"].extend(current_content_data)
-
-#         delimiter = 'Successfull Examination Marks'
-#         section_data[section_num]["content_data"] = correct_text_segmentation(section_data[section_num]["content_data"], delimiter)
-#         section_data[section_num]["content_data"] = merge_duplicate_pages(section_data[section_num]["content_data"])
-
-#         for entry in section_data[section_num]["content_data"]:
-#             text = entry["text"]
-#             lines = [line for line in text.split('\n') if line.strip()]
-#             entry["text"] = lines
-
-#         section_num += 1
-
-#     pdf_document.close()
-
-#     output_json_path = f"{pdf_file_path.split('.')[0]}output_today.json"
-#     with open(output_json_path, "w", encoding="utf-8") as json_file:
-#         json.dump(section_data, json_file, ensure_ascii=False, indent=4)
-
-#     return output_json_path
-
-# # Example usage
-# pdf_file_path = "BT20211006-98.pdf"
-# result_json = extract_data_from_pdf(pdf_file_path)
-# print(f"Data extracted and saved to {result_json}")
