@@ -1,0 +1,43 @@
+{
+    "applicableFor": {
+        "jurisdictionCode": "LC",
+        "range": {
+            "start": "2015",
+            "end": "2023"
+        },
+       
+
+        "sections": [
+            {
+                "title": "Applications",
+                "trademarks": {
+                    "applicationNumber": "File No \\(210\\): TM/(\\d{4}/\\s*\\d{6})",
+                    "applicationDate": "Filing date \\(220\\): (\\d{2}/\\d{2}/\\d{4})[\\s\\S]",
+                    "owners": {
+                        "name": "Applicant \\(730\\): (.+?)(?:\\r?\\n|$)",
+                        "address": "of (.+?),(.+?)(?:\\r?\\n|$)",
+                        "country": "(.+?)"
+                    },
+                    "representatives": {
+                        "name": "Agent \\(740\\): (.+)",
+                        "address": "",
+                        "country": ""
+                    },
+                    "verbalElements": "Mark Name: (.+)",
+                    "deviceElements": "",
+                    "classifications": {
+                        "niceClass": "Class \\(511\\): (.+)",
+                        "goodServiceDescription": ""
+                    },
+                    "colors": "",
+                    "priorities": {
+                        "number": "",
+                        "date": "",
+                        "country": ""
+                    },
+                    "disclaimer": ""
+                }
+            }
+        ]
+    }
+}
