@@ -42,7 +42,28 @@ def correct_text_segmentation_for_application_screenshots_mongolia(content_data,
 
     return corrected_data
 
+def correct_text_in_entire_text(content_data, strings_to_remove):
+    corrected_data = []
 
+    for page_text in content_data:
+        text = page_text['text']
+
+        # Check and remove any specified strings in the entire text
+        for string_to_remove in strings_to_remove:
+            text = text.replace(string_to_remove, '')
+
+        # Check if the delimiter is at the end and remove it
+        delimiter = 'your_delimiter'  # Replace 'your_delimiter' with the actual delimiter you are using
+        if text.endswith(delimiter):
+            text = text[:-len(delimiter)].rstrip()
+
+        # Add the possibly corrected text to the corrected_data
+        corrected_data.append({
+            'text_on_page': page_text['text_on_page'],
+            'text': text,
+        })
+
+    return corrected_data
 
 def merge_duplicate_pages_for_application_screenshots_mongolia(content_data):
     # Create a dictionary to store consolidated texts
@@ -123,7 +144,7 @@ def split_text_by_newline_for_application_screenshots_mongolia(content_data):
 # # # Start of the main script
 pattern = re.compile(r"\(111\)[\s\S]*?(?=\(111\)|$)")  #MONGOLIA
 
-pdf_file_path = "MN20230630-06.pdf"  # Replace with your actual PDF file path
+pdf_file_path = "MN20230731-07.pdf"  # Replace with your actual PDF file path
 pdf_document = fitz.open(pdf_file_path)
 
 # TO STORE IMAGE LOGOS
@@ -225,8 +246,11 @@ for match in matches:
     #  Removing the HEADING from the extracted text
     delimiter = "\n  \n \nМонгол Улсын Оюуны Өмчийн Газар \n \nУЛСЫН БҮРТГЭЛД АВСАН БАРААНЫ ТЭМДЭГ"
     texts_to_remove = ["REGISTERED", "REGISTERED TRADEMARK","УЛСЫН БҮРТГЭЛД АВСАН БАРААНЫ" ,"УЛСЫН БҮРТГЭЛД АВСАН" ,"УЛСЫН" ,"УЛСЫН БҮРТГЭЛД", "УЛСЫН БҮРТГЭЛД АВСАН БАРААНЫ ТЭМДЭГ", "Intellectual Property Office of Mongolia", "Монгол Улсын Оюуны Өмчийн Газар"]
-    texts_to_remove_start = ["БҮРТГЭЛД АВСАН БАРААНЫ ТЭМДЭГ", "АВСАН БАРААНЫ ТЭМДЭГ", "ТЭМДЭГ","УЛСЫН БҮРТГЭЛД АВСАН БАРААНЫ ТЭМДЭГ","БАРААНЫ ТЭМДЭГ", "REGISTERED TRADEMARK", "TRADEMARK", "REGISTERED"]
+    texts_to_remove_start = ["Монгол Улсын","УЛСЫН БҮРТГЭЛД АВСАН БАРААНЫ ТЭМДЭГ","Оюуны Өмчийн Газар","УЛСЫН БҮРТГЭЛД АВСАН БАРААНЫ ТЭМДЭГ","Өмчийн Газар","УЛСЫН БҮРТГЭЛД АВСАН БАРААНЫ ТЭМДЭГ","Газар","УЛСЫН БҮРТГЭЛД АВСАН БАРААНЫ ТЭМДЭГ","Улсын Оюуны Өмчийн Газар","УЛСЫН БҮРТГЭЛД АВСАН БАРААНЫ ТЭМДЭГ",",Өмчийн Газар","Монгол Улсын Оюуны Өмчийн Газар","УЛСЫН БҮРТГЭЛД АВСАН БАРААНЫ ТЭМДЭГ","БҮРТГЭЛД АВСАН БАРААНЫ ТЭМДЭГ", "АВСАН БАРААНЫ ТЭМДЭГ", "ТЭМДЭГ","УЛСЫН БҮРТГЭЛД АВСАН БАРААНЫ ТЭМДЭГ","БАРААНЫ ТЭМДЭГ", "REGISTERED TRADEMARK", "TRADEMARK", "REGISTERED"]
+    strings_to_remove = texts_to_remove_start
+
     section_data[section_key]["content_data"] = correct_text_segmentation_for_application_screenshots_mongolia(section_data[section_key]["content_data"], delimiter, texts_to_remove, texts_to_remove_start)
+    section_data[section_key]["content_data"] = correct_text_in_entire_text(section_data[section_key]["content_data"], strings_to_remove)
 
     # Call the merge_duplicate_pages_for_application_screenshots_mongolia function to join text on the same page into one
     section_data[section_key]["content_data"] = merge_duplicate_pages_for_application_screenshots_mongolia(section_data[section_key]["content_data"])
@@ -251,10 +275,10 @@ with open(f"{pdf_file_path}_result_of_segmented_text.json", "w", encoding="utf-8
     json_file.write(output_data)
 
 
-# '''
-# IGNORES HEADINGS BEING CAPTURED BUT IMAGES AFTER THE NEW HEADINGS ARE BAD,
-# WITHOUT THIS WE ARE GETTING IMAGES BUT ALSO GETTING MORE IMAGES
-# '''
+'''
+IGNORES HEADINGS BEING CAPTURED BUT IMAGES AFTER THE NEW HEADINGS ARE BAD,
+WITHOUT THIS WE ARE GETTING IMAGES BUT ALSO GETTING MORE IMAGES
+'''
 
 ignore_text = "УЛСЫН БҮРТГЭЛД АВСАН БАРААНЫ ТЭМДЭГ"
 
@@ -394,7 +418,7 @@ def extract_and_process_images_mongolia(json_data, pdf_file, output_folder, reso
     skipped_rectangles = {}
     last_processed_page = -1
     #  TO TAKE PICTURE OF ENTIRE PAGE (FOR MONGOLIA)
-    predefined_rect = fitz.Rect(54, 152, 541, 768)
+    predefined_rect = fitz.Rect(54, 102, 541, 768)
     try:
         # CHECK IF AN OUTPUT FOLDER EXISTS, CREATE ONE IF IT DOES NOT EXIST
         if not os.path.exists(output_folder):
@@ -415,7 +439,13 @@ def extract_and_process_images_mongolia(json_data, pdf_file, output_folder, reso
                         'x1': predefined_rect.x1,
                         'y1': predefined_rect.y1
                     }
-                
+         
+        # The coordinates are in the format (x0, y0, x1, y1) - top left and bottom right corners.
+        # x0 is the horizontal coordinate (from the left) of the top-left corner. [LEFT VERTICLE LINE goes LEFT(lower number) or RIGHT (higher number)]
+        # y0 is the vertical coordinate (from the top) of the top-left corner. [TOP HORIZONTAL LINE goes UP (lower number) and DOWN(higher number) ]
+        # x1 is the horizontal coordinate (from the left) of the bottom-right corner. [RIGHT VERTICLE LINE goes LEFT (lower number) or RIGHT (higher number)]
+        # y1 is the vertical coordinate (from the top) of the bottom-right corner. [BOTTOM HORIZONTAL LINE goes UP(lower number) or DOWN(higher number)]
+       
                 # VARIABLE TO STORE THE PAGE NUMBER ON WHICH THE TEXT IS 
                 page_number = page_data['text_on_page']
 
@@ -429,9 +459,8 @@ def extract_and_process_images_mongolia(json_data, pdf_file, output_folder, reso
                 # ADDING PADDING AND OTHER THINGS TO ENSURE PROPER DIMENSIONS OF THE IMAGE
                 coordinates = page_data['coordinates']
                 x0, y0, x1, y1 = coordinates['x0'], coordinates['y0'], coordinates['x1'], coordinates['y1']
-                # x0, y0 = max(x0 - padding, 0), max(y0 - 30, 0)
-                # x1, y1 = min(x1 + padding, pdf_document[page_number - 1].rect.width), min(y1 + padding, pdf_document[page_number - 1].rect.height)
-                x0 = coordinates['x0']- padding
+      
+                x0 = coordinates['x0'] - padding
                 y0 = coordinates['y0'] - 30
                 x1 = coordinates['x1'] + 40  
                 y1 = coordinates['y1'] + padding
