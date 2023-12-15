@@ -1,4 +1,3 @@
-'''GOOOD DONT DELETE'''
 import pdfplumber
 import json
 import fitz  # PyMuPDF
@@ -13,109 +12,109 @@ import io
 def is_uppercase(s):
     return s == s.upper()
 
-# # PATH TO THE PDF
-# # KEEP THE PDF IN THE SAME FOLDER AS THE SCRIPT
-pdf_file_path = 'TT20231025-41.pdf'  # Replace with your PDF path
-
-# Regular expression pattern to match aspplications
-pattern = re.compile(r"(\b\d{5,}\b\s+Class[\s\S]*?)(?=\b\d{5,}\b\s+Class|$)")
-
-# Define a delimiter that identifies the heading or footer in the PDF
-# This is used to split the text at this delimiter for each page
-delimiter = 'Trade Marks Journal, Publication Date: October 25th 2023'
-
-# Create a dictionary to store section data and initialize section number
-section_data = {}
-section_prefix = "tradeMark"
-section_num = 1 # Start with section number 1
-
-# Initialize a string to hold the concatenated text of all pages
-full_text = ""
-# Initialize a list to track the positions where each new page's text starts in 'full_text'
-page_break_positions = []
-
-# Open the PDF using pdfplumber
-with pdfplumber.open(pdf_file_path) as pdf:
-    for page_num, page in enumerate(pdf.pages):
-        # Extract text from the current page
-        page_text = page.extract_text() or ""
-        # Record the position where this page's text will start in 'full_text'
-        page_break_positions.append(len(full_text))
-        #  Concatenate this page's text to 'full_text', separated by a newline
-        full_text += page_text + "\n"  # Add a newline character to separate pages
-
-# Define a function to find the page number given a position in 'full_text'
-def find_page_number(position):
-    # Determine which page this position falls into based on 'page_break_positions'
-    return next((i for i, break_pos in enumerate(page_break_positions) if position < break_pos), len(page_break_positions))
-
-# Iterate over all matches of the pattern in 'full_text'
-for match in pattern.finditer(full_text):
-    # Extract the matched text (an application)
-    application_text = match.group(1)
-    # Get the start and end positions of the match in 'full_text'
-    start_pos, end_pos = match.span(1)
-    # Determine the start and end page numbers for this application
-    start_page = find_page_number(start_pos)
-    # Determine the end page number
-    end_page = find_page_number(end_pos)
-
-    # To add the entire text in 'content'
-    content_lines = application_text.strip().split("\n")
-
-    # Split the application text using the delimiter
-    split_texts = application_text.split(delimiter)
-    # Strip whitespace from each part and filter out empty strings
-    split_texts = [text.strip() for text in split_texts if text.strip()]
-
-    # Construct a unique key for this section
-    section_key = f"{section_prefix} {section_num}"
+''' EXTRACTING, CLEANING, SEGMENTATION AND SAVING OF TEXT '''
+def extract_and_segment_applications(pdf_file_path):
+    # Regular expression pattern to match applications
+    pattern = re.compile(r"(\b\d{5,}\b\s+Class[\s\S]*?)(?=\b\d{5,}\b\s+Class|$)")
     
-    # Store the page numbers, original content, and segmented content in 'section_data'
-    section_data[section_key] = {
-        "page_number": list(range(start_page, end_page)),
-        "content": content_lines,
-        "content_data": [{"text_on_page": page, "text": text.split('\n')} for page, text in zip(range(start_page, end_page + 1), split_texts)]
-    }
+    '''THE DELIMITER WILL BE DIFFERENT BASED ON THE PDF FILE'''
+    # Define a delimiter that identifies the heading or footer in the PDF
+    delimiter = 'Trade Marks Journal, Publication Date: November 15th 2023'
 
-    # Filter the entries in 'content_data'
-    filtered_content_data = []
+    # Create a dictionary to store section data and initialize section number
+    section_data = {}
+    section_prefix = "tradeMark"
+    section_num = 1  # Start with section number 1
 
-    # LOOPING THROUGHT THE JSON STRUCTURE TO REACH CONTENT DATA
-    for entry in section_data[section_key]["content_data"]:
-        # Check if the first line of the entry starts with the specified string
-        if entry['text'][0].startswith("Protocol Relating to the Madrid Agreement Concerning"):
-            continue  # Skip the entire entry
-        # LOOP THROUGHT THE LINES IN THE KEY 'TEXT'
-        # IF THE LINE STARTS WITH A CERTAIN CONDITION THEN REMOVE THAT ENTIRE ENTRY
-        filtered_text = [line for line in entry['text']
-                        if not (line.startswith("THE APPLICANT CLAIMS ") or 
-                                line.startswith("CFE ") 
-                                or is_uppercase(line) 
-                                or len(line.split()) == 1)
-                                ]
-        
-        if filtered_text:  # Only add entry if there's any text left after filtering
-            filtered_content_data.append({'text_on_page': entry['text_on_page'], 'text': filtered_text})
+    # Initialize a string to hold the concatenated text of all pages
+    full_text = ""
+    # Initialize a list to track the positions where each new page's text starts in 'full_text'
+    page_break_positions = []
 
-    # Update the 'content_data' in the original data
-    section_data[section_key]["content_data"] = filtered_content_data
-    
-    section_num += 1
+    # Open the PDF using pdfplumber
+    with pdfplumber.open(pdf_file_path) as pdf:
+        for page_num, page in enumerate(pdf.pages):
+            # Extract text from the current page
+            page_text = page.extract_text() or ""
+            # Record the position where this page's text will start in 'full_text'
+            page_break_positions.append(len(full_text))
+            # Concatenate this page's text to 'full_text', separated by a newline
+            full_text += page_text + "\n"  # Add a newline character to separate pages
 
-# Convert the extracted data to JSON format
-applications_json_str = json.dumps(section_data, indent=4, ensure_ascii=False)
+    # Define a function to find the page number given a position in 'full_text'
+    def find_page_number(position):
+        # Determine which page this position falls into based on 'page_break_positions'
+        return next((i for i, break_pos in enumerate(page_break_positions) if position < break_pos),
+                    len(page_break_positions))
 
-# Write the JSON string to a file
-with open(f'{pdf_file_path}_result_of_segmented_text.json', 'w', encoding='utf-8') as file:
-    file.write(applications_json_str)
+    # Iterate over all matches of the pattern in 'full_text'
+    for match in pattern.finditer(full_text):
+        # Extract the matched text (an application)
+        application_text = match.group(1)
+        # Get the start and end positions of the match in 'full_text'
+        start_pos, end_pos = match.span(1)
+        # Determine the start and end page numbers for this application
+        start_page = find_page_number(start_pos)
+        # Determine the end page number
+        end_page = find_page_number(end_pos)
 
+        # To add the entire text in 'content'
+        content_lines = application_text.strip().split("\n")
 
+        # Split the application text using the delimiter
+        split_texts = application_text.split(delimiter)
+        # Strip whitespace from each part and filter out empty strings
+        split_texts = [text.strip() for text in split_texts if text.strip()]
 
+        # Construct a unique key for this section
+        section_key = f"{section_prefix} {section_num}"
 
-# '''COORDINATES'''
+        # Store the page numbers, original content, and segmented content in 'section_data'
+        section_data[section_key] = {
+            "page_number": list(range(start_page, end_page)),
+            "content": content_lines,
+            "content_data": [{"text_on_page": page, "text": text.split('\n')} for page, text in
+                             zip(range(start_page, end_page + 1), split_texts)]
+        }
+
+        # Filter the entries in 'content_data'
+        filtered_content_data = []
+
+        # Loop through the JSON structure to reach content data
+        for entry in section_data[section_key]["content_data"]:
+            # Check if the first line of the entry starts with the specified string
+            if entry['text'][0].startswith("Protocol Relating to the Madrid Agreement Concerning"):
+                continue  # Skip the entire entry
+            # Loop through the lines in the key 'text'
+            # If the line starts with a certain condition then remove that entire entry
+            filtered_text = [line for line in entry['text']
+                             if not (line.startswith("THE APPLICANT CLAIMS ") or
+                                     line.startswith("CFE ")
+                                     or is_uppercase(line)
+                                     or len(line.split()) == 1)
+                             ]
+
+            if filtered_text:  # Only add entry if there's any text left after filtering
+                filtered_content_data.append({'text_on_page': entry['text_on_page'], 'text': filtered_text})
+
+        # Update the 'content_data' in the original data
+        section_data[section_key]["content_data"] = filtered_content_data
+
+        section_num += 1
+
+    # Convert the extracted data to JSON format
+    applications_json_str = json.dumps(section_data, indent=4, ensure_ascii=False)
+
+    # Write the JSON string to a file
+    output_file_path = f'{pdf_file_path}_result_of_segmented_text.json'
+    with open(output_file_path, 'w', encoding='utf-8') as file:
+        file.write(applications_json_str)
+
+    return output_file_path
+
+'''COORDINATES CREATION'''
 # Path to the PDF file
-def define_coordinates_from_pdf_for_application_screenshots_tunisia(pdf_file_path, extracted_text_json_path):
+def define_coordinates_from_pdf_for_application_screenshots_tt(pdf_file_path, extracted_text_json_path):
     
     # Load the JSON file containing the previously extracted text (if it exists)
     try:
@@ -217,7 +216,7 @@ def define_coordinates_from_pdf_for_application_screenshots_tunisia(pdf_file_pat
                             print("[+] extracted the text => ",
                                   '\n'.join(content_entry['text']), "\n")
 
-
+                            '''PREDIFINED X0 and Y0 COODRINATES FOR TRINIDAD & TOBAGO '''
                             # Update the content_data entry with coordinates
                             content_entry["coordinates"] = {
                                 "x0": 0,
@@ -233,22 +232,17 @@ def define_coordinates_from_pdf_for_application_screenshots_tunisia(pdf_file_pat
         json.dump(existing_data, json_file, indent=4, ensure_ascii=False, separators=(',', ': '))
 
 
-# Example usage:
-pdf_file_path = pdf_file_path  # Replace with the path to your PDF file, THIS VARIABLE IS IN THE STARTING OF THE SCRIPT
-extracted_text_json_path = f"{pdf_file_path}_result_of_segmented_text.json"  # This is the JSON input file and also the new output file
-define_coordinates_from_pdf_for_application_screenshots_tunisia(
-    pdf_file_path, extracted_text_json_path)
 
-
-'''NEW FUNCTION BASED ON THE NEW STRUCTURE'''
-def extract_and_process_images_tunisia(json_data, pdf_file, output_folder, resolution=200):
+'''TAKING PICTURES BASED ON THE COORDINATES'''
+def extract_and_process_images_tt(json_data, pdf_file, output_folder,output_parent_folder, resolution=200):
     # ADDING PADDING TO THE IMAGES TAKEN
     padding = 25
-    # DICT TO STORE THE RECTS THAT WERE SKIPPED (MAINLY ONE LINERS)
-    skipped_rectangles = {}
     last_processed_page = -1
 
     try:
+        # CREATE OUTPUT FOLDER PATH
+        output_folder = os.path.join(output_parent_folder, f"{pdf_path}_application_images")
+
         # CHECK IF AN OUTPUT FOLDER EXISTS, CREATE ONE IF IT DOES NOT EXIST
         if not os.path.exists(output_folder):
             os.makedirs(output_folder)
@@ -330,25 +324,17 @@ def extract_and_process_images_tunisia(json_data, pdf_file, output_folder, resol
     finally:
         pdf_document.close()
 
-
-# Load the entire JSON file
-file_path = f'{pdf_file_path}_result_of_segmented_text.json'
-with open(file_path, 'r', encoding= 'utf-8') as file:
-    json_data = json.load(file)
-
-# Example usage
-pdf_file_path = pdf_file_path  # Replace with PDF file path
-output_folder_path = f'output_applications_image_{pdf_file_path}'  # Replace with output folder path
-extract_and_process_images_tunisia(json_data, pdf_file_path, output_folder_path)
-
-
-def extract_logos_tunisia(pdf_file_path, json_path, output_folder):
+'''EXTRACTING LOGOS, SEARCHES FOR IMAGES IN THE COORDINATES, IF AN IMAGE IS FOUND THEN IT IS SAVED AS THE LOGO FOR THAT CURRENT APPLICATION'''
+def extract_logos_tunisia(pdf_file_path, json_path, output_folder, output_parent_folder):
     # Read JSON data
     with open(json_path, 'r') as file:
         data = json.load(file)
 
     # Open the PDF
     doc = fitz.open(pdf_file_path)
+    
+    # CREATE OUTPUT FOLDER PATH
+    output_folder = os.path.join(output_parent_folder, f"{pdf_path}_logo_images")
 
     # Check if the output folder exists, if not, create it
     if not os.path.exists(output_folder):
@@ -407,15 +393,7 @@ def extract_logos_tunisia(pdf_file_path, json_path, output_folder):
 
     return data
 
-
-# Assuming the user will provide the path to the PDF file they want to process
-json_path = f'output_{pdf_file_path}.json'   # Replace this with the actual path to the JSON file
-# Set the path to the folder where images will be saved
-output_folder_logos = f"logo_images_{pdf_file_path}"  # Replace this with the actual path to the output folder
-
-# Extract images, save them in a folder, and update JSON
-updated_data_with_images_in_folder = extract_logos_tunisia(pdf_file_path, json_path, output_folder_logos)
-
+'''REPLACING tradeMark WITH THE APPLICATION NUMBER, THIS IS REQUIRED FOR FURTHER PROCESSING OF ADDING BASE64 TO THE FINAL JSON'''
 def update_trade_mark_keys_tt(input_file_path, output_file_path):
     # Read the JSON data from the file
     with open(input_file_path, 'r', encoding='utf-8') as file:
@@ -438,13 +416,7 @@ def update_trade_mark_keys_tt(input_file_path, output_file_path):
     with open(output_file_path, 'w', encoding='utf-8') as file:
         json.dump(updated_json, file, indent=4, ensure_ascii=False)
 
-
-# Example usage
-input_file_path = json_path  # Replace with your input file path
-output_file_path = f"output_for_processing_{pdf_file_path}.json"  # Replace with your desired output file path
-update_trade_mark_keys_tt(input_file_path, output_file_path)
-
-
+'''REMOVING UNWANTED KEYS FROM THE JSON FILE TO DECREASE THE SIZE OF THE JSON'''
 def filter_json_data(input_file_path, output_file_path):
     # Read the JSON data from the file
     with open(input_file_path, 'r', encoding='utf-8') as file:
@@ -483,7 +455,42 @@ def filter_json_data(input_file_path, output_file_path):
     with open(output_file_path, 'w', encoding='utf-8') as file:
         json.dump(filtered_json, file, indent=4, ensure_ascii=False)
 
-# Example usage
-input_file_path = output_file_path  # Replace with your input file path
-output_file_path = input_file_path # Replace with your desired output file path
-filter_json_data(input_file_path, output_file_path)
+'''CALLING ALL THE OTHER FUNCTIONS'''
+def main_function_for_image_processing_TT(pdf_file_path):
+    # Step 1: Extract and segment applications
+    result_file_path = extract_and_segment_applications(pdf_file_path)
+    print(f"Segmented data written to: {result_file_path}")
+
+    # Step 2: Define coordinates from PDF for application screenshots
+    extracted_text_json_path = f"{pdf_file_path}_result_of_segmented_text.json"
+    define_coordinates_from_pdf_for_application_screenshots_tt(pdf_file_path, extracted_text_json_path)
+
+    # FOLDER WHERE THE IMAGES ARE SAVED
+    output_parent_folder = 'Trinidad_and_Togabgo_images'
+
+    # Step 3: Extract and process images
+    json_data = None
+    with open(extracted_text_json_path, 'r', encoding='utf-8') as file:
+        json_data = json.load(file)
+
+    output_folder_path = f'output_applications_image_{pdf_file_path}'
+    extract_and_process_images_tt(json_data, pdf_file_path, output_folder_path, output_parent_folder)
+
+    # Step 4: Extract logos
+    json_path = f'output_{pdf_file_path}.json'
+    output_folder_logos = f"logo_images_{pdf_file_path}"
+    extract_logos_tunisia(pdf_file_path, json_path, output_folder_logos, output_parent_folder)
+
+    # Step 5: Update trade mark keys
+    input_file_path = json_path
+    output_file_path = f"output_for_processing_{pdf_file_path}.json"
+    update_trade_mark_keys_tt(input_file_path, output_file_path)
+
+    # Step 6: Filter JSON data
+    input_file_path = output_file_path
+    output_file_path = input_file_path
+    filter_json_data(input_file_path, output_file_path)
+
+if __name__ == "__main__":
+    pdf_path = 'TT20231115-44.pdf'  # Replace with your PDF file path
+    main_function_for_image_processing_TT(pdf_path)
