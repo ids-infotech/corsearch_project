@@ -1,0 +1,80 @@
+{
+    "applicableFor": {
+        "jurisdictionCode": "TT",
+        "range": {
+            "start": "2020",
+            "end": "2021"
+        },
+        "sections": [
+            {
+                "title": "Applications",
+                "trademarks": {
+                    "applicationNumber": "(\\d+)\\s+Class",
+                    "applicationDate": "Date Received (\\w+ \\d+, \\d{4})",
+                    "owners": {
+                        "name": "^^([A-Z\\s]+)\\b",
+                        "address": "whose trade or business address is at\\s+(.*?),\\s*([\\w\\s]+)\\.",
+                        "country": "whose trade or business address is at\\s+.*,\\s+([^\\,]+)\\."
+                    },
+                    "verbalElements": "",
+                    "deviceElements": "",
+                    "classifications": {
+                        "niceClass": "Class (\\d+)",
+                        "goodServiceDescription": "Class \\d+\\s*(.*?)\\b[A-Z]+\\b"
+                    },
+                    "disclaimer": "^REGISTRATION\\s+OF\\s+THIS\\s+MARK.*?\\.",
+                    "representatives": {
+                        "name": "Address for (.+)$",
+                        "address": "Service\\s+(.*)",
+                        "country": "Service\\s+.*,\\s+(.*?)\\."
+                    },
+                    "viennaClasses": "CFE \\(\\d+\\)\\s*(.*?)(?=\n\n|CFE \\(\\d+\\)|$)",
+                    "color": "THE APPLICANT CLAIMS THE COLOURS.*?\\.",
+                    "priorities": {
+                        "number": "APPLICATION NO\\.\\s+([\\d\/,]+)\\s+DATED",
+                        "date": "DATED\\s+(.*?)\\.",
+                        "country": "BASED ON A\\s+(.*?)\\s+APPLICATION"
+                    }
+                }
+            },
+            {
+                "title": "Corrections",
+                "trademarks": {
+                    "applicationNumber": "(\\d+)\\s+Class",
+                    "owners": {
+                        "name": "^(.*?),\\s+a\\s+"
+                    },
+                    "deviceElements": ""
+                }
+            },
+            {
+                "title": "International Applications (Madrid)",
+                "trademarks": {
+                    "registrationNumber": "(\\d+)\\s+Class",
+                    "SubsequentDesignationDate": "DATE RECEIVED\\s+(\\w+\\s+\\d+,\\s+\\d{4})",
+                    "owners": {
+                        "name": "^(.*?),\\s+a\\s+",
+                        "address": "whose trade or business address is at\\s+(.*?)(?=\\.\\s+\"|, Date Received)"
+                    },
+                    "onwers": {
+                        "country": "whose trade or business address is at\\s+.*,\\s+([^\\,]+)\\."
+                    },
+                    "representatives": {
+                        "name": "Address for\\s+(.*?)(?= Service)",
+                        "address": "Service\\s+(.*)",
+                        "country": "Service\\s+.*,\\s+(.*?)\\."
+                    },
+                    "verbalElements": "",
+                    "classifications": {
+                        "niceClass": "Class\\s+(\\d+)",
+                        "goodServiceDescription": "Class\\s+\\d+\\s+(.*?)\n"
+
+                    },
+                    "priorities": {
+                        "country": "BASED ON A\\s+(.*?)\\s+APPLICATION"
+                    }
+                }
+            }
+        ]
+    }
+}

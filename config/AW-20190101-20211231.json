@@ -1,0 +1,66 @@
+{
+    "applicableFor": {
+        "jurisdictionCode": "AW",
+        "range": {
+            "start": "2019-01-01",
+            "end": "2021-12-31"
+        },
+        "sections": [
+            {
+                "title": "Renewal",
+                "trademarks": {
+                    "applicationNumber": "E-01: (VM-\\d{8}\\.\\d+)",
+                    "applicationDate": "E-02: (\\d{1,2} [a-zA-Z]+ \\d{4})",
+                    "registrationNumber": "E-03: (\\d+)",
+                    "registrationDate": "E-02: (\\d{1,2} [a-zA-Z]+ \\d{4})",
+                    "owners": {
+                        "name": "E-06: (.+)",
+                        "addrress": "E-07: (.+)",
+                        "country": "E-08: (.+)"
+                    },
+                    "renewalDate": "E-05: (\\d{2} [a-zA-Z]+ \\d{4})",
+                    "expiryDate": "E-05: .+\\n(\\d{2} [a-zA-Z]+ \\d{4})",
+                    "representatives": {
+                        "name": "E-09: (.+?)\n(.+?)\n(.+)",
+                        "address": "",
+                        "country": ""
+                    },
+                    "verbalElements": "",
+                    "deviceMarks": "",
+                    "classifications": {
+                        "niceClass": "E-16: (\\d+)"
+                    }
+                }
+            },
+            {
+                "title": "Registration",
+                "trademarks": {
+                    "applicationNumber": "R-01: (\\w+-\\d+\\.\\d+)",
+                    "applicationDate": "R-02: (\\d{2} [a-zA-Z]+ \\d{4})",
+                    "registrationNumber": "R-03: (\\d+)",
+                    "registrationDate": "R-04: (\\d{1,2} [a-zA-Z]+ \\d{4})",
+                    "expiryDate": "R-05: .+\\n(\\d{2} [a-zA-Z]+ \\d{4})",
+                    "owners": {
+                        "name": "R-06: (.+)",
+                        "addrress": "R-07: (.+)",
+                        "country": "R-08: (.+)"
+                    },
+                    "representatives": {
+                        "name": "R-09: (.+?)\n",
+                        "address": "",
+                        "country": ""
+                    },
+                    "verbalElements": "",
+                    "classifications": {
+                        "niceClass": "R-16: (\\d+)"
+                    },
+                    "priority": {
+                        "number": "nr\\. :\\s*(\\d+)",
+                        "date": "d\\.d\\.\\s*:\\s*([^\n]+).*?",
+                        "country": "in :\\s*([\\w\\s]+)"
+                    }
+                }
+            }
+        ]
+    }
+}

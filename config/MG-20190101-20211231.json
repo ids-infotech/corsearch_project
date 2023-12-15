@@ -1,0 +1,53 @@
+{
+    "applicableFor": {
+        "jurisdictionCode": "MG",
+        "range": {
+            "start": "2019-01-01",
+            "end": "2021-12-31"
+        },
+        "sections": [
+            {
+                "title": "Registrations",
+                "trademarks": {
+                    "registrationNumber": "",
+                    "applicationDate": "",
+                    "expiryDate": "",
+                    "owners": {
+                        "name": "",
+                        "address": "",
+                        "country": ""
+                    },
+                    "representatives": {
+                        "name": "",
+                        "address": "",
+                        "country": ""
+                    },
+                    "verbalElements": "",
+                    "deviceElements": "",
+                    "classifications": {
+                        "niceClass": "",
+                        "goodServiceDescription": ""
+                    }
+                }
+            },
+            {
+                "title": "Madrid",
+                "trademarks": {
+                    "registrationNumber": "",
+                    "applicationDate": "",
+                    "expiryDate": "",
+                    "owners": {
+                        "name": "",
+                        "address": "",
+                        "country": ""
+                    },
+                    "deviceElements": "",
+                    "classifications": {
+                        "niceClass": "",
+                        "goodServiceDescription": ""
+                    }
+                }
+            }
+        ]
+    }
+}

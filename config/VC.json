@@ -1,0 +1,39 @@
+{
+    "applicableFor": {
+        "jurisdictionCode": "VC",
+        "range": {
+            "start": "2019-01-01",
+            "end": "2021-12-31"
+        },
+        "sections": [
+            {
+                "title": "Applications",
+                "trademarks": {
+                    "applicationNumber": "(?:Filing Date\\s*\\S+[\\s\\S]*?)\n",
+                    "applicationDate": "\\b(?:January|February|March|April|May|June|July|August|September|October|November|December)\\s\\d{1,2},\\s\\d{4}\\b",
+                    "owners": {
+                        "name": "Applicant[\\s\\S]*?\n(.+)"
+                    },
+                    "representatives": {
+                        "name": "(?<=Address for Service)\\s*\n(.+)",
+                        "address": "Address for Service\\s+(.*?)(?:\n(.*?))?(?:\n(.*?))?(?:\n|$)",
+                        "country": ""
+                    },
+                    "verbalElements": "(?<=\n|\\s)([a-zA-Z]+)(?=\n|\\s)",
+                    "deviceMarks": "",
+                    "classifications": {
+                        "niceClass": "",
+                        "goodServiceDescription": "Class\\(es\\)\\s+([\\s\\S]+?)(?=Applicant)"
+                    },
+                    "Colors": "Colour Claim:\\s*(.*?)\\.",
+                    "priorities": {
+                        "number": "Number:\\s+(\\d{2}[-/]\\d{4}[-/]\\d{7}|\\d{2}/\\d{3},\\d{3})",
+                        "date": "Date:\\s+([A-Za-z]+\\s+\\d{1,2},\\s+\\d{4})",
+                        "country": "Country:\\s+([A-Za-z\\s&]+)(?:\r?\n|\r)?"
+                    },
+                    "Disclaimer": "Disclaimer:\\s*(.*?)\\."
+                }
+            }
+        ]
+    }
+}
