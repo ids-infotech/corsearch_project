@@ -7,34 +7,13 @@ import base64
 import re
 import io
 
-# Define a function to process a page and return its text and page number
-def process_page_for_application_screenshots_bhutan(page):
+#  Define a function to process a page and return its text and page number
+def process_page_for_application_screenshots_mongolia(page):
     page_text = page.get_text("text")
     return page_text, page.number
 
-
-def correct_text_segmentation_for_application_screenshots_bhutan(content_data, delimiter):
-    corrected_data = []
-    for page_text in content_data:
-        # Split the text using the delimiter
-        split_texts = page_text['text'].split(delimiter)
-
-        # The first part goes to the current page
-        corrected_data.append({
-            'text_on_page': page_text['text_on_page'],
-            'text': split_texts[0]
-        })
-
-        # If there's more content after the split, it goes to the next page
-        # Remove the 'delimiter +' from the following line to exclude the heading when saving to the JSON
-        if len(split_texts) > 1:
-            corrected_data.append({
-                'text_on_page': page_text['text_on_page'] + 1,
-                'text': split_texts[1]
-            })
-    return corrected_data
-
-def remove_extra_headings_bhutan(content_data, texts_to_remove, texts_to_remove_start):
+'''REMOVES STRINGS FROM START AND END IRRESPECIVE OF SEQUENCE OF LIST'''
+def correct_text_segmentation_for_application_screenshots_mongolia(content_data, delimiter, texts_to_remove, texts_to_remove_start):
     corrected_data = []
     for page_text in content_data:
         text = page_text['text']
@@ -63,7 +42,30 @@ def remove_extra_headings_bhutan(content_data, texts_to_remove, texts_to_remove_
 
     return corrected_data
 
-def merge_duplicate_pages_for_application_screenshots_bhutan(content_data):
+def correct_text_in_entire_text(content_data, strings_to_remove):
+    corrected_data = []
+
+    for page_text in content_data:
+        text = page_text['text']
+
+        # Check and remove any specified strings in the entire text
+        for string_to_remove in strings_to_remove:
+            text = text.replace(string_to_remove, '')
+
+        # Check if the delimiter is at the end and remove it
+        delimiter = 'your_delimiter'  # Replace 'your_delimiter' with the actual delimiter you are using
+        if text.endswith(delimiter):
+            text = text[:-len(delimiter)].rstrip()
+
+        # Add the possibly corrected text to the corrected_data
+        corrected_data.append({
+            'text_on_page': page_text['text_on_page'],
+            'text': text,
+        })
+
+    return corrected_data
+
+def merge_duplicate_pages_for_application_screenshots_mongolia(content_data):
     # Create a dictionary to store consolidated texts
     consolidated_data = {}
 
@@ -89,13 +91,66 @@ def merge_duplicate_pages_for_application_screenshots_bhutan(content_data):
 
     return merged_data
 
+def post_process_lines_for_application_screenshots_mongolia(lines):
+    # New function to post-process lines
+    processed_lines = []
+    buffer_line = ""
 
-# Define a regular expression pattern to match specific text sections
-pattern = re.compile(r"\(210\)[\s\S]*?(?=\(210\)|$)")  #BHUTAN
+    for line in lines:
+        if re.match(r"\(\d+\)", line) and ":" not in line:
+            buffer_line = line  # Start buffering this line
+        elif buffer_line:
+            processed_lines.append(buffer_line + " " + line)
+            buffer_line = ""  # Clear the buffer
+        else:
+            processed_lines.append(line)  # No buffer_line, add the current line as it is
 
-# Path to the PDF file
-pdf_file_path = "BT20231003-110.pdf"
-pdf_document = fitz.open(pdf_file_path)
+    # Ensure the last buffered line is added
+    if buffer_line:
+        processed_lines.append(buffer_line)
+
+    return processed_lines
+
+def post_process_content_for_application_screenshots_mongolia(content_list):
+    processed_content = []
+    buffer_line = ""
+
+    for line in content_list:
+        if re.match(r"\(\d+\)", line) and ":" not in line:
+            buffer_line = line  # Start buffering this line
+        elif buffer_line:
+            processed_content.append(buffer_line + " " + line)
+            buffer_line = ""  # Clear the buffer
+        else:
+            processed_content.append(line)  # No buffer_line, add the current line as it is
+
+    # Ensure the last buffered line is added
+    if buffer_line:
+        processed_content.append(buffer_line)
+
+    return processed_content
+
+def split_text_by_newline_for_application_screenshots_mongolia(content_data):
+    for entry in content_data:
+        # Split the text within each entry by newline
+        split_text = entry["text"].split('\n')
+        # Filter out any empty strings that may result from consecutive newline characters
+        split_text = [line.strip() for line in split_text if line.strip()]
+        # Update the entry with the split text
+        entry["text"] = split_text
+    return content_data
+
+
+# # # Start of the main script
+pattern = re.compile(r"\(111\)[\s\S]*?(?=\(111\)|$)")  #MONGOLIA
+
+input_file_path = r'input_pdf\MN20230531-05.pdf'
+# Extracting just the filename
+pdf_file_name = os.path.basename(input_file_path)
+
+# TO USE IT FOR AUTOMATED FILE CREATION
+pdf_file_path = pdf_file_name  
+pdf_document = fitz.open(input_file_path)
 
 # TO STORE IMAGE LOGOS
 output_dir_image_logo = f"{pdf_file_path}_image_logos"
@@ -103,7 +158,7 @@ output_dir_image_logo = f"{pdf_file_path}_image_logos"
 # This dictionary will hold all extracted text with corresponding page numbers
 text_pages = {}
 for page in pdf_document:
-    text, pn = process_page_for_application_screenshots_bhutan(page)
+    text, pn = process_page_for_application_screenshots_mongolia(page)
     text_pages[pn] = text
 
 # Concatenate the text from all pages
@@ -115,10 +170,8 @@ matches = pattern.findall(extracted_text)
 # Create a dictionary to store section data and initialize section number
 section_data = {}
 section_num = 1
+# TO ADD THE WORD (tradeMark) IN THE BEGINNING OF THE JSON FILE
 section_prefix = "tradeMark"
-
-# Initialize a list to store section content data
-# section_content_data = []
 
 # Iterate through the matches
 for match in matches:
@@ -137,17 +190,13 @@ for match in matches:
             # If the starting index of the match is less than the current position, it means the match spans this page
             # Add the page number to the list of page numbers where the match appears
             # Increase the pn (page_numer) by 1 to match page number in PDF
-#             new_pn_matching_PDF = pn + 1
+            # new_pn_matching_PDF = pn + 1
             page_nums.append(pn)
             # If the current position is greater than the end of the match, 
             # it means the match doesn't span further pages
             if current_pos > start_index + len(match):
                 break
-
-    # Skip a specific section 
-    if "(511) \u2013 NICE classification for goods and services" in match:
-        continue
-
+    
     #  NEW SECTION KEY
     section_key = f"{section_prefix} {section_num}"
 
@@ -156,9 +205,11 @@ for match in matches:
                                      , "content": [],
                                      "content_data": []
                                     }
-
+    
     # Split the matched text into lines and add them to the section data
     content_lines = [line for line in match.split("\n") if line.strip()]
+    # Now process those content lines to join lines that should be together
+    content_lines = post_process_content_for_application_screenshots_mongolia(content_lines)
     section_data[section_key]["content"].extend(content_lines)
 
     # Initialize a pointer for the current start of the segment
@@ -181,68 +232,68 @@ for match in matches:
 
         # If this segment contains part of the match, add it to the current_content_data
         if segment.strip():
+            # Construct the dictionary with the "image" key
             current_content_data.append({
-                "text_on_page": pn + 1, # Adding 1 to adjust the page number
-                "text": segment.strip()
+                "text_on_page": pn + 1,  # Adding 1 to adjust the page number
+                "text": segment.strip(),
             })
 
+            
+            # print(current_content_data)
         # Update segment_start for the next page
         segment_start = segment_end
     
+
     # Add the segmented content data to the section data
     section_data[section_key]["content_data"].extend(current_content_data)
-    
+
     # Call the correction function for the current section
     #  Removing the HEADING from the extracted text
-    delimiter = 'Successfull Examination Marks'
-    texts_to_remove = ["Successfull", "Examination","Marks"]
-    texts_to_remove_start = ["Successfull", "Examination","Marks"]
-    section_data[section_key]["content_data"] = correct_text_segmentation_for_application_screenshots_bhutan(section_data[section_key]["content_data"], delimiter)
-    section_data[section_key]["content_data"] = remove_extra_headings_bhutan(section_data[section_key]["content_data"], texts_to_remove, texts_to_remove_start)
-    
-    # Call the merge_duplicate_pages_for_application_screenshots_bhutan function to join text on the same page into one
-    section_data[section_key]["content_data"] = merge_duplicate_pages_for_application_screenshots_bhutan(section_data[section_key]["content_data"])
-    
-    # TO CHECK IF (540): is the last input in the 'text' key
-    # IF THIS IS THE CASE THEN SWAP [-1] and [-2] values
-    for section in section_data.values():
-        for entry in section["content_data"]:
-            # Check if the 'text' key exists and has at least two elements
-            if 'text' in entry and len(entry['text']) >= 2:
-                # Check if the last element matches the specific pattern
-                if entry['text'][-1].startswith("(540):"):
-                    # Swap the last and second-to-last elements
-                    entry['text'][-1], entry['text'][-2] = entry['text'][-2], entry['text'][-1]
+    delimiter = "\n  \n \nМонгол Улсын Оюуны Өмчийн Газар \n \nУЛСЫН БҮРТГЭЛД АВСАН БАРААНЫ ТЭМДЭГ"
+    texts_to_remove = ["REGISTERED", "REGISTERED TRADEMARK","УЛСЫН БҮРТГЭЛД АВСАН БАРААНЫ" ,"УЛСЫН БҮРТГЭЛД АВСАН" ,"УЛСЫН" ,"УЛСЫН БҮРТГЭЛД", "УЛСЫН БҮРТГЭЛД АВСАН БАРААНЫ ТЭМДЭГ", "Intellectual Property Office of Mongolia", "Монгол Улсын Оюуны Өмчийн Газар"]
+    texts_to_remove_start = ["Монгол Улсын","УЛСЫН БҮРТГЭЛД АВСАН БАРААНЫ ТЭМДЭГ","Оюуны Өмчийн Газар","УЛСЫН БҮРТГЭЛД АВСАН БАРААНЫ ТЭМДЭГ","Өмчийн Газар","УЛСЫН БҮРТГЭЛД АВСАН БАРААНЫ ТЭМДЭГ","Газар","УЛСЫН БҮРТГЭЛД АВСАН БАРААНЫ ТЭМДЭГ","Улсын Оюуны Өмчийн Газар","УЛСЫН БҮРТГЭЛД АВСАН БАРААНЫ ТЭМДЭГ",",Өмчийн Газар","Монгол Улсын Оюуны Өмчийн Газар","УЛСЫН БҮРТГЭЛД АВСАН БАРААНЫ ТЭМДЭГ","БҮРТГЭЛД АВСАН БАРААНЫ ТЭМДЭГ", "АВСАН БАРААНЫ ТЭМДЭГ", "ТЭМДЭГ","УЛСЫН БҮРТГЭЛД АВСАН БАРААНЫ ТЭМДЭГ","БАРААНЫ ТЭМДЭГ", "REGISTERED TRADEMARK", "TRADEMARK", "REGISTERED"]
+    strings_to_remove = texts_to_remove_start
 
-                
-    # Split the text into lines (segments) for each entry in content_data
+    section_data[section_key]["content_data"] = correct_text_segmentation_for_application_screenshots_mongolia(section_data[section_key]["content_data"], delimiter, texts_to_remove, texts_to_remove_start)
+    section_data[section_key]["content_data"] = correct_text_in_entire_text(section_data[section_key]["content_data"], strings_to_remove)
+
+    # Call the merge_duplicate_pages_for_application_screenshots_mongolia function to join text on the same page into one
+    section_data[section_key]["content_data"] = merge_duplicate_pages_for_application_screenshots_mongolia(section_data[section_key]["content_data"])
+
+    # Call the post_process_lines_for_application_screenshots_mongolia function to correct the segmentation
     for entry in section_data[section_key]["content_data"]:
-        text = entry["text"]
-        lines = text.split('\n')
-        
-        # Remove empty strings from the 'lines' list
-        lines = [line for line in lines if line.strip() != ""]
-        
-        # Update the "text" value for the current entry to contain the split lines
-        entry["text"] = lines
-    
+        lines = entry["text"].split('\n')
+        lines = post_process_lines_for_application_screenshots_mongolia(lines)
+        entry["text"] = "\n".join(lines)
+
+    # Now call the split_text_by_newline_for_application_screenshots_mongolia function to split the text by newlines
+    section_data[section_key]["content_data"] = split_text_by_newline_for_application_screenshots_mongolia(section_data[section_key]["content_data"])
 
     section_num += 1
 
+
 # Serialize the section data to a JSON format
 output_data = json.dumps(section_data, ensure_ascii=False, indent=4)
-
+# print(output_data)
 # Write the JSON data to a file
 with open(f"{pdf_file_path}_result_of_segmented_text.json", "w", encoding="utf-8") as json_file:
     json_file.write(output_data)
 
 
-def define_coordinates_from_pdf_for_application_screenshots_bhutan(pdf_file_path, extracted_text_json_path):
-    
+'''
+IGNORES HEADINGS BEING CAPTURED BUT IMAGES AFTER THE NEW HEADINGS ARE BAD,
+WITHOUT THIS WE ARE GETTING IMAGES BUT ALSO GETTING MORE IMAGES
+'''
+
+ignore_text = "УЛСЫН БҮРТГЭЛД АВСАН БАРААНЫ ТЭМДЭГ"
+
+# EXTRACTING COORDINATES OF TEXT FROM THE PDF
+def define_coordinates_from_pdf_for_application_screenshots_mongolia(pdf_path, extracted_text_json_path):
     # Load the JSON file containing the previously extracted text (if it exists)
     try:
         with open(extracted_text_json_path, 'r', encoding='utf-8') as json_file:
             existing_data = json.load(json_file)
+      
     except FileNotFoundError:
         # Handle the case where the file is not found
         print("[-] Existing file not found")
@@ -253,15 +304,12 @@ def define_coordinates_from_pdf_for_application_screenshots_bhutan(pdf_file_path
         return
 
     # Extract text from the PDF and store it in extracted_text_dict
-    with pdfplumber.open(pdf_file_path) as pdf:
+    with pdfplumber.open(pdf_path) as pdf:
         # Initialize variables to store the minimum and maximum coordinates
         min_x0, min_y0, max_x1, max_y1 = float('inf'), float('inf'), -float('inf'), -float('inf')
 
         # Iterate through each page in the PDF
-        for page_number, page in enumerate(pdf.pages, start=1):            
-            '''GET PAGE HEIGHT'''
-            # Get the height of the page
-            page_height = page.height
+        for page_number, page in enumerate(pdf.pages, start=1):
 
             # Retrieve the current page (0-based index)
             page = pdf.pages[page_number - 1]  # Pages are 0-based index
@@ -299,6 +347,11 @@ def define_coordinates_from_pdf_for_application_screenshots_bhutan(pdf_file_path
 
                 # Iterate through content entries for the current page
                 for content_entry in page_data["content_data"]:
+                    
+                    # Skip processing if the extracted text matches the ignored text
+                    if '\n'.join(content_entry['text']) == ignore_text:
+                        continue
+                        
                     # Get the start and end patterns
                     start = content_entry["text"][0]
                     end = content_entry["text"][-1]
@@ -330,19 +383,13 @@ def define_coordinates_from_pdf_for_application_screenshots_bhutan(pdf_file_path
                         # Mark a match when the start pattern is found
                         if start_found and not match:
                             match = True
-                              
+
                         # Compare text to the end pattern
                         end_found = [i.replace("\n", '').lower() for i in text.split(" ") if i] == [
                             i.replace("\n", '').lower() for i in end.split(" ") if i]
 
                         if end_found and match:
-                            
-                            '''USING PAGE HEIGHT TO GET THE y1 COORDINATE'''
-                            if content_entry["text"][-1].startswith("(540):"):
-                                # Define y1_increase based on the bottom of the page
-                                y1_increase = page_height - y1
-                                max_y1 += y1_increase
-                            
+ 
                             # Print a message indicating that the text has been successfully extracted
                             match = False
                             print("[+] extracted the text => ",
@@ -355,107 +402,118 @@ def define_coordinates_from_pdf_for_application_screenshots_bhutan(pdf_file_path
                                 "x1": max_x1,
                                 "y1": max_y1
                             }
-
                             break
 
     # Save the modified JSON file with coordinates added
     with open(extracted_text_json_path, 'w', encoding='utf-8') as json_file:
-        json.dump(existing_data, json_file, indent=4, ensure_ascii=False, separators=(',', ': '))
-
+        json.dump(existing_data, json_file, ensure_ascii=False, indent=4, separators=(',', ': '))
 
 # Example usage:
-pdf_file_path = pdf_file_path  # Replace with the path to your PDF file, THIS VARIABLE IS IN THE STARTING OF THE SCRIPT
-extracted_text_json_path = f"{pdf_file_path}_result_of_segmented_text.json"  # This is the JSON input file and also the new output file
-define_coordinates_from_pdf_for_application_screenshots_bhutan(
-    pdf_file_path, extracted_text_json_path)
+pdf_path = input_file_path  # Replace with the path to your PDF file, THIS VARIABLE IS IN THE STARTING OF THE SCRIPT
+extracted_text_json_path = f"{pdf_file_path}_result_of_segmented_text.json"  # This is the JSON input file
+define_coordinates_from_pdf_for_application_screenshots_mongolia(
+    pdf_path, extracted_text_json_path)
 
 
-'''NEW FUNCTION BASED ON THE NEW STRUCTURE'''
-def extract_and_process_images_bhutan(json_data, pdf_file, output_folder, resolution=200):
+'''THIS PART TAKES IMAGES BASED'''
+def extract_and_process_images_mongolia(json_data, pdf_file, output_folder, resolution=200):
     # ADDING PADDING TO THE IMAGES TAKEN
     padding = 14.5
     # DICT TO STORE THE RECTS THAT WERE SKIPPED (MAINLY ONE LINERS)
     skipped_rectangles = {}
     last_processed_page = -1
-
+    #  TO TAKE PICTURE OF ENTIRE PAGE (FOR MONGOLIA)
+    predefined_rect = fitz.Rect(54, 102, 541, 768)
     try:
         # CHECK IF AN OUTPUT FOLDER EXISTS, CREATE ONE IF IT DOES NOT EXIST
         if not os.path.exists(output_folder):
             os.makedirs(output_folder)
 
         # READING THE PDF FILE
-        pdf_document = fitz.open(pdf_file)
+        pdf_document = fitz.open(input_file_path)
 
         # LOOPING THROUGH THE JSON FILE AS PER THE NEW STRUCTURE
         for trade_mark, data in json_data.items():
             # LOOPING TO GET TO THE REQUIRED NEST IN THE JSON
             for page_data in data['content_data']:
                 if 'coordinates' not in page_data:
-                    print(f"Skipping an entry in {trade_mark} as it lacks 'coordinates'.")
-                    continue
-
+                    print(f"No coordinates for {trade_mark}, using predefined rectangle.")
+                    page_data['coordinates'] = {
+                        'x0': predefined_rect.x0,
+                        'y0': predefined_rect.y0,
+                        'x1': predefined_rect.x1,
+                        'y1': predefined_rect.y1
+                    }
+         
+        # The coordinates are in the format (x0, y0, x1, y1) - top left and bottom right corners.
+        # x0 is the horizontal coordinate (from the left) of the top-left corner. [LEFT VERTICLE LINE goes LEFT(lower number) or RIGHT (higher number)]
+        # y0 is the vertical coordinate (from the top) of the top-left corner. [TOP HORIZONTAL LINE goes UP (lower number) and DOWN(higher number) ]
+        # x1 is the horizontal coordinate (from the left) of the bottom-right corner. [RIGHT VERTICLE LINE goes LEFT (lower number) or RIGHT (higher number)]
+        # y1 is the vertical coordinate (from the top) of the bottom-right corner. [BOTTOM HORIZONTAL LINE goes UP(lower number) or DOWN(higher number)]
+       
                 # VARIABLE TO STORE THE PAGE NUMBER ON WHICH THE TEXT IS 
                 page_number = page_data['text_on_page']
-                page = pdf_document[page_number - 1]
-                page_width = page.rect.width 
-                
+
                 # IF PAGE NUMBER IS NOT THE LAST PROCESSED PAGE 
                 # THEN PAGE NUMBER WOULD BE THE SAME
                 if page_number != last_processed_page:
                     image_counter = 0
                     last_processed_page = page_number
 
+                # VARIABLE TO GET THE COORDINATES OF THE TEXT ON A PAGE
+                # ADDING PADDING AND OTHER THINGS TO ENSURE PROPER DIMENSIONS OF THE IMAGE
                 coordinates = page_data['coordinates']
                 x0, y0, x1, y1 = coordinates['x0'], coordinates['y0'], coordinates['x1'], coordinates['y1']
-                # x0, y0 = max(x0 - padding, 0), max(y0 - padding, 0)
-                # x1, y1 = min(x1 + padding, pdf_document[page_number - 1].rect.width), min(y1 + padding, pdf_document[page_number - 1].rect.height)
-                x0 = coordinates['x0']- padding
-                y0 = coordinates['y0'] - padding
-                x1 = page_width - 40  # USING PAGE WIDTH TO AVOID ERROR OF MISSING DATA 
+      
+                x0 = coordinates['x0'] - padding
+                y0 = coordinates['y0'] - 30
+                x1 = coordinates['x1'] + 40  
                 y1 = coordinates['y1'] + padding
+
+
+                # page = pdf_document[page_number - 1]
                 page = pdf_document[page_number - 1]
 
-                # Check for invalid coordinates
-                # USING PREDEIFNED COORDINATES FOR INVALID RECTS
-                if x0 < 0 or y0 < 0 or x1 <= x0 or y1 <= y0:
-                    # Update the coordinates in JSON with predefined values
-                    coordinates['x0'], coordinates['y0'], coordinates['x1'], coordinates['y1'] = 67, 60, page.rect.width - 40, 90
-                    rect = fitz.Rect(67, 60, page.rect.width - 40, 90)
-                    skipped_rectangles[page_number] = skipped_rectangles.get(page_number, 0) + 1
-                    print(f"Using predefined coordinates for one line sentence on page {page_number}")
-                else:
-                    rect = fitz.Rect(x0, y0, x1, y1)
-
+                rect = fitz.Rect(x0, y0, x1, y1)
                 image = page.get_pixmap(matrix=fitz.Matrix(resolution / 72.0, resolution / 72.0), clip=rect)
 
                 # Filename with page number and counter
-                image_filename_suffix = "_invalid" if x0 < 0 or y0 < 0 or x1 <= x0 or y1 <= y0 else ""
+                image_filename_suffix = "_predefined" if 'coordinates' not in page_data else ""
                 # SAVING IT AS .PNG
                 image_filename = os.path.join(output_folder, f"{os.path.basename(pdf_file)}_page_{page_number}_img_{image_counter}{image_filename_suffix}.png")
-                image.save(image_filename)
+                print(f"Saving image to {image_filename}")  # Debugging print statement
+                try:
+                    image.save(image_filename)
 
-                # SAVING THE IMAGE TAKEN IN .GIF FORMAT
-                gif_filename = os.path.join(output_folder, f"{os.path.basename(pdf_file)}_page_{page_number}_img_{image_counter}{image_filename_suffix}.gif")
-                image_pil = Image.open(image_filename)
-                image_pil.save(gif_filename, "GIF")
+                    # SAVING THE IMAGE TAKEN IN .GIF FORMAT
+                    gif_filename = os.path.join(output_folder, f"{os.path.basename(pdf_file)}_page_{page_number}_img_{image_counter}{image_filename_suffix}.gif")
+                    image_pil = Image.open(image_filename)
+                    image_pil.save(gif_filename, "GIF")
+                    
+                    # SAVING THE IMAGE IN BASE64 FORMAT
+                    with open(image_filename, "rb") as image_file:
+                        base64_image = base64.b64encode(image_file.read()).decode('utf-8')
 
-                # SAVING THE IMAGE IN BASE64 FORMAT
-                with open(image_filename, "rb") as image_file:
-                    base64_image = base64.b64encode(image_file.read()).decode('utf-8')
+                    # Update JSON data with base64 for both valid and invalid coordinates
+                    page_data['binaryContent'] = base64_image
 
-                # Update JSON data with base64 for both valid and invalid coordinates
-                page_data['binaryContent'] = base64_image
-
-                base64_filename = os.path.join(output_folder, f"{os.path.basename(pdf_file)}_page_{page_number}_img_{image_counter}{image_filename_suffix}_base64.json")
-                with open(base64_filename, "w") as json_file:
-                    json.dump({os.path.basename(image_filename): base64_image}, json_file, indent=4)
+                    base64_filename = os.path.join(output_folder, f"{os.path.basename(pdf_file)}_page_{page_number}_img_{image_counter}{image_filename_suffix}_base64.json")
+                    with open(base64_filename, "w") as json_file:
+                        json.dump({os.path.basename(image_filename): base64_image}, json_file, indent=4, ensure_ascii=False)
+                
+                except Exception as e:
+                    print(f"An error occurred while saving the image or converting to base64: {e}")
 
                 # INCREASE THE IMAGE COUNTER BY 1
-                # TO ENSURE THAT imAGES DON'T GET OVERWRITTEN
+                # TO ENSURE THAT IMAGES DON'T GET OVERWRITTEN
                 image_counter += 1
 
-        with open(f'output_{os.path.basename(pdf_file)}.json', 'w') as file:
-            json.dump(json_data, file, indent=4)
+        # SAVING THE INFORMATION ABOUT RECTS THAT WERE SKIPPED
+        for page, count in skipped_rectangles.items():
+            print(f"SKIPPED {count} RECTANGLES ON PAGE {page}")
+
+        with open(f'output_{os.path.basename(pdf_file)}.json', 'w', encoding= 'utf-8') as file:
+            json.dump(json_data, file, indent=4, ensure_ascii=False)
 
     except Exception as e:
         print(f"An error occurred: {str(e)}")
@@ -473,16 +531,15 @@ with open(file_path, 'r', encoding= 'utf-8') as file:
 # Example usage
 pdf_file_path = pdf_file_path  # Replace with PDF file path
 output_folder_path = f'output_applications_image_{pdf_file_path}'  # Replace with output folder path
-extract_and_process_images_bhutan(json_data, pdf_file_path, output_folder_path)
+extract_and_process_images_mongolia(json_data, pdf_file_path, output_folder_path)
 
-
-def extract_logos_bhutan(pdf_file_path, json_path, output_folder):
+def extract_logos_mongolia(pdf_file_path, json_path, output_folder):
     # Read JSON data
-    with open(json_path, 'r') as file:
+    with open(json_path, 'r', encoding='utf-8') as file:
         data = json.load(file)
 
     # Open the PDF
-    doc = fitz.open(pdf_file_path)
+    doc = fitz.open(input_file_path)
 
     # Check if the output folder exists, if not, create it
     if not os.path.exists(output_folder):
@@ -531,8 +588,8 @@ def extract_logos_bhutan(pdf_file_path, json_path, output_folder):
                             # Update JSON data with base64 in a new key
                             item["deviceElements"] = base64_image if base64_image else None
 
-                            with open(base64_filename, "w") as json_file:
-                                json.dump({image_filename: base64_image}, json_file, indent=4)
+                            with open(base64_filename, "w", encoding='utf-8') as json_file:
+                                json.dump({image_filename: base64_image}, json_file, ensure_ascii=False, indent=4)
     doc.close()
 
     # Write the updated JSON data back to the file
@@ -545,8 +602,74 @@ def extract_logos_bhutan(pdf_file_path, json_path, output_folder):
 # Assuming the user will provide the path to the PDF file they want to process
 json_path = f'output_{pdf_file_path}.json'   # Replace this with the actual path to the JSON file
 # Set the path to the folder where images will be saved
-output_folder_logos = f"logo_images_{pdf_file_path}"  # Replace this with the actual path to the output folder
+output_folder_logos = f"{pdf_file_path}_logo_images"  # Replace this with the actual path to the output folder
 
 # Extract images, save them in a folder, and update JSON
-updated_data_with_images_in_folder = extract_logos_bhutan(pdf_file_path, json_path, output_folder_logos)
-updated_data_with_images_in_folder
+updated_data_with_images_in_folder = extract_logos_mongolia(pdf_file_path, json_path, output_folder_logos)
+
+def update_trade_mark_keys_mongolia(input_file_path, output_file_path):
+    # Read the JSON data from the file
+    with open(input_file_path, 'r', encoding='utf-8') as file:
+        original_json = json.load(file)
+
+    updated_json = {}
+    for key, value in original_json.items():
+        # Find the "(111) Улсын бүртгэлийн дугаар" line in the "content" list
+        application_number = next((line for line in value["content"] if line.startswith("(111) Улсын бүртгэлийн дугаар  : ")), None)
+        
+        # Extract the number/string after "(111) Улсын бүртгэлийн дугаар : "
+        if application_number:
+            new_key = application_number.split("(111) Улсын бүртгэлийн дугаар  : ")[1].strip()
+            updated_json[new_key] = value
+
+    # Write the updated JSON data to a new file
+    with open(output_file_path, 'w', encoding='utf-8') as file:
+        json.dump(updated_json, file, indent=4, ensure_ascii=False)
+
+# Example usage
+input_file_path = json_path  # Replace with your input file path
+output_file_path = f"output_for_processing_{pdf_file_path}.json"  # Replace with your desired output file path
+update_trade_mark_keys_mongolia(input_file_path, output_file_path)
+
+def filter_json_data(input_file_path, output_file_path):
+    # Read the JSON data from the file
+    with open(input_file_path, 'r', encoding='utf-8') as file:
+        original_json = json.load(file)
+
+    # Filter the JSON data
+    filtered_json = {}
+    for key, value in original_json.items():
+        # Process every entry, assuming each is a trademark entry
+        filtered_content_data = []
+        for content in value.get("content_data", []):
+            # Start with an empty dictionary
+            filtered_content = {}
+
+            # Add 'coordinates' if it exists
+            if 'coordinates' in content and content['coordinates']:
+                filtered_content['coordinates'] = content['coordinates']
+
+            # Add 'binaryContent' if it exists
+            if 'binaryContent' in content and content['binaryContent']:
+                filtered_content['binaryContent'] = content['binaryContent']
+
+            # Add 'deviceElements' only if it's not empty
+            if 'deviceElements' in content and content['deviceElements']:
+                filtered_content['deviceElements'] = content['deviceElements']
+
+            # Append the filtered content if it's not empty
+            if filtered_content:
+                filtered_content_data.append(filtered_content)
+
+        # Add the filtered content data only if it's not empty
+        if filtered_content_data:
+            filtered_json[key] = {"content_data": filtered_content_data}
+
+    # Write the filtered JSON data to a new file
+    with open(output_file_path, 'w', encoding='utf-8') as file:
+        json.dump(filtered_json, file, indent=4, ensure_ascii=False)
+
+# Example usage
+input_file_path = output_file_path  # Replace with your input file path
+output_file_path = input_file_path # Replace with your desired output file path
+filter_json_data(input_file_path, output_file_path)

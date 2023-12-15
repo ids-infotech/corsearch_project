@@ -157,6 +157,8 @@ def calculate_eta(start_time, end_time):
     eta = start_time + (2 * elapsed_time)  # Assuming the task will take approximately the same time to complete
     return eta
 
+
+
 def read_pdf_files(pdf_folder,config_file):
         
     pdf_files = [file for file in os.listdir(pdf_folder) if file.endswith(".pdf")]
@@ -193,15 +195,15 @@ def read_pdf_files(pdf_folder,config_file):
             logging.info(f"Start time for PDF extraction: {start_time}")
             # Call the corresponding PDF extraction function based on the country
             country_extraction_functions = {
-                'BT': bhutan_pdf_extraction,
-                'MN': mongolia_pdf_extraction,
-                'TN': tunisia_pdf_extraction,
-                'DZ': algeria_pdf_extraction,
+                'BT': bhutan_pdf_parser,
+                'MN': mongolia_pdf_parser,
+                'TN': tunisia_pdf_parser,
+                'DZ': algeria_pdf_parser,
                 # 'COUNTRY3': country3_pdf_extraction,
                 # Add more countries as needed
             }
             if country in country_extraction_functions:
-                print("193===========")
+                # print("193===========")
                 country_extraction_functions[country](pdf_file_path)
             else:
                 print(f"Country '{country}' is not supported for PDF extraction.")
@@ -209,7 +211,7 @@ def read_pdf_files(pdf_folder,config_file):
             end_time = datetime.datetime.now()
             elapsed_time = end_time - start_time
             eta = start_time + (2 * elapsed_time)
-            logging.info(f"End time for PDF extraction: {end_time}")
+            logging.info(f"End time for PDF extraction for {pdf_file_path} is {end_time}")
             logging.info(f"Elapsed Time: {elapsed_time}, ETA: {eta}")
 
 if __name__ == "__main__":

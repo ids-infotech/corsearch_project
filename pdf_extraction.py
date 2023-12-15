@@ -5,8 +5,47 @@ from image_processing import *
 from code_cleaning import *
 from structure_mongolia import process_bulk_trademarks
 import os 
+from country.bhutan import application_and_logos_screenshots_bhutan
+from country.bhutan import section_wise_04
 
 resolution = 200
+
+def bhutan_pdf_parser(pdf_file_path):
+    process_screenshots_bhutan(pdf_file_path)
+    generate_json_bhutan(pdf_file_path)
+
+def mongolia_pdf_parser(pdf_file_path):
+    process_screenshots_bhutan(pdf_file_path)
+    generate_json_bhutan(pdf_file_path)
+
+def tunisia_pdf_parser(pdf_file_path):
+    process_screenshots_bhutan(pdf_file_path)
+    generate_json_bhutan(pdf_file_path)
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 def bhutan_pdf_extraction(pdf_file_path):
     
