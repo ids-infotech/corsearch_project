@@ -4,7 +4,8 @@ import fitz  # PyMuPDF
 
 def extract_data_from_pdf(pdf_text, config):
     data_entries = []
-
+    country_names = []
+  
     for section_config in config["applicableFor"]["sections"]:
         if section_config["title"] == "Registrations":
             section_data = {"title": section_config["title"], "trademarks": []}
@@ -15,6 +16,9 @@ def extract_data_from_pdf(pdf_text, config):
             
             # Dynamic owner section pattern from the config
             owner_pattern = re.compile(section_config["trademarks"]["owners"][0]["name"])
+            
+            # Dynamic representative section pattern from the config
+            representative_pattern = re.compile(section_config["trademarks"]["representatives"][0]["name"])
 
             for match in registration_pattern.finditer(pdf_text):
                 registration_number = match.group(1) if match.group(1) else ""
@@ -28,13 +32,29 @@ def extract_data_from_pdf(pdf_text, config):
                 # Find owner's name and address using the dynamic pattern
                 match_owner = owner_pattern.search(pdf_text[match.end():])
                 owner_info = match_owner.group(1).strip() if match_owner else ""
-                
+
                 # Split on the first occurrence of "/n"
                 name_parts = owner_info.split("\n", 1)
                 owner_name = name_parts[0].strip() if name_parts else ""
-                
+
                 # Remove newline characters from the address
                 owner_address = name_parts[1].replace("\n", "").strip() if len(name_parts) > 1 else ""
+
+                # Iterate through stored country names and check if they are in the address
+                owner_country = ""
+                for country_name in country_names:
+                    if country_name.lower() in owner_address.lower():
+                        owner_country = country_name
+                        break
+
+                # Find representative's name using the dynamic pattern
+                match_representative = representative_pattern.search(pdf_text[match.end():])
+
+                # Check if (740) is present before extracting the representative name
+                if "(740)" in pdf_text[match.end():]:
+                    representative_name = match_representative.group(1).strip() if match_representative else None
+                else:
+                    representative_name = None
 
                 section_data["trademarks"].append({
                     "registrationNumber": registration_number,
@@ -44,9 +64,16 @@ def extract_data_from_pdf(pdf_text, config):
                         {
                             "name": owner_name,
                             "address": owner_address,
-                            "country": ""
+                            "country": owner_country
                         }
-                    ]
+                    ],
+                    "representatives": [
+                        {
+                            "name": representative_name,
+                            "address": "",
+                            "country": "",
+                        }
+                    ],
                 })
 
             data_entries.append(section_data)
@@ -61,15 +88,15 @@ with fitz.open("MG20220230-102.pdf") as pdf_document:
         pdf_text += page.get_text()
 
 # Load configuration JSON
-with open("config.json", "r") as config_file:
+with open("c2.json", "r") as config_file:
     config = json.load(config_file)
 
 # Extract data from PDF
 result = extract_data_from_pdf(pdf_text, config)
 
 # Save data to a JSON file
-with open("own3.json", "w", encoding='utf-8') as output_file:
+with open("z2.json", "w", encoding='utf-8') as output_file:
     json.dump(result, output_file, indent=4, ensure_ascii=False)
 
 # Display the result
-print("Data extracted and saved to owners.json")
+print("Data extracted and saved to own_country.json")

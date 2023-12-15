@@ -1,0 +1,126 @@
+import re
+import json
+import fitz  # PyMuPDF
+
+def extract_data_from_pdf(pdf_text, config):
+    data_entries = []
+    country_names = [
+        "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", 
+        "Australia", "Austria", "Azerbaijan", "The Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", 
+        "Belgium", "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil", "Brunei", 
+        "Bulgaria", "Burkina Faso", "Burundi", "Cabo Verde", "Cambodia", "Cameroon", "Canada", "Central African Republic", 
+        "Chad", "Chile", "China", "Colombia", "Comoros", "Congo, Democratic Republic of the", "Congo, Republic of the", 
+        "Costa Rica", "Côte d’Ivoire", "Croatia", "Cuba", "Cyprus", "Czech Republic", "Denmark", "Djibouti", "Dominica", 
+        "Dominican Republic", "East Timor (Timor-Leste)", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", 
+        "Eritrea", "Estonia", "Eswatini", "Ethiopia", "Fiji", "Finland", "France", "Gabon", "The Gambia", "Georgia", 
+        "Germany", "Ghana", "Greece", "Grenada", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Honduras", 
+        "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy", "Jamaica", "Japan", 
+        "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Korea, North", "Korea, South", "Kosovo", "Kuwait", "Kyrgyzstan", 
+        "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", 
+        "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania", "Mauritius", 
+        "Mexico", "Micronesia, Federated States of", "Moldova", "Monaco", "Mongolia", "Montenegro", "Morocco", 
+        "Mozambique", "Myanmar (Burma)", "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", "Nicaragua", "Niger", 
+        "Nigeria", "North Macedonia", "Norway", "Oman", "Pakistan", "Palau", "Panama", "Papua New Guinea", "Paraguay", 
+        "Peru", "Philippines", "Poland", "Portugal", "Qatar", "Romania", "Russia", "Rwanda", "Saint Kitts and Nevis", 
+        "Saint Lucia", "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", 
+        "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", 
+        "Somalia", "South Africa", "Spain", "Sri Lanka", "Sudan", "Sudan, South", "Suriname", "Sweden", "Switzerland", 
+        "Syria", "Taiwan", "Tajikistan", "Tanzania", "Thailand", "Togo", "Tonga", "Trinidad and Tobago", "Tunisia", 
+        "Turkey", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", 
+        "United States of America", "Uruguay", "Uzbekistan", "Vanuatu", "Vatican City", "Venezuela", "Vietnam", 
+        "Yemen", "Zambia", "Zimbabwe"
+    ]
+
+    for section_config in config["applicableFor"]["sections"]:
+        if section_config["title"] == "Registrations":
+            section_data = {"title": section_config["title"], "trademarks": []}
+
+            registration_pattern = re.compile(section_config["trademarks"]["registrationNumber"])
+            application_pattern = re.compile(section_config["trademarks"]["applicationDate"])
+            expiry_pattern = re.compile(section_config["trademarks"]["expiryDate"])
+            
+            # Dynamic owner section pattern from the config
+            owner_pattern = re.compile(section_config["trademarks"]["owners"][0]["name"])
+            
+            # Dynamic representative section pattern from the config
+            representative_pattern = re.compile(section_config["trademarks"]["representatives"][0]["name"])
+
+            for match in registration_pattern.finditer(pdf_text):
+                registration_number = match.group(1) if match.group(1) else ""
+
+                match_220 = application_pattern.search(pdf_text[match.end():])
+                application_date = match_220.group(1) if match_220 else ""
+
+                match_180 = expiry_pattern.search(pdf_text[match.end():])
+                expiry_date = match_180.group(1) if match_180 else ""
+
+                # Find owner's name and address using the dynamic pattern
+                match_owner = owner_pattern.search(pdf_text[match.end():])
+                owner_info = match_owner.group(1).strip() if match_owner else ""
+                
+                # Split on the first occurrence of "/n"
+                name_parts = owner_info.split("\n", 1)
+                owner_name = name_parts[0].strip() if name_parts else ""
+                
+                # Remove newline characters from the address
+                owner_address = name_parts[1].replace("\n", "").strip() if len(name_parts) > 1 else ""
+
+                # Iterate through stored country names and check if they are in the address
+                owner_country = ""
+                for country_name in country_names:
+                    if country_name.lower() in owner_address.lower():
+                        owner_country = country_name
+                        break
+
+                # Find representative's name using the dynamic pattern
+                match_representative = representative_pattern.search(pdf_text[match.end():])
+                representative_name = match_representative.group(1).strip() if match_representative else ""
+
+                # Split on the first occurrence of "/n"
+                name_parts = representative_name.split("\n", 1)
+                representative_name = name_parts[0].strip() if name_parts else ""
+
+                section_data["trademarks"].append({
+                    "registrationNumber": registration_number,
+                    "applicationDate": application_date,
+                    "expiryDate": expiry_date,
+                    "owners": [
+                        {
+                            "name": owner_name,
+                            "address": owner_address,
+                            "country": owner_country
+                        }
+                    ],
+                    "representatives": [
+                        {
+                            "name": representative_name,
+                            "address": "",
+                            "country": "",
+                        }
+                    ]
+                })
+
+            data_entries.append(section_data)
+
+    return data_entries
+
+# Load PDF text (replace 'your_pdf_path.pdf' with the actual path)
+with fitz.open("MG20220230-102.pdf") as pdf_document:
+    pdf_text = ""
+    for page_num in range(pdf_document.page_count):
+        page = pdf_document[page_num]
+        pdf_text += page.get_text()
+
+# Load configuration JSON
+with open("config.json", "r") as config_file:
+    config = json.load(config_file)
+
+# Extract data from PDF
+result = extract_data_from_pdf(pdf_text, config)
+
+# Save data to a JSON file
+with open("rep.json", "w", encoding='utf-8') as output_file:
+    json.dump(result, output_file, indent=4, ensure_ascii=False)
+
+# Display the result
+print("Data extracted and saved to own_country_representative.json")

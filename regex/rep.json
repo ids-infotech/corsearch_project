@@ -10,6 +10,13 @@
                     {
                         "name": "UNITED PARCEL SERVICE OF AMERICA, INC",
                         "address": "55 glenlake Parkway, N.E., Atlanta, Georgia 30328, United States of America",
+                        "country": "Georgia"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet ACRAN.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -22,6 +29,13 @@
                     {
                         "name": "SOCIETE UNIBISC SARL",
                         "address": "LOT 180 H Amborompotsy Talatamaty, BP 8628, Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "CABINET RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -34,6 +48,13 @@
                     {
                         "name": "SOCIETE UNIBISC SARL",
                         "address": "LOT 180 H Amborompotsy Talatamaty, BP 8628, Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "CABINET RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -46,6 +67,13 @@
                     {
                         "name": "RANDRIATSIHEVERINA Haja Tsihadino",
                         "address": "IVI 11 A Andravoahangy Tsena , Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -58,6 +86,13 @@
                     {
                         "name": "A.HICKLING Sarl",
                         "address": "B.P. 4254, Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -70,6 +105,13 @@
                     {
                         "name": "INFUSION DE L'ILE",
                         "address": "Lot MB 149 MAHABO ANDOHARANOFOTSY, TANA 102, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -82,6 +124,13 @@
                     {
                         "name": "Société de Fabrication Briquette de Charbon",
                         "address": "Lot F III G/03 Ambomahitsy, Antananarivo, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -94,6 +143,13 @@
                     {
                         "name": "MADAGASCAR FLAVORS SARL",
                         "address": "Lot M 79 Route de Vohemar - Ampanefena 209 Vohemar, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -106,6 +162,13 @@
                     {
                         "name": "RAKOTOARIVELO Sahoby Noro Hanitriniaina",
                         "address": "Lot IVD 89 Behoririka, Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -118,6 +181,13 @@
                     {
                         "name": "RAJAON Alisata Davida",
                         "address": "Lot II J 15 Faravohitra Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -130,6 +200,13 @@
                     {
                         "name": "RAJAON Alisata Davida",
                         "address": "Lot II J 15 Faravohitra Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -144,6 +221,13 @@
                         "address": "Rue de Commerce Sambava Centre BP N°58-Sambava",
                         "country": ""
                     }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RAKOTOMANANA.",
+                        "address": "",
+                        "country": ""
+                    }
                 ]
             },
             {
@@ -154,6 +238,13 @@
                     {
                         "name": "LESAFFRE ET COMPAGNIE",
                         "address": "41, rue Etienne Marcel, 75001 Paris, France",
+                        "country": "France"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -166,6 +257,13 @@
                     {
                         "name": "VITAFOAM MADAGASCAR",
                         "address": "Route des Hydrocarbures Ankorondrano, Antananarivo 101,Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RATSISALOVANINA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -178,6 +276,13 @@
                     {
                         "name": "SOLEVO MADAGASCAR",
                         "address": "BOULEVARD RATSIMANDRAVA SOANIERANA Antananarivo 101, MadagascarALTERNAX 375 SC",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RATSISALOVANINA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -190,6 +295,13 @@
                     {
                         "name": "Deciem Beauty Group Inc.",
                         "address": "517 Richmond St. E. Toronto, Ontario M5A 1R4 Canada",
+                        "country": "Canada"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RATSISALOVANINA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -202,6 +314,13 @@
                     {
                         "name": "DAD Ritchie",
                         "address": "Lot Vo 15 JAA Manakambahiny Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RATSISALOVANINA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -214,6 +333,13 @@
                     {
                         "name": "TSARADIA S.A.",
                         "address": "31 Avenue de l'Indépendance Analakely, Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RATSISALOVANINA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -226,6 +352,13 @@
                     {
                         "name": "RAKOTOALIVOLOLONA Felana",
                         "address": "Lot II J 172 Bis A Ivandry ANTANANARIVO 101, Madagascar.... 7SARAOIA~ GOPI n° 102 Ed. Février 2022P a g e 16 | 84",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RATSISALOVANINA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -238,6 +371,13 @@
                     {
                         "name": "GUANOMAD SA",
                         "address": "VF 7 Immeuble Malaky Amparibe ANTANANARIVO 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RATSISALOVANINA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -250,6 +390,13 @@
                     {
                         "name": "SARL ELI LGU",
                         "address": "IF 17 Isoraka 101 ANTANANARIVO, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RATSISALOVANINA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -262,6 +409,13 @@
                     {
                         "name": "SHAIKH AZRAD DIDIER",
                         "address": "Lot II J 119 D Ambodivoanjo Ivandry Antananarivo 101, MadagascarFEEL",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RATSISALOVANINA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -274,6 +428,13 @@
                     {
                         "name": "SHAIKH AZRAD DIDIER",
                         "address": "Lot II J 119 D Ambodivoanjo Ivandry Antananarivo, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RATSISALOVANINA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -286,6 +447,13 @@
                     {
                         "name": "ASSOCIATION PHILOSOPHIQUE FIHAVANANA",
                         "address": "Lot AVB 21 Avarabohitra - ANTANANARIVO 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RATSISALOVANINA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -298,6 +466,13 @@
                     {
                         "name": "ASSOCIATION PHILOSOPHIQUE FIHAVANANA",
                         "address": "Lot AVB 21 Avarabohitra - ANTANANARIVO 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RATSISALOVANINA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -310,6 +485,13 @@
                     {
                         "name": "ASSOCIATION PHILOSOPHIQUE FIHAVANANA",
                         "address": "Lot AVB 21 Avarabohitra - ANTANANARIVO 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RATSISALOVANINA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -322,6 +504,13 @@
                     {
                         "name": "SOCIETE FIFIAM TRANSPORT SARLU",
                         "address": "LOT VF 150 TSENAKELY IMERINTSIATOSIKA ANTANANARIVO, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RATSISALOVANINA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -334,6 +523,13 @@
                     {
                         "name": "RANDRIANTSOLOFO Toavina",
                         "address": "Lot IIN 187 K Soavinandriana – Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RATSISALOVANINA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -346,6 +542,13 @@
                     {
                         "name": "Deciem Beauty Group Inc.",
                         "address": "517 Richmond St. E. Toronto, Ontario M5A 1R4 Canada",
+                        "country": "Canada"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RATSISALOVANINA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -358,6 +561,13 @@
                     {
                         "name": "RED ISLAND IMPEX MADAGASCARLot AD 52 Ter B",
                         "address": "Ambohitrarahaba, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "CABINET RAKETAMANGA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -370,6 +580,13 @@
                     {
                         "name": "Syndicats des Industries de Madagascar (SIM)",
                         "address": "Immeuble Premium 3è étage Ankorondrano, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "CABINET RAKETAMANGA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -382,6 +599,13 @@
                     {
                         "name": "SODEAM S.A.",
                         "address": "Lalana Ravoninahitriniarivo Ankorondrano - Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "CABINET RAKETAMANGA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -394,6 +618,13 @@
                     {
                         "name": "VANIER Christophe et Anne Laure VANIER",
                         "address": "Lot 45 AB/A AMBOHIBE ILAFY, Antananarivo 103, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "CABINET RAKETAMANGA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -406,6 +637,13 @@
                     {
                         "name": "SOCIETE BIC",
                         "address": "14, rue Jeanne d'Asnières, Clichy 92110 , France",
+                        "country": "France"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "CABINET RAKETAMANGA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -418,6 +656,13 @@
                     {
                         "name": "RAJAON Alisata Davida",
                         "address": "II J 15 Faravohitra Antananarivo 101, antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RATSISALOVANINA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -430,6 +675,13 @@
                     {
                         "name": "MAISON SAMAT",
                         "address": "8 Rue Henri Palu - Mahajanga 401, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RATSISALOVANINA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -442,6 +694,13 @@
                     {
                         "name": "RENUCCI Philippe Olivier",
                         "address": "Lot VW70 Ambohimitsimbina ANTANANARIVO 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RATSISALOVANINA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -454,6 +713,13 @@
                     {
                         "name": "RENUCCI Philippe Olivier",
                         "address": "Lot VW70 Ambohimitsimbina ANTANANARIVO 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RATSISALOVANINA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -466,6 +732,13 @@
                     {
                         "name": "Deciem Beauty Group Inc.",
                         "address": "517 Richmond St. E. Toronto, Ontario M5A 1R4 Canada",
+                        "country": "Canada"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RATSISALOVANINA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -478,6 +751,13 @@
                     {
                         "name": "LABORA",
                         "address": "Immeuble Millenium Ivandry 1er étage – ANTANANARIVO 101,Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Faneva RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -490,6 +770,13 @@
                     {
                         "name": "O'LYS",
                         "address": "Lot II B 112 Bis Manjakaray, ANTANANARIVO 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Faneva RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -502,6 +789,13 @@
                     {
                         "name": "FERMAT Sarl",
                         "address": "Galerie 35-Tana Water Front-Ambodivona-Antananarivo, MadagascarRenova",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Faneva RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -514,6 +808,13 @@
                     {
                         "name": "MARTIN Christophe Henri René",
                         "address": "LOT II U 76 Cité Planton Ampahibe, Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Faneva RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -526,6 +827,13 @@
                     {
                         "name": "BOFFI S.p.A",
                         "address": "Via Oberdan 70, 20823, Lentate Sul Seveso (MB), Italy",
+                        "country": "Italy"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Faneva RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -538,6 +846,13 @@
                     {
                         "name": "SMTP SA",
                         "address": "Lot 01 A Ambohibao Antehiroka , Antananarivo 105, Madagascar-·~ ~~ _,. Competences Madagascar ~ MPRIIVIERIE LRBORA _.......,._ll'tl ..... -OOBoffi GOPI n° 102 Ed. Février 2022P a g e 21 | 84",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -550,6 +865,13 @@
                     {
                         "name": "Travellers Exchange",
                         "address": "Corporation Limited4th Floor, Kings Place 90 York Way London NI 9AG, United Kingdom",
+                        "country": "United Kingdom"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -564,6 +886,13 @@
                         "address": "133, Teheran-ro (Yeoksam-dong), Gangnam-gu, Seoul Republic korea",
                         "country": ""
                     }
+                ],
+                "representatives": [
+                    {
+                        "name": "A. HICKLING SARL.",
+                        "address": "",
+                        "country": ""
+                    }
                 ]
             },
             {
@@ -576,6 +905,13 @@
                         "address": "133, Teheran-ro (Yeoksam-dong), Gangnam-gu, Seoul , Republic of Korea",
                         "country": ""
                     }
+                ],
+                "representatives": [
+                    {
+                        "name": "A. HICKLING Sarl.",
+                        "address": "",
+                        "country": ""
+                    }
                 ]
             },
             {
@@ -586,6 +922,13 @@
                     {
                         "name": "SOCIETE UNIBISC SARL",
                         "address": "LOT 180 H Amborompotsy Talatamaty, BP 8628, Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "CABINET RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -598,6 +941,13 @@
                     {
                         "name": "SOCIETE UNIBISC SARL",
                         "address": "LOT 180 H Amborompotsy Talatamaty, BP 8628, Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -610,6 +960,13 @@
                     {
                         "name": "SOCIETE UNIBISC SARL",
                         "address": "LOT 180 H Amborompotsy Talatamaty, BP 8628, Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -622,6 +979,13 @@
                     {
                         "name": "SOCIETE UNIBISC SARL",
                         "address": "LOT 180 H Amborompotsy Talatamaty, BP 8628, Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -634,6 +998,13 @@
                     {
                         "name": "SOCIETE UNIBISC SARL",
                         "address": "LOT 180 H Amborompotsy Talatamaty, BP 8628, Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -646,6 +1017,13 @@
                     {
                         "name": "SOCIETE UNIBISC SARL",
                         "address": "LOT 180 H Amborompotsy Talatamaty, BP 8628, Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -658,6 +1036,13 @@
                     {
                         "name": "YOPLAIT MARQUES",
                         "address": "150 rue Gallieni, 92100 BOULOGNE-BILLANCOURT Cedex, France",
+                        "country": "France"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -670,6 +1055,13 @@
                     {
                         "name": "TSIBENY Jean Odilon",
                         "address": "Lot VS 54 FCEAD Ambolokandrina Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "A. HICKLING Sarl.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -682,6 +1074,13 @@
                     {
                         "name": "GUANOMAD S.A.",
                         "address": "Lot VF 7 Immeuble MALAKY Amparibe Antananarivo 101,Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "A. HICKLING Sarl.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -694,6 +1093,13 @@
                     {
                         "name": "Nicoventures Holdings Limited",
                         "address": "Globe House, 1 Water Street, London WC2R 3LA, United Kingdom",
+                        "country": "United Kingdom"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "A. HICKLING Sarl.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -706,6 +1112,13 @@
                     {
                         "name": "LI PLANTE BIO EXPORT",
                         "address": "Lot II A 10 Ter AG Amboditsiry ANTANANARIVO 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "CABINET RAKETAMANGA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -718,6 +1131,13 @@
                     {
                         "name": "VIETNAM DAIRY PRODUCTS JOINT STOCK COMPANY",
                         "address": "(VINAMILK)10 Tan Trao Road, Tan Phu Ward, District7, Ho Chi Minh City, VietNam",
+                        "country": "Vietnam"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "CABINET RAKETAMANGA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -730,6 +1150,13 @@
                     {
                         "name": "FAVRE DANIEL BERNARD JEAN",
                         "address": "BP 18 \"LA FERME DE MORARANO\" AMBATOLAMPY 104, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Faneva RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -742,6 +1169,13 @@
                     {
                         "name": "ZONE IMMOBILIERE TALOUMIS- ZITAL",
                         "address": "Lalana Ravoninahitriniarivo - Ankorondrano- Antananarivo 101, MadagascarSEMAD",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Faneva RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -754,6 +1188,13 @@
                     {
                         "name": "ZONE IMMOBILIERE TALOUMIS- ZITAL",
                         "address": "Lalana Ravoninahitriniarivo - Ankorondrano- Antananarivo 101, MadagascarSEMAD SOCIETE D'EXPERTISE MARITIME AERIENNE DIVERSE",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Faneva RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -766,6 +1207,13 @@
                     {
                         "name": "COMPAGNIE SALINIERE DE MADAGASCAR",
                         "address": "Propriété Salines Plion - Antsahampano, Antsiranana,Madagascar",
+                        "country": "Iran"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Faneva RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -778,6 +1226,13 @@
                     {
                         "name": "ASPEN GLOBAL INCORPORATED.",
                         "address": "GBS Plaza, Cnr La Salette & Royal Roads, Grand Bay,, Mauritius",
+                        "country": "Mauritius"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Faneva RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -790,6 +1245,13 @@
                     {
                         "name": "SOCIETE LEISHEN TRADE SARLU",
                         "address": "Lot III X 252 Andavamamba Anatihazo I, Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -802,6 +1264,13 @@
                     {
                         "name": "ASSOCIATION SOA-PIDM (SOA-des Professionnels Intellectuels",
                         "address": "pour le Développement de Madagascar)LOT 205 / FKTA Ankadivory Talatamaty Ambohidratrimo Tana 105, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -814,6 +1283,13 @@
                     {
                         "name": "RAZAFINDRAVAHY Edgard Marie Noë",
                         "address": "Enceinte SITRAM - Ankorondrano , Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -826,6 +1302,13 @@
                     {
                         "name": "RAZAFINDRAVAHY Edgard Marie Noë",
                         "address": "Enceinte SITRAM -  Ankorondrano , Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -838,6 +1321,13 @@
                     {
                         "name": "RAZAFIARISOA Tiandrainy H. Henintsoa",
                         "address": "N°7 Cité Météo Ampandrianomby, Antananarivo, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -850,6 +1340,13 @@
                     {
                         "name": "OTCF, S.A.",
                         "address": "ul. Grottera 30, 32-020 Wieliczka, Pologne, Poland",
+                        "country": "Poland"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -862,6 +1359,13 @@
                     {
                         "name": "OTCF, S.A.",
                         "address": "ul. Grottera 30, 32-020 Wieliczka Pologne, Polandlrs-wor~ GOPI n° 102 Ed. Février 2022P a g e 27 | 84",
+                        "country": "Poland"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -874,6 +1378,13 @@
                     {
                         "name": "OTCF, S.A.",
                         "address": "ul. Grottera 30, 32-020 Wieliczka, Pologne, Poland",
+                        "country": "Poland"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -886,6 +1397,13 @@
                     {
                         "name": "FOCUS MADAGASCAR",
                         "address": "BP 3019 Ankorondrano - Rue Ravohitriniarivo - ANTANANARIVO, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "A.HICKLING Sarl.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -898,6 +1416,13 @@
                     {
                         "name": "GROUPE SIPROMAD",
                         "address": "BP 3019 Ankorondrano - Rue Ravohitriniarivo Antananarivo, Madagascarwww.sipromad.com",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "A.HICKLING Sarl.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -910,6 +1435,13 @@
                     {
                         "name": "SOCIETE IMMOBILIERE DES MASCAREIGNES",
                         "address": "BP 3019 Ankorondrano, Rue Ravoninahitriniarivo, Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "A.HICKLING Sarl.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -922,6 +1454,13 @@
                     {
                         "name": "GRAND ISLAND TOBACCO",
                         "address": "BP 3019, Lalana Ravoninahitriniarivo, Ankorondrano, Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "A.HICKLING Sarl.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -934,6 +1473,13 @@
                     {
                         "name": "SILVER WINGS TRAVEL AND TOURS",
                         "address": "BP 3019 Ankorondrano - Rue Ravohitriniarivo, ANTANANARIVO., MadagascarO Everhill 4F 1. , •.. • • ••• FOCUS ~ ,,,. SIDM ~ GIT GOPI n° 102 Ed. Février 2022P a g e 28 | 84",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "A.HICKLING Sarl.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -946,6 +1492,13 @@
                     {
                         "name": "GUEPES",
                         "address": "Lot 134 Cité Béryl Rose P/lle 13/14 Toamasina, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "A.HICKLING Sarl.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -958,6 +1511,13 @@
                     {
                         "name": "HAVATSA - UPEM",
                         "address": "Tahala RARIHASINA Analakely Rihana I Antananarivo, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "A.HICKLING Sarl.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -970,6 +1530,13 @@
                     {
                         "name": "TRANOMBAROTRA IMPORT",
                         "address": "LOT II Y 33 F OUEST ANTANIMORA, Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "A.HICKLING Sarl.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -982,6 +1549,13 @@
                     {
                         "name": "FAVRE DANIEL BERNARD JEAN",
                         "address": "BP 18 \"LA FERME DE MORARANO\" AMBATOLAMPY 104, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "A.HICKLING Sarl.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -994,6 +1568,13 @@
                     {
                         "name": "FAVRE DANIEL BERNARD JEAN",
                         "address": "BP 18 \"LA FERME DE MORARANO\" AMBATOLAMPY 104, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "A.HICKLING Sarl.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1006,6 +1587,13 @@
                     {
                         "name": "FAVRE DANIEL BERNARD JEAN",
                         "address": "BP 18 \"LA FERME DE MORARANO\" AMBATOLAMPY 104, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "A.HICKLING Sarl.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1018,6 +1606,13 @@
                     {
                         "name": "FAVRE DANIEL BERNARD JEAN",
                         "address": "BP 18 \"LA FERME DE MORARANO\" AMBATOLAMPY 104, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "A.HICKLING Sarl.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1030,6 +1625,13 @@
                     {
                         "name": "ARONA S.A.",
                         "address": "Zone ZITAL -Rue Ravoninahitriniarivo Ankorondrano – Antananarivo, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "A.HICKLING Sarl.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1042,6 +1644,13 @@
                     {
                         "name": "Indian Motorcycle International, LLC",
                         "address": "2100 Highway 55, Medina, Minnesota 55340, United States of America, United States of America",
+                        "country": "United States of America"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "A.HICKLING Sarl.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1054,6 +1663,13 @@
                     {
                         "name": "SABIR ONALY",
                         "address": "Rue du Marché TULEAR à côté de BFV/SG, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet MADAGASCAR CONSEIL INTERNATIONAL.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1066,6 +1682,13 @@
                     {
                         "name": "SODEAM S.A",
                         "address": "Rue Ravoninahitriniarivo - Ankorondrano  , antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet MADAGASCAR CONSEIL INTERNATIONAL.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1078,6 +1701,13 @@
                     {
                         "name": "SODEAM SA",
                         "address": "Lalana Ravoninahitriniarivo - Ankorondrano, antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet MADAGASCAR CONSEIL INTERNATIONAL.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1090,6 +1720,13 @@
                     {
                         "name": "SODEAM S.A.",
                         "address": "Lalana Ravoninahitriniarivo - Ankorondrano, Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet MADAGASCAR CONSEIL INTERNATIONAL.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1102,6 +1739,13 @@
                     {
                         "name": "CIPLA LIMITED",
                         "address": "Cipla House, Peninsula Business Park, Ganpatrao Kadam Marg, Lower Panel, Mumbai - 400 013, India",
+                        "country": "India"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet MADAGASCAR CONSEIL INTERNATIONAL.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1114,6 +1758,13 @@
                     {
                         "name": "TIAN KONG SARLU",
                         "address": "Lot IVE 88 Behoririka , Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "CABINET  RAKETAMANGA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1126,6 +1777,13 @@
                     {
                         "name": "BREMAR (BREVETS ET MARQUES ) LTD",
                         "address": "9ème étage Ebene Tower, 52 Cybercity , Ebene, MauritiusPUNCH COCO TSP GOPI n° 102 Ed. Février 2022P a g e 31 | 84",
+                        "country": "Mauritius"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "CABINET  RAKETAMANGA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1138,6 +1796,13 @@
                     {
                         "name": "Elsagr Holdings Limited",
                         "address": "Ras A1 Khaimah Free Zone,Ras Al Khaimah, United Arab Emirates, Emirate",
+                        "country": "United Arab Emirates"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "A. HICKLING Sarl.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1150,6 +1815,13 @@
                     {
                         "name": "SOCIETE UNIBISC SARL",
                         "address": "LOT 180 H Amborompotsy Talatamaty, BP 8628, Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1162,6 +1834,13 @@
                     {
                         "name": "SOCIETE UNIBISC SARL",
                         "address": "LOT 180 H Amborompotsy Talatamaty, BP 8628, Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1174,6 +1853,13 @@
                     {
                         "name": "SOCIETE UNIBISC SARL",
                         "address": "LOT 180 H Amborompotsy Talatamaty, BP 8628, Antananarivo 101, Madagascar~;/.·r1c -JI. GOPI n° 102 Ed. Février 2022P a g e 32 | 84",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1186,6 +1872,13 @@
                     {
                         "name": "SOCIETE UNIBISC SARL",
                         "address": "LOT 180 H Amborompotsy Talatamaty, BP 8628, Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1198,6 +1891,13 @@
                     {
                         "name": "SIRI INTERNATIONAL",
                         "address": "Lot IVE 7 Tsiazotafo Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Faneva RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1210,6 +1910,13 @@
                     {
                         "name": "A.F.S.H.A.",
                         "address": "Enceinte Immeuble TOUR ORANGE Ankorondrano Antananarivo101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Faneva RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1222,6 +1929,13 @@
                     {
                         "name": "RABENANAHARY Rado",
                         "address": "Lot BM 223 Ampitatafika ANTANANARIVO 101, MadagascarTeHiN• TeHiN! JIAGOLD GOPI n° 102 Ed. Février 2022P a g e 33 | 84",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Faneva RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1234,6 +1948,13 @@
                     {
                         "name": "RAZAFINDRAVONY Marifidy Christine",
                         "address": "Rue Augagneur, Camp Vert - Nosy-Be. BP : 158, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Faneva RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1246,6 +1967,13 @@
                     {
                         "name": "OCEAN TRADE",
                         "address": "Rue Docteur Raseta  BP 21 Bis  Andraharo, Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Faneva RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1258,6 +1986,13 @@
                     {
                         "name": "OCEANTRADE",
                         "address": "Rue Docteur Raseta, BP 21 Bis,  Andraharo, Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Faneva RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1270,6 +2005,13 @@
                     {
                         "name": "OCEANTRADE",
                         "address": "Rue Docteur, Raseta  BP 21 Bis,  Andraharo, Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Faneva RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1282,6 +2024,13 @@
                     {
                         "name": "OCEANTRADE",
                         "address": "Rue Docteur Raseta,  BP 21, Bis  Andraharo, Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Faneva RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1294,6 +2043,13 @@
                     {
                         "name": "OCEANTRADE",
                         "address": "Rue Docteur Raseta,  BP 21 Bis,  Andraharo, Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Faneva RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1306,6 +2062,13 @@
                     {
                         "name": "OCEANTRADE",
                         "address": "Rue Docteur Raseta,  BP 21 Bis,  Andraharo, Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Faneva RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1318,6 +2081,13 @@
                     {
                         "name": "OCEANTRADE",
                         "address": "Rue Docteur Raseta,  BP 21 Bis,  Andraharo, Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Faneva RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1330,6 +2100,13 @@
                     {
                         "name": "OCEANTRADE",
                         "address": "Rue Docteur Raseta,  BP 21 Bis,  Andraharo, Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Faneva RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1342,6 +2119,13 @@
                     {
                         "name": "EMIRATES NATIONAL OIL COMPANY LIMITED (ENOC) LLC",
                         "address": "P.O. Box 6442, Dubai, United Arab Emirates, United Arab Emirates",
+                        "country": "United Arab Emirates"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Faneva RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1354,6 +2138,13 @@
                     {
                         "name": "ARCOR S.A.I.C.",
                         "address": "Av. Fulvio Pagani 487, Arroyito, Province of Cordoba, , Argentina",
+                        "country": "Argentina"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet ACRAN.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1366,6 +2157,13 @@
                     {
                         "name": "Syndicats des Industries de Madagascar (SIM)",
                         "address": "Immeuble Prémium (ex-village des jeux), Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "RAZAKANTOANINA Lovatiana Corinne.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1378,6 +2176,13 @@
                     {
                         "name": "ESTENSIO MADA SARL",
                         "address": "Lot II I 160 AB Ter Alarobia, Antananarivo101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "RAZAKANTOANINA Lovatiana Corinne.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1390,6 +2195,13 @@
                     {
                         "name": "FAN EDUCATION AGENCY SARLU",
                         "address": "Immeuble Loyus Antsahavola, Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "RAZAKANTOANINA Lovatiana Corinne.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1402,6 +2214,13 @@
                     {
                         "name": "TRANOMBAROTRA IMPORT",
                         "address": "LOT II Y 33 F OUEST ANTANIMORA, Antananarivo 101, MadagascarGOPI n° 102 Ed. Février 2022P a g e 36 | 84Speed ndray mitselatra",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "RAZAKANTOANINA Lovatiana Corinne.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1414,6 +2233,13 @@
                     {
                         "name": "LEISHEN TRADE SARLU",
                         "address": "Lot III X 252 Andavamamba Anatihazo I, Antananarivo , Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "RAZAKANTOANINA Lovatiana Corinne.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1426,6 +2252,13 @@
                     {
                         "name": "ZAFIMAHOVA Fenosoa",
                         "address": "c/o Hôtel Darafify 501 TAMATAVE, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "RAZAKANTOANINA Lovatiana Corinne.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1438,6 +2271,13 @@
                     {
                         "name": "Première Agence de Microfinance Madagascar",
                         "address": "1, Làlana Solombavambahoaka Frantsay 77, Antsahavola -Antananarivo, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "RAZAKANTOANINA Lovatiana Corinne.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1450,6 +2290,13 @@
                     {
                         "name": "Première Agence de Microfinance Madagascar",
                         "address": "1, Làlana Solombavambahoaka Frantsay 77, Antsahavola -Antananarivo, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "RAZAKANTOANINA Lovatiana Corinne.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1462,6 +2309,13 @@
                     {
                         "name": "ENTERPRISE HOLDINGS, INC.",
                         "address": "600 CORPORATE PARK DRIVE ST. LOUIS MISSOURI 63105, United States of America",
+                        "country": "United States of America"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "RAZAKANTOANINA Lovatiana Corinne.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1474,6 +2328,13 @@
                     {
                         "name": "Enterprise Holdings, Inc.",
                         "address": "600 Corporate Park Drive St. Louis MO 63105, United States of America",
+                        "country": "United States of America"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "RAZAKANTOANINA Corinne Lovatiana.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1486,6 +2347,13 @@
                     {
                         "name": "FIVONDRONAN'NY MPANDRAHARAHA MALAGASY",
                         "address": "Lot VF 7 Immeuble Malaky Amparibe, ANTANANARIVO 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "FANEVA RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1498,6 +2366,13 @@
                     {
                         "name": "RADIO TROPIQUE 107 FM",
                         "address": "Antanifotsy I, Sambava 208 Gare routière, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "FANEVA RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1512,6 +2387,13 @@
                         "address": "Rue Lieutenant Chanaron Tsianaloka TOLIARA- Lot AD 23 Morarano Soavimasoandro",
                         "country": ""
                     }
+                ],
+                "representatives": [
+                    {
+                        "name": "FANEVA RAKOTOMANANA.",
+                        "address": "",
+                        "country": ""
+                    }
                 ]
             },
             {
@@ -1522,6 +2404,13 @@
                     {
                         "name": "BRICOFER SARL",
                         "address": "Rue Lieutenant Chanaron Tsianaloka TOLIARA- Lot AD 23 Morarano Soavimasoandro , Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "FANEVA RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1534,6 +2423,13 @@
                     {
                         "name": "BRICOFER SARL",
                         "address": "Rue Lieutenant Chanaron Tsianaloka TOLIARA- Lot AD 23 Morarano Soavimasoandro , Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "FANEVA RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1546,6 +2442,13 @@
                     {
                         "name": "BRICOFER SARL",
                         "address": "Rue Lieutenant Chanaron Tsianaloka TOLIARA- Lot AD 23 Morarano Soavimasoandro , Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "FANEVA RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1558,6 +2461,13 @@
                     {
                         "name": "BRICOFER SARL",
                         "address": "Rue Lieutenant Chanaron Tsianaloka TOLIARA- Lot AD 23 Morarano Soavimasoandro, Madagascarp .. ~ IIIIIDID °T.~P-~ MS Tile . terieur et exterieur carrelages ,n ~ MS Tools GOPI n° 102 Ed. Février 2022P a g e 38 | 84",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "FANEVA RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1570,6 +2480,13 @@
                     {
                         "name": "Groupement des Concessionnaires Automobiles de Madagascar",
                         "address": "1er étage Immeuble STOI Ankorondrano, antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "FANEVA RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1582,6 +2499,13 @@
                     {
                         "name": "QUIMICAS ORO, S.A.",
                         "address": "CV35 Valencia-Ademuz, Km 13, 1 izq./46184 San Antonio De Benagéber, Valencia, Spain",
+                        "country": "Spain"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "FANEVA RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1594,6 +2518,13 @@
                     {
                         "name": "PREST'ART",
                         "address": "Lot IC 50Bis Ankadilalampotsy, Antananarivo 102, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "FANEVA RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1606,6 +2537,13 @@
                     {
                         "name": "The Mauritius Commercial Bank ( Madagascar ) S.A",
                         "address": "Rue Solombavambahoaka Frantsay 77, Antsahavola Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "FANEVA RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1618,6 +2556,13 @@
                     {
                         "name": "Nutricia International B.V.",
                         "address": "Taurusavenue 167, 2132 LS Hoofddorp, Netherlands",
+                        "country": "Netherlands"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "FANEVA RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1630,6 +2575,13 @@
                     {
                         "name": "Nutricia International B.V.",
                         "address": "Taurusavenue 167, 2132 LS Hoofddorp, Netherlands",
+                        "country": "Netherlands"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "FANEVA RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1642,6 +2594,13 @@
                     {
                         "name": "APPLE INC.",
                         "address": "One Apple Park Way, Cupertino, CA 95014, , United States of America",
+                        "country": "United States of America"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet ACRAN.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1654,6 +2613,13 @@
                     {
                         "name": "MONSTER ENERGY COMPANY",
                         "address": "1 Monster way, Corona, California 92879, United States of America",
+                        "country": "United States of America"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet ACRAN.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1666,6 +2632,13 @@
                     {
                         "name": "HERVE MAGNAT",
                         "address": "PRES LOT II Y 53FK MAHASOA CXL II ANDOBOLOBE - AMPAHIBE ANTANANARIVO 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "CABINET RAKETAMANGA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1678,6 +2651,13 @@
                     {
                         "name": "MOHAMED RYAN",
                         "address": "LOT I V A 7 AMBOHIMANARINA ANTANANARIVO, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "CABINET RAKETAMANGA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1690,6 +2670,13 @@
                     {
                         "name": "IPSEN CONSUMER HEALTHCARE",
                         "address": "65 quai Georges Gorse, 92100 Boulogne-Billancourt, France",
+                        "country": "France"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "CABINET RAKETAMANGA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1702,6 +2689,13 @@
                     {
                         "name": "SOCIETE FILATEX S.A.",
                         "address": "Route d'Antsirabe Ankadimbahoaka BP.1330 Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "RAZAKANTOANINA Corinne Lovatiana.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1714,6 +2708,13 @@
                     {
                         "name": "SOCIETE FILATEX S.A.",
                         "address": "Route d'Antsirabe Ankadimbahoaka BP.1330 Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "RAZAKANTOANINA Corinne Lovatiana.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1726,6 +2727,13 @@
                     {
                         "name": "SOCIETE FILATEX S.A",
                         "address": "Route d'Antsirabe Ankadimbahoaka BP.1330 Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "RAZAKANTOANINA Corinne Lovatiana.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1738,6 +2746,13 @@
                     {
                         "name": "RAZAKAMIARAMANANA Rindraniaina Harimino",
                         "address": "Lot VR 6bis Ankazotokana ambony, 101 Antananarivo, Madagascar-GROUPE C FILATEX CAP.£OR smectalia GOPI n° 102 Ed. Février 2022P a g e 41 | 84",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "RAZAKANTOANINA Corinne Lovatiana.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1750,6 +2765,13 @@
                     {
                         "name": "ALN",
                         "address": "C/o Axis Fiduciary Ltd2nd Floor, The Axis, 26 Bank Street, Cybercity, Ebene 72201, Mauritius",
+                        "country": "Mauritius"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "RAZAKANTOANINA Corinne Lovatiana.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1762,6 +2784,13 @@
                     {
                         "name": "MAISON SAMAT",
                         "address": "8 Rue Henri Palu - Mahajanga 401, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Faneva RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1774,6 +2803,13 @@
                     {
                         "name": "WE LIGHT MADAGASCAR",
                         "address": "Batiment Ariane 5B,Zone Galaxy Andraharo, ANTANANARIVO 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Faneva RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1786,6 +2822,13 @@
                     {
                         "name": "JANY Sarah",
                         "address": "Lot II Y 9 F Avaratr'Antanimora Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Faneva RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1798,6 +2841,13 @@
                     {
                         "name": "Strength of Nature, LLC",
                         "address": "64 Ross Road, Savannah, Georgia 31405, , United States of America",
+                        "country": "Georgia"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Faneva RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1810,6 +2860,13 @@
                     {
                         "name": "SOCIÉTÉ KINLON SOA SARL",
                         "address": "LOT III 0 40 E Bis Ouest AMBOHIJANAHARY - ANTANANARIVO, Madagascar KL",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "CABINET RAKETAMANGA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1824,6 +2881,13 @@
                         "address": "(VINAMILK) 10 Tan Trao Road, Tan Phu Ward, District 7, Ho Chi Minh City, Viet Nam",
                         "country": ""
                     }
+                ],
+                "representatives": [
+                    {
+                        "name": "CABINET RAKETAMANGA.",
+                        "address": "",
+                        "country": ""
+                    }
                 ]
             },
             {
@@ -1834,6 +2898,13 @@
                     {
                         "name": "REN YU JIE",
                         "address": "Lot PR 4 Kianja Soarano Analakely Antananarivo 101, MadagascarZOMA CENTER",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "CABINET RAKETAMANGA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1846,6 +2917,13 @@
                     {
                         "name": "AGRIVET SARL",
                         "address": "Lot 01 Ambohibao Antehiroka 101 ANTANANARIVO, MadagascarRADZYH",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "CABINET RAKETAMANGA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1858,6 +2936,13 @@
                     {
                         "name": "AGRIVET SARL",
                         "address": "Lot 01 Ambohibao Antehiroka 101 ANTANANARIVO, MadagascarSOLDAT ~ \" Center 1' GOPI n° 102 Ed. Février 2022P a g e 43 | 84",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "CABINET RAKETAMANGA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1870,6 +2955,13 @@
                     {
                         "name": "AGRIVET SARL",
                         "address": "Lot 01 A Ambohibao Antehiroka Antananarivo, 22 442 20, MadagascarARMY",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "CABINET RAKETAMANGA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1882,6 +2974,13 @@
                     {
                         "name": "AGRIVET SARL",
                         "address": "Lot 01 A Ambohibao 101 ANTANANARIVO, MadagascarLEGION",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "CABINET RAKETAMANGA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1894,6 +2993,13 @@
                     {
                         "name": "RAJAONOSOA Harinavalona Patricia",
                         "address": "Lot II G 23 MD Antsobolo Ambatomaro Antananarivo 101 -Madagascar, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "CABINET RAKETAMANGA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1906,6 +3012,13 @@
                     {
                         "name": "RAJAONOSOA Harinavalona Patricia",
                         "address": "Lot II G 23 MD Antsobolo Ambatomaro Antananarivo 101 - Madagascar, Madagascar SPRAYCIALISTE",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "CABINET RAKETAMANGA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1918,6 +3031,13 @@
                     {
                         "name": "RALAIVAO Hartiana Patricia",
                         "address": "BP 397 Antaninarenina Antananarivo 101 - Madagascar, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "CABINET RAKETAMANGA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1930,6 +3050,13 @@
                     {
                         "name": "BANKY FOIBEN'I MADAGASIKARA",
                         "address": "BP 550 - Antaninarenina , Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "CABINET RAKETAMANGA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1944,6 +3071,13 @@
                         "address": "Rue de Commerce Sambava Centre BP N'S8-Sambava",
                         "country": ""
                     }
+                ],
+                "representatives": [
+                    {
+                        "name": "CABINET RAKETAMANGA.",
+                        "address": "",
+                        "country": ""
+                    }
                 ]
             },
             {
@@ -1954,6 +3088,13 @@
                     {
                         "name": "SOCIETE GASLUX SARL",
                         "address": "Lot IVE 03 BEHORIRIKA Stand 310 NEW CITY , ANTANANARIVO 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "CABINET RAKETAMANGA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1966,6 +3107,13 @@
                     {
                         "name": "SARL ELI-LGU",
                         "address": "IF 17 Isoraka 101 Antananarivo, MadagascarELI.MG",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "CABINET RAKETAMANGA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1978,6 +3126,13 @@
                     {
                         "name": "UCODIS SARL",
                         "address": "27 Rue Radama 1er Tsaralalana Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "CABINET RAKETAMANGA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -1990,6 +3145,13 @@
                     {
                         "name": "FARMSHOP SARL",
                         "address": "Lot K7-97 Bis II A Mamory IVATO, Antananarivo 105, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "CABINET RAKETAMANGA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -2002,6 +3164,13 @@
                     {
                         "name": "LONCIN MOTOR CO., LTD",
                         "address": "NO. 99 Hualong Avenue ,Jiulong Park, Jiulongpo District, Chongqing 400052, P.R., China",
+                        "country": "China"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "CABINET RAKETAMANGA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -2016,6 +3185,13 @@
                         "address": "286, Pangyo-ro , Bundang-gu,Seongnam-si,Gyeonggi-do - Republic of Korea",
                         "country": ""
                     }
+                ],
+                "representatives": [
+                    {
+                        "name": "A. HICKLING Sarl.",
+                        "address": "",
+                        "country": ""
+                    }
                 ]
             },
             {
@@ -2026,6 +3202,13 @@
                     {
                         "name": "RANDRIANARIVELO Rianasoa",
                         "address": "EA 73 I ANTSAHATSIRESY Sabotsy Namehana, Antananarivo 103,   Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "PRIMELEX.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -2038,6 +3221,13 @@
                     {
                         "name": "Semence Avotra",
                         "address": "Lot IVD 130J ANTSARARAY Tana VI, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "PRIMELEX.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -2050,6 +3240,13 @@
                     {
                         "name": "Tranombarotra MBOLA TSARA",
                         "address": "03, rue Rainimbetsimisaraka SOARANO, Antananarivo 101, Madagascar YLO SOLAR",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "PRIMELEX.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -2062,6 +3259,13 @@
                     {
                         "name": "SHAN FZC",
                         "address": "P.O.Box No. 121136, Saif Zone, Sharjah, United Arab Emirates",
+                        "country": "United Arab Emirates"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "PRIMELEX.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -2074,6 +3278,13 @@
                     {
                         "name": "DANONE SOUTHERN AFRICA (PROPRIETARY) LIMITED",
                         "address": "Bryanston Place - Building C, 199 Bryanston Drive, Bryanston, Johannesburg, Gauteng., South Africa",
+                        "country": "South Africa"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "CABINET RAKETAMANGA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -2086,6 +3297,13 @@
                     {
                         "name": "MECAMOTORS SARL",
                         "address": "Lot 096 Bis Mamory Miray Antoby, Antananarivo, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "FANEVA RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -2098,6 +3316,13 @@
                     {
                         "name": "MECAMOTORS SARL",
                         "address": "Lot 096 Bis Mamory Miray Antoby, Antananarivo, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "FANEVA RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -2110,6 +3335,13 @@
                     {
                         "name": "FOSSIL GROUP, INC.",
                         "address": "901 S. Central Expressway, Richardson, Texas 75080, United States of America",
+                        "country": "United States of America"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "FANEVA RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -2122,6 +3354,13 @@
                     {
                         "name": "FOSSIL GROUP, INC.",
                         "address": "901 S. Central Expressway, Richardson, Texas 75080 , United States of America",
+                        "country": "United States of America"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "FANEVA RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -2134,6 +3373,13 @@
                     {
                         "name": "NuStar Global DMCC",
                         "address": "Unit No: 906, tiffany Towers, Plot No: JLT-PH2-W2A, Jumeirah Lakes Towers, Dubai, United Arab Emirates",
+                        "country": "United Arab Emirates"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "A.HICKLING Sarl.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -2146,6 +3392,13 @@
                     {
                         "name": "ZHUANG TIANQING",
                         "address": "Lot NP 18, 5 Bis Rue Andrianampoinimerina Analakely, Antananarivo, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -2158,6 +3411,13 @@
                     {
                         "name": "SOCIETE UNIBISC SARL",
                         "address": "Lot 180 H Amboropotsy Talatamaty, BP 8628, Antananarivo 101, Antananarivo, 101 ANTANANARIVO, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -2170,6 +3430,13 @@
                     {
                         "name": "SOCIETE UNIBISC SARL",
                         "address": "LOT 180 H Amborompotsy Talatamaty, BP 8628, Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet Rakotomanana.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -2182,6 +3449,13 @@
                     {
                         "name": "SOCIETE UNIBISC SARL",
                         "address": "LOT 180 H Amborompotsy Talatamaty, BP 8628, Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -2194,6 +3468,13 @@
                     {
                         "name": "SOCIETE UNIBISC SARL",
                         "address": "LOT 180 H Amborompotsy Talatamaty, BP 8628, Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -2206,6 +3487,13 @@
                     {
                         "name": "SOCIETE UNIBISC SARL",
                         "address": "LOT 180 H Amborompotsy Talatamaty, BP 8628, Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RAKOTOMANANA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -2218,6 +3506,13 @@
                     {
                         "name": "Deciem Beauty Group Inc.",
                         "address": "517 Richmond St. E. Toronto, Ontario M5A 1R4 Canada",
+                        "country": "Canada"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "Cabinet RATSISALOVANINA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -2230,6 +3525,13 @@
                     {
                         "name": "DAD Ritchie",
                         "address": "Lot Vo 15 JAA Manakambahiny Antananarivo, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "CABINET RAKETAMANGA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -2242,6 +3544,13 @@
                     {
                         "name": "MEGA DISPOSABLES S.A.",
                         "address": "148 Dekelias Street, 13678 Aharnes, Greece",
+                        "country": "Greece"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "CABINET RAKETAMANGA.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -2254,6 +3563,13 @@
                     {
                         "name": "Shenzhen Zhi Yan Technology Co. Ltd.",
                         "address": "Room 201, Building A, Qianwan 1st Road, Qianhai Shenzhen - Hong Kong, Coopération Zone, Shenzhen, China",
+                        "country": "China"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "CABINET ACRAN.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -2266,6 +3582,13 @@
                     {
                         "name": "International Foodstuffs Co LLC",
                         "address": "P.O.Box 4115, Sharjah, United Arab Emirates",
+                        "country": "United Arab Emirates"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "A. HICKLING SARL.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -2278,6 +3601,13 @@
                     {
                         "name": "SAFIRYS SARL",
                         "address": "Avenue MARECHAL FOCH Antsirabe, Antsirabe, VAKINAKARATRA, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "PricewaterhouseCoopers Tax and Legal.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -2290,6 +3620,13 @@
                     {
                         "name": "CHINA INTERNATIONAL WATER & ELECTRIC CORP.",
                         "address": "Villa C11,54 Villas Antanetibe Antehiroka-Antananarivo 105, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "PricewaterhouseCoopers Tax and Legal.",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -2302,6 +3639,13 @@
                     {
                         "name": "RAMAMONJISOA Roger",
                         "address": "IIM 83 ANDRAVOAHANGY - EST ANTANANARIVO 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "",
+                        "address": "",
                         "country": ""
                     }
                 ]
@@ -2314,6 +3658,13 @@
                     {
                         "name": "HASSANALY Swami Lionel",
                         "address": "Lot IVS 46 Antanimena - Antananarivo 101, Madagascar",
+                        "country": "Madagascar"
+                    }
+                ],
+                "representatives": [
+                    {
+                        "name": "",
+                        "address": "",
                         "country": ""
                     }
                 ]

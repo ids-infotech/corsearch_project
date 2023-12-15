@@ -4,6 +4,8 @@ import fitz  # PyMuPDF
 
 def extract_data_from_pdf(pdf_text, config):
     data_entries = []
+    country_names = []
+  
 
     for section_config in config["applicableFor"]["sections"]:
         if section_config["title"] == "Registrations":
@@ -36,6 +38,19 @@ def extract_data_from_pdf(pdf_text, config):
                 # Remove newline characters from the address
                 owner_address = name_parts[1].replace("\n", "").strip() if len(name_parts) > 1 else ""
 
+                # Iterate through stored country names and check if they are in the address
+                owner_country = ""
+                for country_name in country_names:
+                    if country_name.lower() in owner_address.lower():
+                        owner_country = country_name
+                        break
+
+                representative_name = match.group(1).strip() if match.group(1) else ""
+
+                # Split on the first occurrence of "/n"
+                name_parts = representative_name.split("\n", 1)
+                representative_name = name_parts[0].strip() if name_parts else ""
+
                 section_data["trademarks"].append({
                     "registrationNumber": registration_number,
                     "applicationDate": application_date,
@@ -44,9 +59,17 @@ def extract_data_from_pdf(pdf_text, config):
                         {
                             "name": owner_name,
                             "address": owner_address,
-                            "country": ""
+                            "country": owner_country
                         }
-                    ]
+                    ],
+                    "representatives": [
+                        {
+                            "name": representative_name,
+                            "address": "",
+                            "country": "",
+                        }
+                    ],
+                    
                 })
 
             data_entries.append(section_data)
@@ -68,7 +91,7 @@ with open("config.json", "r") as config_file:
 result = extract_data_from_pdf(pdf_text, config)
 
 # Save data to a JSON file
-with open("own3.json", "w", encoding='utf-8') as output_file:
+with open("own_country.json", "w", encoding='utf-8') as output_file:
     json.dump(result, output_file, indent=4, ensure_ascii=False)
 
 # Display the result

@@ -17,9 +17,15 @@
                     ],
                     "representatives": [
                         {
-                            "name": "\\(740\\)\\s*(.*?)(?=\\(\\d+\\)|$)?",
+                            "name": "\\(740\\)\\s*([\\s\\S]*?)(?=\\(\\d+\\)|$)",
                             "address": "",
                             "country": ""
+                        }
+                    ],
+                    "classifications": [
+                        {
+                       "niceClasses" : "",
+                        "goodServiceDescription": ""
                         }
                     ]
                 }
