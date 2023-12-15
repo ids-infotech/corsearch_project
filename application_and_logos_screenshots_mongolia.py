@@ -672,7 +672,7 @@ def cleaning_multiple_entry_mongolia(input_file_path, output_file_path):
 
 
 '''CALLING ALL THE OTHER FUNCTIONS'''
-def main_function_for_image_processing_TT(pdf_file_path):
+def image_processing_Mongolia(pdf_file_path):
     # Step 1: Extract and segment applications
     result_file_path = extract_and_segment_applications_mongolia(pdf_file_path)
     print(f"Segmented data written to: {result_file_path}")
@@ -717,4 +717,4 @@ if __name__ == "__main__":
     # # Extracting just the filename
     # pdf_file_name = os.path.basename(pdf_file_path)
     pdf_path =  'MN20230531-05.pdf'
-    main_function_for_image_processing_TT(pdf_path)
+    image_processing_Mongolia(pdf_path)
