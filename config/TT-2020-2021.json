@@ -12,37 +12,37 @@
                     "applicationNumber": "(\\d+)\\s+Class",
                     "applicationDate": "Date Received (\\w+ \\d+, \\d{4})",
                     "owners": {
-                        "name": "^^([A-Z\\s]+)\\b",
-                        "address": "whose trade or business address is at\\s+(.*?),\\s*([\\w\\s]+)\\.",
-                        "country": "whose trade or business address is at\\s+.*,\\s+([^\\,]+)\\."
+                        "name": "^([A-Z\\s]+)\\b",
+                        "address": "(?<=whose trade or business address is at)(.*?),\\s*([\\w\\s]+)\\.",
+                        "country": ""
                     },
-                    "verbalElements": "",
+                    "verbalElements": "([A-Z&]{2,}(?:\\s[A-Z&0-9]{1,}){0,2})$",
                     "deviceElements": "",
                     "classifications": {
                         "niceClass": "Class (\\d+)",
                         "goodServiceDescription": "Class \\d+\\s*(.*?)\\b[A-Z]+\\b"
                     },
-                    "disclaimer": "^REGISTRATION\\s+OF\\s+THIS\\s+MARK.*?\\.",
+                    "disclaimer": "(REGISTRATION OF THIS MARK SHALL GIVE.*?)(?=\\n[A-Z]{2,}(?:\\s[A-Z]{2,}){0,2}$|\\nCFE)",
                     "representatives": {
                         "name": "Address for (.+)$",
-                        "address": "Service\\s+(.*)",
+                        "address": "Service (.+)$",
                         "country": "Service\\s+.*,\\s+(.*?)\\."
                     },
-                    "viennaClasses": "CFE \\(\\d+\\)\\s*(.*?)(?=\n\n|CFE \\(\\d+\\)|$)",
-                    "color": "THE APPLICANT CLAIMS THE COLOURS.*?\\.",
+                    "viennaClasses": "CFE \\(\\d+\\)\\s*(.*?)(?=\\n\\n|CFE \\(\\d+\\)|$)",
+                    "color": "(THE APPLICANT CLAIMS THE COLOURS.*?\\.)",
                     "priorities": {
-                        "number": "APPLICATION NO\\.\\s+([\\d\/,]+)\\s+DATED",
-                        "date": "DATED\\s+(.*?)\\.",
-                        "country": "BASED ON A\\s+(.*?)\\s+APPLICATION"
+                        "number": "APPLICATION NO\\.\\s*(\\d+/\\d+,\\d+)\\s*DATED",
+                        "date": "DATED\\s*(.*?)(?=\\.)",
+                        "country": "BASED ON A\\s*(.*?)(?=\n|APPLICATION)"
                     }
                 }
             },
             {
                 "title": "Corrections",
                 "trademarks": {
-                    "applicationNumber": "(\\d+)\\s+Class",
+                    "applicationNumber": "\\d+)\\s+Class",
                     "owners": {
-                        "name": "^(.*?),\\s+a\\s+"
+                        "name": "^([A-Z\\s]+)\b"
                     },
                     "deviceElements": ""
                 }
@@ -50,28 +50,28 @@
             {
                 "title": "International Applications (Madrid)",
                 "trademarks": {
-                    "registrationNumber": "(\\d+)\\s+Class",
-                    "SubsequentDesignationDate": "DATE RECEIVED\\s+(\\w+\\s+\\d+,\\s+\\d{4})",
+                    "registrationNumber": "\\d+)\\s+Class",
+                    "SubsequentDesignationDate": "Date Received (\\w+ \\d+, \\d{4})",
                     "owners": {
-                        "name": "^(.*?),\\s+a\\s+",
-                        "address": "whose trade or business address is at\\s+(.*?)(?=\\.\\s+\"|, Date Received)"
+                        "name": "^([A-Z\\s]+)\b",
+                        "address": "?<=whose trade or business address is at)(.*?),\\s*([\\w\\s]+)\\."
                     },
                     "onwers": {
-                        "country": "whose trade or business address is at\\s+.*,\\s+([^\\,]+)\\."
+                        "country": ""
                     },
                     "representatives": {
-                        "name": "Address for\\s+(.*?)(?= Service)",
-                        "address": "Service\\s+(.*)",
-                        "country": "Service\\s+.*,\\s+(.*?)\\."
+                        "name": "Address for (.+)$",
+                        "address": "Service (.+)$",
+                        "country": ""
                     },
                     "verbalElements": "",
                     "classifications": {
-                        "niceClass": "Class\\s+(\\d+)",
-                        "goodServiceDescription": "Class\\s+\\d+\\s+(.*?)\n"
+                        "niceClass": "Class (\\d+)",
+                        "goodServiceDescription": "Class \\d+\\s*(.*?)\b[A-Z]+\b"
 
                     },
                     "priorities": {
-                        "country": "BASED ON A\\s+(.*?)\\s+APPLICATION"
+                        "country": ""
                     }
                 }
             }
