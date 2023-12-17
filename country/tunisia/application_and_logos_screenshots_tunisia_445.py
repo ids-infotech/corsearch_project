@@ -420,10 +420,6 @@ def define_coordinates_tunisia_445(pdf_path, extracted_text_json_path, start_pag
         json.dump(existing_data, json_file, indent=4, ensure_ascii=False,  separators=(',', ': '))
 
 
-# Example usage:
-# pdf_file_path = pdf_file_path  # Replace with the path to your PDF file, THIS VARIABLE IS IN THE STARTING OF THE SCRIPT
-# extracted_text_json_path = f"{pdf_file_path}_result_of_segmented_text.json"  # This is the JSON input file and also the new output file
-# define_coordinates_from_pdf(pdf_file_path, extracted_text_json_path)
 
 '''THIS PART TAKES IMAGES BASED'''
 def extract_and_process_images_tunisia(json_data, pdf_file, output_folder, output_parent_folder, resolution=200):
@@ -597,14 +593,6 @@ def extract_logos_tunisia(pdf_file_path, json_path, output_folder, output_parent
     return data
 
 
-# # Assuming the user will provide the path to the PDF file they want to process
-# json_path = f'output_{pdf_file_path}.json'   # Replace this with the actual path to the JSON file
-# # Set the path to the folder where images will be saved
-# output_folder_logos = f"logo_images_{pdf_file_path}"  # Replace this with the actual path to the output folder
-
-# # Extract images, save them in a folder, and update JSON
-# updated_data_with_images_in_folder = extract_logos_tunisia(pdf_file_path, json_path, output_folder_logos)
-
 
 def update_trade_mark_keys_tunisia(input_file_path, output_file_path):
     # Read the JSON data from the file
@@ -624,11 +612,6 @@ def update_trade_mark_keys_tunisia(input_file_path, output_file_path):
     # Write the updated JSON data to a new file
     with open(output_file_path, 'w', encoding='utf-8') as file:
         json.dump(updated_json, file, indent=4, ensure_ascii=False)
-
-# # Example usage
-# input_file_path = json_path  # Replace with your input file path
-# output_file_path = f"output_for_processing_{pdf_file_path}.json"  # Replace with your desired output file path
-# update_trade_mark_keys_tunisia(input_file_path, output_file_path)
 
 
 def filter_json_data(input_file_path, output_file_path):
