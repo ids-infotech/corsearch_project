@@ -29,7 +29,7 @@
                         "country": "Service\\s+.*,\\s+(.*?)\\."
                     },
                     "viennaClasses": "CFE \\(\\d+\\)\\s*(.*?)(?=\\n\\n|CFE \\(\\d+\\)|$)",
-                    "color": "(THE APPLICANT CLAIMS THE COLOURS.*?\\.)",
+                    "color": "(THE APPLICANT CLAIMS THE [Cc][Oo][Ll][Oo][Uu][Rr][Ss]?.*?\\.)",
                     "priorities": {
                         "number": "APPLICATION NO\\.\\s*(\\d+/\\d+,\\d+)\\s*DATED",
                         "date": "DATED\\s*(.*?)(?=\\.)",
@@ -50,7 +50,7 @@
             {
                 "title": "International Applications (Madrid)",
                 "trademarks": {
-                    "registrationNumber": "\\d+)\\s+Class",
+                    "registrationNumber": "(\\d+)\\s+Class",
                     "SubsequentDesignationDate": "Date Received (\\w+ \\d+, \\d{4})",
                     "owners": {
                         "name": "^([A-Z\\s]+)\b",

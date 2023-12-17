@@ -35,6 +35,10 @@ priorities_number_regex = config['applicableFor']['sections'][0]['trademarks']['
 priorities_date_regex = config['applicableFor']['sections'][0]['trademarks']['priorities']['date']
 priorities_country_regex = config['applicableFor']['sections'][0]['trademarks']['priorities']['country']
 
+'''MADRID MARKS'''
+registrationNumber_regex = config['applicableFor']['sections'][2]['trademarks']['registrationNumber']
+SubsequentDesignationDate_regex = config['applicableFor']['sections'][2]['trademarks']['SubsequentDesignationDate']
+
 def extract_trademarks_combined(text):
 
     # Get all upward and downward matches
@@ -236,16 +240,16 @@ def extract_trademarks_info_int_applications(text):
         downward_text = downward_matches[i].group(1)
 
         
-        '''APPLICATION NUMBER'''
-        pattern_application_number = re.compile(application_number_regex)
+        '''registrationNumber_regex NUMBER'''
+        pattern_application_number = re.compile(registrationNumber_regex)
         application_number_match = re.search(pattern_application_number, downward_text)
         application_number = application_number_match.group(1) if application_number_match else None
         
 
         # Extract the necessary data from the downward_text
-        '''DATE RECEIVED'''
+        '''SubsequentDesignationDate_regex RECEIVED'''
         # Extract 'Date Received' using regex
-        date_received_match = re.search(application_date_regex, downward_text)
+        date_received_match = re.search(SubsequentDesignationDate_regex, downward_text)
         application_date = date_received_match.group(1) if date_received_match else None
         
         '''OWNER NAME'''
@@ -336,8 +340,8 @@ def create_json_structure(trademarks_info, trademarks_info_corrections, trademar
     return json_structure
 
 def main():
-    pdf_path = "TT20231101-42.pdf"
-    output_file = f"TRIAL_OUTPUT.json"
+    pdf_path = "TT20231025-41.pdf"
+    output_file = f"TRIAL_OUTPUT_{pdf_path}.json"
 
     text = extract_text_from_pdf(pdf_path)
     trademarks_info = extract_trademarks_combined(text)
