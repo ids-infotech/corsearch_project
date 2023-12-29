@@ -1,0 +1,75 @@
+{
+    "paths": {
+        "input_pdf_path": "input_docs/vc/VC20230116-01.pdf",
+        "unique_identifier_code": "vc_table_01"
+    },
+    "sections": {
+        "multi_section": false,
+        "section_title_location": "header_firstpage",
+        "identifier_regex": "NOTICE OF NEW TRADE MARK APPLICATIONS"
+    },
+    "layout": {
+        "nos_columns": 1,
+        "is_tabular_format": false,
+        "target_pages_first": {
+            "header_height": 300,
+            "footer_height": 750
+        },
+        "target_pages_last": {
+            "header_height": 130,
+            "footer_height": 750
+        },
+        "target_pages_middle": {
+            "header_height": 130,
+            "footer_height": 750
+        }
+    },
+    "logo": {
+        "logo_quadrant": "top_half",
+        "logo_in_quadrant_location": "top",
+        "get_base64": false
+    },
+    "page_number": {
+        "location": null
+    },
+    "regex_patterns_old": {
+        "applicationNumber": "(application\\s+number\\s+)((\\d+)\/(\\d{4}))",
+        "applicationDate": "(filing\\s+date\\s+)(\\w+\\s+\\d{1,2},\\s+\\d{4})",
+        "ownerName": "(applicant\\s+)(.+)(?=\\s+agent)",
+        "representativeName": "(agent\\s+)(.+)(?=\\s+address)",
+        "representativeAddress": "(address\\s+for\\s+service\\s+)(.+)(?=\\s+application\\s+number)",
+        "niceClass": "(\\s+\\d{1,2}\\s+)",
+        "goodServiceDescription": "Class\\(es\\)\\s*([\\s\\S]*?)Applicant",
+        "colors": "Colour\\sClaim:\\s(\\D*)",
+        "priorityNumber": "Number:\\s*([\\s\\S]*?)Country",
+        "priorityDate": "Date:\\s(\\S*\\D*\\d*,\\s*\\d*)",
+        "priorityCountry": "Country:\\s*([\\s\\S]*?)\\n",
+        "disclaimer": "(disclaimer:?\\s+)(.+)"
+    },
+    "json_structure": {
+        "trademark": {
+            "publicationEvents": {
+                "publicationEvent": {
+                    "applicationNumber": {"value": null, "regex": "application\\s+number", "group": 2},
+                    "applicationDate": {"value": null, "regex": "filing\\s+date", "group": 2}
+                }
+            },
+            "owners": {
+                "owner": {
+                    "name": {"value": null, "regex": "applicant", "group": 2}
+                }
+            },
+            "classifications": {
+                "niceClass": {"value": null, "regex": "class", "group": 2}
+            },
+            "priorities": {
+                "priority": {
+                    "number": {"value": null, "regex": null, "group": null},
+                    "date": {"value": null, "regex": null, "group": null},
+                    "country": {"value": null, "regex": null, "group": null}
+                }
+            },
+            "disclaimer": {"value": null, "regex": null, "group": null}
+        }
+    }
+}

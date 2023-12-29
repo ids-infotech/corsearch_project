@@ -1,0 +1,105 @@
+{
+    "applicableFor": {
+        "jurisdictionCode": "TN",
+        "range": {
+            "start": "2019",
+            "end": "2023"
+        },
+        "sections": [
+            {
+                "title": "Applications",
+                "trademarks": {
+                    "applicationNumber": "Numéro\\s+de\\s+dépôt\\s+.\\s+(\\w+/\\w+/\\s+\\d+/\\d+)",
+                    "applicationDate": "Date\\s+de\\s+dépôt\\s+.\\s+(\\d+/\\d+/\\d+)",
+                    "owners": {
+                        "name": "Titulaire\\s+.\\s+(\\D+)(?=[\\W]Adresse)",
+                        "address": "Adresse\\s+.\\s+([\\s\\S]*?)(?=[\\W]Mandataire)",
+                        "country": "Adresse\\s+.\\s+[\\s\\S]*?([^,]+)(?=[\\W]Mandataire)"
+                    },
+                    "representative": {
+                        "name": "Mandataire\\s+.\\s+(\\D+)(?=[\\s|.])",
+                        "address": "Mandataire\\s+.\\s+([\\s\\S]*?)(?=[\n|\\.|\\W|\\w]Produits)",
+                        "country": "Mandataire\\s+.\\s+[\\s\\S]*?([^,]+)(?=\\WProduits)"
+                    },
+                    "verbalElements": "",
+                    "deviceMarks": "",
+                    "classifications": {
+                        "niceClass": "Classe\\s+(\\d+)\\s+",
+                        "goodServiceDescription": ""
+                    }
+                }
+            },
+            {
+                "title": "Madrid Applications",
+                "trademarks": {
+                    "applicationNumber": "Numéro\\s+de\\s+dépôt\\s+.\\s+(\\w+/\\w+/\\s+\\d+/\\d+)",
+                    "applicationDate": "Date\\s+de\\s+dépôt\\s+.\\s+(\\d+/\\d+/\\d+)",
+                    "owners": {
+                        "name": "Titulaire\\s+.\\s+(\\D+)(?=[\\W]Adresse)",
+                        "address": "Adresse\\s+.\\s+([\\s\\S]*?)(?=[\\W]Mandataire)",
+                        "country": "Adresse\\s+.\\s+[\\s\\S]*?([^,]+)(?=[\\W]Mandataire)"
+                    },
+                    "representative": {
+                        "name": "Mandataire\\s+.\\s+(\\D+)(?=\n|\\WProduits)",
+                        "address" : "",
+                        "country" : ""
+                    },
+                    "verbalElements": "Nom\\s+de\\s+la\\s+Marque.\\s(\\S+|\\D+|\\W+)(?=[\\W]Titulaire)",
+                    "deviceMarks": "",
+                    "classifications": {
+                        "niceClass": "Produits\\s+ou\\s+services\\s+désignés\\s+.\\s+(\\d+)",
+                        "goodServiceDescription": "Produits\\s+ou\\s+services\\s+désignés\\s+.\\s+\\d+\\s+(\\D+[?.])"
+                    }
+                }
+            },
+            {
+                "title": "Renewals",
+                "trademarks": {
+                    "applicationNumber": "Numéro\\s+de\\s+dépôt\\s+.\\s+(\\w+/\\w+/\\s+\\d+/\\d+)",
+                    "applicationDate": "Date\\s+de\\s+dépôt\\s+.\\s+(\\d+/\\d+/\\d+)",
+                    "owners": {
+                        "name": "Titulaire\\s+.\\s+(\\D+)(?=[\\W]Adresse)",
+                        "address": "Adresse\\s+.\\s+([\\s\\S]*?)(?=\\WMandataire)",
+                        "country": "Adresse\\s+.\\s+[\\s\\S]*?([^,\\s+]+)(?=\\W+Mandataire)"
+                    },
+                    "representative": {
+                        "name": "Mandataire\\s+.\\s+[\\s\\S]*?([^,]+)(?=\\WProduits)",
+                        "address" : "",
+                        "country" : ""
+                    },
+                    "classifications": {
+                        "niceClass": "classe\\s+\\(s\\)\\s+:([\\d+,\\s]*)",
+                        "goodServiceDescription": "Echéance\\s*:\\s+(\\d+/\\d+/\\d+)"
+                    },
+                    "publicationEvent":{
+                        "expiryDate": "Echéance\\s*:\\s+(\\d+/\\d+/\\d+)"
+                    }
+                }
+            },
+            {
+                "title": "Corrections",
+                "trademarks": {
+                    "applicationNumber": "niveau\\s+de\\s+la\\s+(marque\\s*:|marque\\s*)\\s*(\\w+/\\w+/\\s+\\d+/\\d+)",
+                    "applicationDate": "Date\\s+de\\s+dépôt\\s+.\\s+(\\d+/\\d+/\\d+)",
+                    "owners": {
+                        "name": "Titulaire\\s+.\\s+(\\D+)(?=[\\W]Adresse)",
+                        "address": "Adresse\\s+.\\s+([\\s\\S]*?)(?=\\WMandataire)",
+                        "country": "Adresse\\s+.\\s+[\\s\\S]*?([^,\\s+]+)(?=\\W+Mandataire)"
+                    },
+                    "representative": {
+                        "name": "Mandataire\\s+.\\s+(\\D+)(?=[\\s|.])",
+                        "address": "Mandataire\\s+.\\s+([\\s\\S]*?)(?=[\n|\\.|\\W|\\w]Produits)",
+                        "country": "Mandataire\\s+.\\s+[\\s\\S]*?([^,]+)(?=\\WProduits)"
+                    },
+                    "verbalElements": "",
+                    "deviceMarks": "",
+                    "classifications": {
+                        "niceClass": "",
+                        "goodServiceDescription": ""
+                    },
+                    "comments": "(En\\s+raison[\\s\\S]*?)(?=\\WNuméro|\n+Classe)"
+                }
+            }
+        ]
+    }
+}

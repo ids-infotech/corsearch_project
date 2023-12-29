@@ -1,0 +1,42 @@
+{
+    "paths": {
+        "input_pdf_path": "vc/vc_test1.pdf",
+        "unique_identifier_code": "vc_test1"
+    },
+    "sections": {
+        "multi_section": false,
+        "section_title_location": "header_firstpage",
+        "identifier_regex": "notice for application for registeration"
+    },
+    "layout": {
+        "nos_columns": 1,
+        "is_tabular_format": false,
+        "target_pages_first": {
+            "header_height": 300,
+            "footer_height": 750
+        },
+        "target_pages_last": {
+            "header_height": 130,
+            "footer_height": 750
+        },
+        "target_pages_middle": {
+            "header_height": 130,
+            "footer_height": 750
+        }
+    },
+    "logo": {
+        "logo_quadrant": "top_half",
+        "logo_in_quadrant_location": "top",
+        "get_base64": false
+    },
+    "page_number": {
+        "location": null
+    },
+    "regexes": {
+        "file_number": "file\\s+no\\s+\\(\\d+\\):\\s+([\\d\\w\\/\\s]+)(?=mark\\sname)",
+        "mark_name": "mark\\s+name:\\s+([\\w\\d\\-\\.\\s])+(?=applicant)",
+        "applicant": "applicant\\s*\n(\\D+)(?=agent)",
+        "filing_date": "filing\\s+date\\s+\\(\\d+\\):\\s+\\d{1,2}\\/\\d{1,2}\\/\\d{4}",
+        "agent": "agent\\s+\\(\\d+\\):\\s+(.)+(?=class\\s)"
+    }
+}

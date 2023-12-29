@@ -1,0 +1,140 @@
+{
+    "paths": {
+        "input_pdf_path": "input_docs/tn/TN20220722-440.pdf", 
+        "unique_identifier_code": "tn440"
+    },
+    "sections": {
+        "multi_section": true,
+        "section_title_location": "specific_pages",
+        "skip_pages_start": 2,
+        "sections_info": [
+            {"section_id": 1, "skip_pages_start": 2, "full_text": "PARTIE I MARQUES ETRANGERES"},
+            {"section_id": 2, "skip_pages_start": 2, "full_text": "PARTIE II PUBLICATION DES MARQUES NATIONALES"},
+            {"section_id": 3, "skip_pages_start": 2, "full_text": "PARTIE III MARQUES INTERNATIONALES ETENDUES A LA TUNISIE A TRAVERS LE PROTOCOLE DE MADRID"},
+            {"section_id": 4, "skip_pages_start": 2, "full_text": "PARTIE IV  PUBLICATION DES RENOUVELLEMENTS"},
+            {"section_id": 5, "skip_pages_start": 2, "full_text": "PARTIE V : PUBLICATION DES RECTIFICATIFS"}
+        ]
+    },
+    "layout": {
+        "nos_columns": 1,
+        "horizontal_delimiter_min_width": 400,
+        "is_tabular_format": false,
+        "target_pages_first": {
+            "header_height": 55,
+            "footer_height": 750
+        },
+        "target_pages_last": {
+            "header_height": 55,
+            "footer_height": 750
+        },
+        "target_pages_middle": {
+            "header_height": 55,
+            "footer_height": 750
+        }
+    },
+    "logo": {
+        "logo_quadrant": "top_right",
+        "logo_in_quadrant_location": "right",
+        "get_base64": false
+    },
+    "page_number": {
+        "location": null
+    },
+    "json_structure": [
+        {
+            "title": "section_1",
+            "trademarks": {
+                "applicationNumber": "Num(é|e)ro\\s+de\\s+d(é|e)p(ô|o)t\\s+.\\s+(\\w+/\\w+/\\s+\\d+/\\d+)",
+                "applicationDate": "Date\\s+de\\s+d(é|e)p(ô|o)t\\s+.\\s+(\\d+/\\d+/\\d+)",
+                "owners": {
+                    "name": "Titulaire\\s+.\\s+(\\D+)(?=[\\W]Adresse)",
+                    "address": "Adresse\\s+.\\s+([\\s\\S]*?)(?=[\\W]Mandataire)",
+                    "country": "Adresse\\s+.\\s+[\\s\\S]*?([^,]+)(?=[\\W]Mandataire)"
+                },
+                "representative": {
+                    "name": "Mandataire\\s+.\\s+(\\D+)(?=[\\s|.])",
+                    "address": "Mandataire\\s+.\\s+([\\s\\S]*?)(?=[\n|\\.|\\W|\\w]Produits)",
+                    "country": "Mandataire\\s+.\\s+[\\s\\S]*?([^,]+)(?=\\WProduits)"
+                },
+                "verbalElements": "",
+                "deviceMarks": "",
+                "classifications": {
+                    "niceClass": "Classe\\s+(\\d+)\\s+",
+                    "goodServiceDescription": ""
+                }
+            }
+        },
+        {
+            "title": "section_2",
+            "trademarks": {
+                "applicationNumber": "Numéro\\s+de\\s+dépôt\\s+.\\s+(\\w+/\\w+/\\s+\\d+/\\d+",
+                "applicationDate": "Date\\s+de\\s+dépôt\\s+.\\s+(\\d+/\\d+/\\d+",
+                "owners": {
+                    "name": "Titulaire\\s+.\\s+(\\D+)(?=[\\W]Adresse",
+                    "address": "Adresse\\s+.\\s+([\\s\\S]*?)(?=[\\W]Mandataire",
+                    "country": "Adresse\\s+.\\s+[\\s\\S]*?([^,]+)(?=[\\W]Mandataire"
+                },
+                "representative": {
+                    "name": "Mandataire\\s+.\\s+(\\D+)(?=\n|\\WProduits",
+                    "address" : "",
+                    "country" : ""
+                },
+                "verbalElements": "Nom\\s+de\\s+la\\s+Marque.\\s(\\S+|\\D+|\\W+)(?=[\\W]Titulaire",
+                "deviceMarks": "",
+                "classifications": {
+                    "niceClass": "Produits\\s+ou\\s+services\\s+désignés\\s+.\\s+(\\d+",
+                    "goodServiceDescription": "Produits\\s+ou\\s+services\\s+désignés\\s+.\\s+\\d+\\s+(\\D+[?.]"
+                }
+            }
+        },
+        {
+            "title": "section_3",
+            "trademarks": {
+                "applicationNumber": "Numéro\\s+de\\s+dépôt\\s+.\\s+(\\w+/\\w+/\\s+\\d+/\\d+",
+                "applicationDate": "Date\\s+de\\s+dépôt\\s+.\\s+(\\d+/\\d+/\\d+)",
+                "owners": {
+                    "name": "Titulaire\\s+.\\s+(\\D+)(?=[\\W]Adresse",
+                    "address": "Adresse\\s+.\\s+([\\s\\S]*?)(?=\\WMandataire",
+                    "country": "Adresse\\s+.\\s+[\\s\\S]*?([^,\\s+]+)(?=\\W+Mandataire"
+                },
+                "representative": {
+                    "name": "Mandataire\\s+.\\s+[\\s\\S]*?([^,]+)(?=\\WProduits",
+                    "address" : "",
+                    "country" : ""
+                },
+                "classifications": {
+                    "niceClass": "classe\\s+\\(s\\)\\s+:([\\d+,\\s]*)",
+                    "goodServiceDescription": "Echéance\\s*:\\s+(\\d+/\\d+/\\d+)"
+                },
+                "publicationEvent":{
+                    "expiryDate": "Echéance\\s*:\\s+(\\d+/\\d+/\\d+)"
+                }
+            }
+        },
+        {
+            "title": "section_4",
+            "trademarks": {
+                "applicationNumber": "niveau\\s+de\\s+la\\s+(marque\\s*:|marque\\s*)\\s*(\\w+/\\w+/\\s+\\d+/\\d+)",
+                "applicationDate": "Date\\s+de\\s+dépôt\\s+.\\s+(\\d+/\\d+/\\d+)",
+                "owners": {
+                    "name": "Titulaire\\s+.\\s+(\\D+)(?=[\\W]Adresse)",
+                    "address": "Adresse\\s+.\\s+([\\s\\S]*?)(?=\\WMandataire)",
+                    "country": "Adresse\\s+.\\s+[\\s\\S]*?([^,\\s+]+)(?=\\W+Mandataire)"
+                },
+                "representative": {
+                    "name": "Mandataire\\s+.\\s+(\\D+)(?=[\\s|.])",
+                    "address": "Mandataire\\s+.\\s+([\\s\\S]*?)(?=[\n|\\.|\\W|\\w]Produits)",
+                    "country": "Mandataire\\s+.\\s+[\\s\\S]*?([^,]+)(?=\\WProduits)"
+                },
+                "verbalElements": "",
+                "deviceMarks": "",
+                "classifications": {
+                    "niceClass": "",
+                    "goodServiceDescription": ""
+                },
+                "comments": "(En\\s+raison[\\s\\S]*?)(?=\\WNuméro|\n+Classe)"
+            }
+        }
+    ]
+
+}

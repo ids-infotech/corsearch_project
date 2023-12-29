@@ -1,0 +1,71 @@
+{
+    "paths": {
+        "input_pdf_path": "input_docs/vc/VC20221212-28.pdf", 
+        "unique_identifier_code": "vc28"
+    },
+    "sections": {
+        "section_title_location": "header_firstpage",
+        "skip_pages_start": null,
+        "sections_info": [
+            {"section_id": 1, "skip_pages_start": null, "full_text": "TRADE MARKS ACT"}
+        ]
+    },
+    "layout": {
+        "nos_columns": 1,
+        "horizontal_delimiter_min_width": 400,
+        "is_tabular_format": false,
+        "target_pages_first": {
+            "header_height": 250,
+            "footer_height": null
+        },
+        "target_pages_last": {
+            "header_height": 10,
+            "footer_height": null
+        },
+        "target_pages_middle": {
+            "header_height": 10,
+            "footer_height": 50
+        }
+    },
+    "logo": {
+        "logo_quadrant": "top_right",
+        "logo_in_quadrant_location": "right",
+        "get_base64": false
+    },
+    "page_number": {
+        "location": null
+    },
+    "json_structure": [
+        {
+            "title": "section_1",
+            "trademarks": {
+                "applicationNumber": "(\\d+\/\\d+)",
+                "applicationDate": "filing\\s+date\\s+|Filing\\s+Date\\s+(\\D*\\d+,\\s\\d+)",
+                "owners": {
+                    "name": "Applicant\\s+(\\D+)(?=\\s+Agent)",
+                    "address": "",
+                    "country": ""
+                },
+                "representative": {
+                    "name": "Address for Service\\s*\n(\\D*)(?=Application\\s*Number)",
+                    "address": "",
+                    "country": ""
+                },
+                "verbalElements": "",
+                "deviceMarks": "",
+                "classifications": {
+                    "niceClass": "",
+                    "goodServiceDescription": "Class\\(es\\)\\s*([\\s\\S]*?)Applicant"
+                },
+                "colors" : "Colour\\sClaim:\\s(\\D*)",
+                "priorities": {
+                    "number" : "Number:\\s*([\\s\\S]*?)Country",
+                    "date" : "Date:\\s(\\S*\\D*\\d*,\\s*\\d*)",
+                    "country" : "Country:\\s*([\\s\\S]*?)\n"
+                },
+                "Disclaimer" : ""
+            }
+        }
+    ]
+
+}
